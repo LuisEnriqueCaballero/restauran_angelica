@@ -1,0 +1,254 @@
+<?php
+include_once 'adm_menu_navegador.php';
+$title_pagina = 'lista trabajadores'
+?>
+<div class="conteniodo_titulio">
+    <div class="title_conten">
+        <h4><?php echo $title_pagina ?></h4>
+    </div>
+    <div class="opciones_contenido">
+        <nav class="navbar navbar-expand-lg">
+            <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                <ul class="navbar-nav">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
+                            <i class="fa fa-chevron-down" aria-hidden="true"></i>
+                            exportar
+                        </a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="javascript:void(0)" onclick="expotararchivos('1')"><i class="fa fa-file-excel-o" aria-hidden="true"></i>
+                                excel</a>
+                            <a class="dropdown-item" href="javascript:void(0)" onclick="expotararchivos('2')"><i class="fa fa-file-pdf-o" aria-hidden="true"></i>
+                                pdf</a>
+                        </div>
+                    </li>
+                </ul>
+                <ul class="navbar-nav">
+                    <li class="nav-item dropdown" style="color: #365a64;">
+                        <a class="nav-link btn-block" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
+                            <i class="fa fa-chevron-down" aria-hidden="true"></i>
+                            opciones trabajadores
+                        </a>
+                        <div class="dropdown-menu" style="color: #365a64;">
+                            <a class="dropdown-item" class="btn" href="#" onclick="matenimiento_empleado()"><i class="fa fa-user" aria-hidden="true"></i> agregar trabajador</a>
+                            <a class="dropdown-item" href="#"><i class="fa fa-users" aria-hidden="true"></i> agregar masivo trabajador</a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+</div>
+<div class="contenido_infomacion p-1">
+    <div class="adm_contenido mt-3 pt-3">
+        <div class="row w-ful">
+            <div class="col-sm-10">
+                <div class="row ml-1">
+                    <div class="col-sm-4 col-lg-4">
+                        <label for="">Empleado</label>
+                        <input type="text" name="empleado" id="empleado" class="form-control">
+                    </div>
+                </div>
+            </div>
+            <div class="busqueda col-sm-2 mt-3">
+                <button class="btn btn-default" id="consultar_empleado" onclick="lista_empleado()"><i class="fa fa-search" aria-hidden="true"></i>
+                    consultar</button>
+            </div>
+            <div class="table col-sm-12">
+                <table class="table table-bordered" id="datableempleado">
+                    <thead class="">
+                        <tr style="height: 70px;">
+                            <th scope="col" class="text-center pb-4">#</th>
+                            <th scope="col" class="text-center pb-4">nombre</th>
+                            <th scope="col" class="text-center pb-4">apellido</th>
+                            <th scope="col" class="text-center pb-4">telefono</th>
+                            <th scope="col" class="text-center pb-4">puesto</th>
+                            <th scope="col" class="text-center pb-4">salario</th>
+                            <th scope="col" class="text-center pb-4">fech. contrato</th>
+                            <th scope="col" class="text-center pb-4">opciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="lista_empleado">
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+</section>
+</section>
+</body>
+
+</html>
+<script src="lib/jquery/code.jquery.com_jquery-3.6.0.min.js"></script>
+<script src="lib/jquery/popper.min.js"></script>
+<script src="lib/jquery/bootstrap.min.js"></script>
+<script src="lib/jquery/cdn.datatables.net_1.13.5_js_jquery.dataTables.min.js"></script>
+<script src="js/main.js"></script>
+
+<script>
+  
+    $(document).ready(function() {
+        $("#datableempleado").DataTable({
+            searching: false, // Desactivar el buscador
+            lengthChange: false, // Desactivar la opción de cambiar el número de filas por página
+            paging: true, // Habilitar la paginación
+            info: false, // Mostrar información sobre la tabla
+            // pagingType: "simple", // Tipo de paginación simple para mostrar solo los botones de navegación
+            ordering: false, //para desactiva el orden columna
+            language: {
+                "decimal": "",
+                "emptyTable": "No hay datos disponibles en la tabla",
+                "info": "Mostrando _START_ a _END_ de _TOTAL_ registros",
+                "infoEmpty": "Mostrando 0 a 0 de 0 registros",
+                "infoFiltered": "(filtrados de _MAX_ registros totales)",
+                "infoPostFix": "",
+                "thousands": ",",
+                "lengthMenu": "Mostrar _MENU_ registros por página",
+                "loadingRecords": "Cargando...",
+                "processing": "Procesando...",
+                "search": "Buscar:",
+                "zeroRecords": "No se encontraron registros coincidentes",
+                "paginate": {
+                    "first": "Primero",
+                    "last": "Último",
+                    "next": "Siguiente",
+                    "previous": "Anterior"
+                },
+                "aria": {
+                    "sortAscending": ": Activar para ordenar la columna en orden ascendente",
+                    "sortDescending": ": Activar para ordenar la columna en orden descendente"
+                }
+            }
+        });
+    })
+
+    function lista_empleado(){
+        let nombre = $('#empleado').val();
+        $.ajax({
+            type:'POST',
+            url:'./Controller/ControllEmpleado.php?ope=1',
+            data:{empleado:nombre},
+            dataType:'JSON',
+
+            beforeSend:function(){
+                $("#consultar_empleado").attr("disabled", true);
+                $("#consultar_empleado").html('<i class="fa fa-spinner fa-spin"></i> Cargando');
+                $('#lista_empleado').html('<td colspan="8" align="center"></i> Cargando Entidades ... </td>');
+            },
+            success:function(result){
+                $("#consultar_empleado").attr("disabled", false);
+                $("#consultar_empleado").html('<i class="fa fa-search" aria-hidden="true"></i> Consultar');
+                $('#lista_empleado').html(result.html);
+            },
+            error: function(xhr, status, error) {
+            console.error(xhr.responseText); // Muestra los errores en la consola
+        }
+
+        })
+    }
+
+    function matenimiento_empleado(val) {
+        if (!val) {
+            $.ajax({
+                url: 'View/modal_empleado/insert_mat_empleado.php',
+                type: 'POST',
+                dataType: 'HTML',
+                success: function(data) {
+                    $('#contenido_modal').html('');
+                    $('#contenido_modal').html(data);
+                    $('#empleado').modal({
+                        keyboard: false,
+                        backdrop: 'static',
+                        show: true
+                    });
+                },
+                timeout: 40000
+            })
+        } else {
+            $.ajax({
+                url: 'View/modal_empleado/update_mat_empleado.php?val=' + val,
+                type: 'GET',
+                dataType: 'HTML',
+                success: function(data) {
+                    $('#contenido_modal').html('');
+                    $('#contenido_modal').html(data);
+                    $('#empleado').modal({
+                        keyboard: false,
+                        backdrop: 'static',
+                        show: true
+                    });
+                },
+                timeout: 40000
+            })
+        }
+    }
+
+    function empleado(e){
+        if(e=='2'){
+            let formulario=$('#formEmpleado').serialize();
+            $.ajax({
+                type:'POST',
+                data:formulario,
+                url:'./Controller/ControllEmpleado.php?ope=2',
+                success:function(result){
+                    if(result == 1){
+                        $('#formEmpleado')[0].reset();
+                        console.log('hola')
+                        hide_modal_empleado()
+                        lista_empleado()
+                        
+                    }
+                },error: function(xhr, status, error) {
+            console.error(xhr.responseText); // Muestra los errores en la consola
+                }
+            })
+        }else{
+            let formulario=$('#formEmpleadoU').serialize();
+            $.ajax({
+                type:'POST',
+                data:formulario,
+                url:'./Controller/ControllEmpleado.php?ope=3',
+                success:function(result){
+                    if(result == 1){
+                        console.log('hola'),
+                        lista_empleado()
+                        hide_modal_empleado()
+                        
+                    }
+                }
+            })
+        }
+    }
+
+    function eliminar(id){
+        let id_cliente=id;
+        $.ajax({
+                type:'POST',
+                data:{id_cliente:id_cliente},
+                url:'./Controller/ControllEmpleado.php?ope=4',
+                success:function(result){
+                    if(result == 1){
+                        lista_empleado()
+                        hide_modal_empleado()
+                        
+                    }
+                }
+            })
+    }
+
+    function hide_modal_empleado() {
+        $('#empleado').modal('hide');
+        $('#contenido_modal').html('')
+        body_modal_backdrop()
+    }
+
+    function body_modal_backdrop() {
+        $('body').children('.modal-backdrop').remove();
+        $('body').removeClass();
+        $('body').removeAttr('style');
+    }
+    lista_empleado();
+</script>
