@@ -21,12 +21,11 @@
                     </div>
                     <div class="col-sm-12">
                         <label for="cliente">password</label>
-                        <input type="text" name="password" id="password" class="form-control" placeholder="ingrese contraseña">
+                        <input type="password" name="password" id="password" class="form-control" placeholder="ingrese contraseña">
                     </div>
                 </div>
                 <div class="form-row buton">
-                    <button type="button" class="btn btn-primary col-6">INICIAR SESION</button>
-                    
+                    <button type="button" class="btn btn-primary col-6" onclick="logear()">INICIAR SESION</button>
                 </div>
             </form>
         </div>
@@ -39,3 +38,22 @@
 <script src="lib/jquery/code.jquery.com_jquery-3.6.0.min.js"></script>
 <script src="lib/jquery/popper.min.js"></script>
 <script src="lib/jquery/bootstrap.min.js"></script>
+
+<script>
+    function logear(){
+        let usuario =$('#usuario').val();
+        let contrasenia=$("#password").val();
+        $.ajax({
+            type:'POST',
+            data:{
+                user:usuario,
+                contra:contrasenia
+            },
+            url:'Controller/ControllUsuario.php?ope=validar',
+            success:function(restul){
+                if(restul){
+                 window.location.href = "adm_dashboard.php";                }
+            }
+        })
+    }
+</script>
