@@ -6,7 +6,6 @@ class Util{
         $data=htmlspecialchars($data);
         return $data;
     }
-
     public function hash_pass($pass){
         $pass=md5($pass);
         return $pass;

@@ -15,7 +15,7 @@ switch ($ope) {
         $validar=$MetodoUsuario->LogueUsuario($usuario,$contrasenia);
         echo $validar;
         break;
-    
+
     default:
         # code...
         break;
