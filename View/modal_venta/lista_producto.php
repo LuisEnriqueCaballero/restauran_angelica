@@ -99,12 +99,12 @@ $lista = $metodoCategoria->lista_categoria();
             <table class="table table-bordered">
                     <thead class="thead-dark">
                         <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">categoria</th>
-                            <th scope="col">producto</th>
-                            <th scope="col">precio unitario</th>
-                            <th scope="col">cantidad</th>
-                            <th scope="col">opcion</th>
+                            <th scope="col" class="text-center">#</th>
+                            <th scope="col" class="text-center">categoria</th>
+                            <th scope="col" class="text-center">producto</th>
+                            <th scope="col" class="text-center">precio unitario</th>
+                            <th scope="col" class="text-center">cantidad</th>
+                            <th scope="col" class="text-center">opcion</th>
                         </tr>
                     </thead>
                     <tbody id="lista_plato">

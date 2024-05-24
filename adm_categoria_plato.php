@@ -189,10 +189,8 @@ $title_pagina = 'lista de categoria';
                 success: function(data) {
                     if (data == 1) {
                         $('#formCategoria')[0].reset();
-                        console.log('hola')
-                        body_modal_backdrop()
                         lista_categoria();
-                        // hide_modal_categoria();
+                        hide_modal_categoria();
                     }
                 }
             })
@@ -205,10 +203,8 @@ $title_pagina = 'lista de categoria';
                 url: './Controller/ControllCategoria.php?ope=' + ope,
                 success: function(data) {
                     if (data == 1) {
-                        console.log('hola')
-                        hide_modal_categoria()
                         lista_categoria();
-                        // hide_modal_categoria();
+                        hide_modal_categoria();
                     }
                 }
             })

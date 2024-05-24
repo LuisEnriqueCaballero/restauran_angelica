@@ -25,7 +25,7 @@ switch ($ope) {
                          <td>$num</td>
                          <td>$key[tipo_boleta]</td>
                          <td>$key[numero_recibo]</td>
-                         <td>$key[id_proveedor]</td>
+                         <td>$key[empresa]</td>
                          <td>$ $total</td>
                          <td>$fecha_actual</td>
                          </tr>";
@@ -40,20 +40,22 @@ switch ($ope) {
         $html='';
         $mensaje=true;
         $infomacion='tabla esta vacida';
-        $id_proveedor = isset($_POST['id_proveedor']) ? $_POST['id_proveedor'] : '1';
-        $fecha_hora = date('Y-m-d');
+        $id_proveedor = isset($_POST['proveedor']) ? $_POST['proveedor'] : '';
+        $fecha_hora = date('Y-m-d H:m:s');
+        $mes=date('m');
+        $anio=date('Y');
         $tipo_boleta=isset($_POST['tipo_recibo']) ? $_POST['tipo_recibo'] : '';
         $num_recibo=isset($_POST['num_recibo']) ? $_POST['num_recibo'] : '';
         $total = isset($_POST['monto_gasto']) ? $_POST['monto_gasto'] : '';
-        $concepto = 'compra';
+        $concepto = '2';
         $lista = $_SESSION['carrito_compra'];
 
         // insertando dato las tablas
         // insertando a la tabla de compra
-        $insert = $metodoCompra->insertCompra($tipo_boleta, $num_recibo, $id_proveedor, $total,$fecha_hora);
+        $insert = $metodoCompra->insertCompra($tipo_boleta, $num_recibo, $id_proveedor, $total,$fecha_hora,$mes,$anio);
 
         // insertando a la tabla de egreso
-        $insertegreso = $metodofinanciero->insertEgreso($concepto, $total, $fecha_hora);
+        $insertegreso = $metodofinanciero->insertEgreso($concepto, $total, $fecha_hora,$mes,$anio);
 
         // haciendo consulta de id de la ultima compra
         $consulta = $metodoCompra->ultimoCompra();
@@ -67,16 +69,16 @@ switch ($ope) {
         // haciendo consulta del monto de caja
         $ultimomonto=$metodoCaja->ultimocaja();
         foreach ($ultimomonto as $key) {
-            $id_caja = $key['id_caja'];
+            $id_caja = $key['id_caja_apert'];
             $montocaja = $key['monto_inicial'];
         }
         
         // actulizacion del monto de caja
-        $updatemonto=$montocaja  - $total ;
+        $updatemonto=$montocaja - $total ;
         $update=$metodoCaja->updatemontocaja($id_caja,$updatemonto);
 
         // insertando datos en tabla de kardex financiero
-        $metodofinanciero->insertKardexfinanciero($concepto, $total,'0.00', $updatemonto, $fecha_hora);
+        $metodofinanciero->insertKardexfinanciero($concepto, $total,'0.00', $updatemonto, $fecha_hora,$mes,$anio);
         unset($_SESSION['carrito_compra']);
         $html .="<tr>
                 <td colspan=5>$infomacion</td>
@@ -98,7 +100,7 @@ switch ($ope) {
                 $html .= "<tr>
                          <td class='text-center text-uppercase'>$num</td>
                          <td class='text-center text-uppercase'>$key[id_compra]</td>
-                         <td class='text-center text-uppercase'>$key[producto]</td>
+                         <td class='text-center text-uppercase'>$key[descrip_producto]</td>
                          <td class='text-center text-uppercase'>$key[cantidad]</td>
                          <td class='text-center text-uppercase'>$ $precio</td>
                          <td class='text-center text-uppercase'>$ $subtotal</td>
@@ -148,12 +150,12 @@ switch ($ope) {
             $subtotal=number_format($key['subtotal'],'2',',','.');
             $precio=number_format($key['precio'],'2',',','.');
             $html .= "<tr>
-                      <td class='text-center'>".$key['producto']."</td>
+                      <td class='text-center text-capitalize'>".$key['producto']."</td>
                       <td class='text-center'>".$key['cantidad']."</td>;
                       <td class='text-center'>$ ".$precio."</td>;
                       <td class='text-center'>$ ".$subtotal."</td>;
                       <td class='text-center'>
-                      <button type='button' class='btn btn-default' onclick='quitar_compra(" .$key['id']. ")' >quitar</button>
+                      <button type='button' class='btn btn-default' onclick='quitar_compra(" .$key['id']. ")' ><span class='fa fa-times-circle text-danger' aria-hidden='true'></span></button>
                       </td>;
                 </tr>";
             $total += $key['subtotal'];

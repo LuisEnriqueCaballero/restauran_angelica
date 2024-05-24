@@ -1,3 +1,9 @@
+<?php
+include_once "../../Config/cnmysql.php";
+include_once "../../Model/modal_proveedor.php";
+$proveedor= new MetodoProveedor();
+$lista_provee=$proveedor->selectProveedor();
+?>
 <!-- style modal -->
 <style>
     .modal-body form .form-row {
@@ -47,7 +53,7 @@
 </style>
 <!-- Modal  Estrutura-->
 <div class="modal fade" id="compra" tabindex="-1">
-    <div class="modal-dialog  modal-lg modal-dialog-centered">
+    <div class="modal-dialog  modal-lg modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" style="font-family: sans-serif;
@@ -75,10 +81,18 @@
                         </div>
                     </div>
                     <div class="form-row">
-                        <input type="text" hidden id="id_proveedor" name="id_proveedor">
-                        <div class="col-sm-6">
+                        <div class="col-sm-6 select2-proveedor">
                             <label for="cliente">proveedor</label>
-                            <input type="text" name="proveedor" id="proveedor" class="form-control" placeholder="ingrese proveedor">
+                            <select name="proveedor" id="proveedor" class="form-control">
+                                <option value="0">Seleccione proveedor</option>
+                                <?php
+                                foreach ($lista_provee as $key) {
+                                    ?>
+                                    <option value="<?php echo $key['id_proveedor']?>"><?php echo $key['proveedor']?></option>
+                                    <?php
+                                }
+                                ?>
+                            </select>
                         </div>
                         <div class="col-sm-6">
                             <label for="cliente">$ monto</label>
@@ -95,11 +109,11 @@
                         <table class="table table-bordered">
                             <thead class="thead-light">
                                 <tr>
-                                    <th>producto</th>
-                                    <th>cantidad</th>
-                                    <th>precio unitario</th>
-                                    <th>sub_total</th>
-                                    <th>quitar producto</th>
+                                    <th class="text-center text-capitalize">producto</th>
+                                    <th class="text-center text-capitalize">cantidad</th>
+                                    <th class="text-center text-capitalize">precio unitario</th>
+                                    <th class="text-center text-capitalize">sub_total</th>
+                                    <th class="text-center text-capitalize">quitar</th>
                                 </tr>
                             </thead>
                             <tbody id="carrito_compra">
@@ -118,11 +132,26 @@
 </div>
 
 <script>
-    function tipo_reb(value){
-        if(value == 'otro tipo'){
+    function tipo_reb(ope){
+        if(ope == 'otro tipo'){
             $('.tip_reb').hide(2000);
         }else{
             $('.tip_reb').show(2000);
         }
     }
+
+    
 </script>
+
+<style>
+    .select2-proveedor{
+        display:flex;
+        flex-direction: column;
+    }
+    
+    select2-container--default .select2-selection--single  .select2-selection_rendered{
+        border: 2px solid #3498db; /* Borde personalizado */
+        height: 60px;
+    }
+</style>
+

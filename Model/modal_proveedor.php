@@ -46,5 +46,14 @@ class MetodoProveedor{
         $query = mysqli_query($cnx,$sql);
         return $query;
     }
+
+    public function selectProveedor(){
+        $conexion=new conectar();
+        $cnx=$conexion->conexion();
+
+        $sql="SELECT id_proveedor,concat(empresa,'-',nombre_proveedor) AS proveedor FROM proveedor";
+        $query = mysqli_query($cnx,$sql);
+        return $query;
+    }
 }
 ?>

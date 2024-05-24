@@ -69,16 +69,7 @@ foreach($restul as $datos){
                             <input type="text" name="numero" id="numero" class="form-control" placeholder="mesa #" value="<?php echo $numero ?>">
                         </div>
                     </div>
-                    <div class="form-row">
-                        <div class="col-sm-6">
-                            <label for="">estado</label>
-                            <select name="estado" id="estado" class="form-control">
-                                <option value="0">Seleccione estado</option>
-                                <option value="libre"<?php echo ($estado=='libre')?'selected':''?>>libre</option>
-                                <option value="ocupado"<?php echo ($estado=='ocupado')?'selected':''?>>ocupado</option>
-                            </select>
-                        </div>
-                    </div>
+                    
                 </form>
             </div>
             <div class="modal-footer">

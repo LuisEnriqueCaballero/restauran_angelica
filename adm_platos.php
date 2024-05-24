@@ -24,8 +24,8 @@ $title_pagina = 'lista de plato';
                             Exportar
                         </a>
                         <div class="dropdown-menu">
-                            <a class="dropdown-item" href="javascript:void(0)" onclick="exportarArchivos(1)"><i class="fa fa-file-excel-o" aria-hidden="true"></i>
-                                Excel</a>
+                            <!-- <a class="dropdown-item" href="javascript:void(0)" onclick="exportarArchivos(1)"><i class="fa fa-file-excel-o" aria-hidden="true"></i>
+                                Excel</a> -->
                             <a class="dropdown-item"  href="javascript:void(0)" onclick="exportarArchivos(2)"><i class="fa fa-file-pdf-o" aria-hidden="true"></i>
                                 PDF</a>
                         </div>
@@ -214,9 +214,8 @@ $title_pagina = 'lista de plato';
                 success: function(data) {
                     if (data == 1) {
                         $('#formMenu')[0].reset();
-                        console.log('hola')
-                        bodyModalBackdrop()
                         listaplato();
+                        hideModalplato();
                         // hide_modal_cliente();
                     }
                 }
@@ -230,10 +229,8 @@ $title_pagina = 'lista de plato';
                 url: './Controller/ControllMenu.php?ope=' + ope,
                 success: function(data) {
                     if (data == 1) {
-                        console.log('hola')
-                        hideModalplato()
                         listaplato();
-                        // hide_modal_cliente();
+                        hideModalplato();
                     }
                 }
             })
@@ -257,11 +254,12 @@ $title_pagina = 'lista de plato';
     }
     // incio exportar pdf y excel
     function exportarArchivos(e) {
-        var cliente = $('#cliente').val();
+        let categoria = $('#categoria').val();
+        let plato=$('#plato').val();
         if(e == 1){
-            window.open('expexcel.php?exp=reportcliente&cliente='+cliente,'_blank');
+            //window.open('expexcel.php?exp=reportcliente&cliente='+cliente,'_blank');
         } else {
-            window.open('./Controller/Controllcliente.php?ope=6&cliente='+cliente,'_blank');
+            window.open('exppdf.php?exp=report_plato&plato='+plato+'&categoria='+categoria,'_blank');
         }
     }
     // fin exportacion

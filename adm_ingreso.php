@@ -33,19 +33,19 @@ $title_pagina = 'lista de ingreso';
         <div class="row w-ful">
             <div class="col-8">
                 <div class="row">
-                    <div class="col-6">
+                    <div class="col-4">
                         <div class="row ml-1">
-                            <div class="col-sm-4 col-lg-4">
+                            <div class="col-sm-12 col-lg-12">
                                 <label for="">desde</label>
-                                <input type="date" name="numero" id="numero" class="form-control">
+                                <input type="date" name="date_inicio" id="date_inicio" class="form-control" value="">
                             </div>
                         </div>
                     </div>
-                    <div class="col-6">
-                        <div class="row ml-1">
-                            <div class="col-sm-4 col-lg-4">
+                    <div class="col-4">
+                        <div class="row ">
+                            <div class="col-sm-12 col-lg-12">
                                 <label for="">hasta</label>
-                                <input type="date" name="numero" id="numero" class="form-control">
+                                <input type="date" name="date_fin" id="date_fin" class="form-control">
                             </div>
                         </div>
                     </div>
@@ -121,13 +121,15 @@ $title_pagina = 'lista de ingreso';
     })
 
     function lista_ingreso() {
-        // let nombre = $('#cliente').val();
+        let inicio = $('#date_inicio').val();
+        let final = $('#date_fin').val();
         $.ajax({
             type: "POST",
             url: './Controller/ControllFinanciero.php?ope=ingreso',
-            // data: {
-            //     cliente: nombre
-            // },
+            data: {
+                fech_inicio:inicio,
+                fech_final:final,
+            },
             dataType: 'JSON',
             beforeSend: function() {
                 $("#consultar").attr("disabled", true);
@@ -144,15 +146,13 @@ $title_pagina = 'lista de ingreso';
 
     // incio exportar pdf y excel
     function expotararchivos(e) {
-
-        var cliente = $('#cliente').val()
+        let inicio = $('#date_inicio').val();
+        let final = $('#date_fin').val();
         if (e == 1) {
             window.open('expexcel.php?exp=reportcliente&cliente=' + cliente, '_blank');
         } else {
-            window.open('./Controller/ControllCliente.php?ope=6&cliente=' + cliente, '_blank');
+            window.open('exppdf.php?exp=reporte_ingreso&inic_date='+inicio+'&fin_date='+final, '_blank');
         }
-
-
     }
     // fin exportacion
 

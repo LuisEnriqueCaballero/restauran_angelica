@@ -85,6 +85,8 @@ $title_pagina = 'lista de compra';
 <script src="lib/jquery/popper.min.js"></script>
 <script src="lib/jquery/bootstrap.min.js"></script>
 <script src="lib/jquery/cdn.datatables.net_1.13.5_js_jquery.dataTables.min.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <script src="js/main.js"></script>
 <script>
     $(document).ready(function() {
@@ -293,6 +295,7 @@ function expotararchivos(e){
         
     }
     lista_compra()
+
 </script>
 
 <!-- style -->

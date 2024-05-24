@@ -191,10 +191,8 @@ $title_pagina = 'lista de cliente';
                 success: function(data) {
                     if (data == 1) {
                         $('#formCliente')[0].reset();
-                        console.log('hola')
-                        body_modal_backdrop()
                         lista_cliente();
-                        // hide_modal_cliente();
+                        hide_modal_cliente()
                     }
                 }
             })

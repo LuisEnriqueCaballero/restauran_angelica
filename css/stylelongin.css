@@ -1,0 +1,54 @@
+@import url('https://fonts.googleapis.com/css2?family=Poetsen+One&display=swap');
+*{
+margin: 0;
+padding: 0;
+font-family: "Poetsen One", sans-serif;
+font-weight: 100;
+font-style: normal;
+box-sizing: border-box;
+text-transform: uppercase;
+color: #fff;
+}
+body {
+    background-image: url('../img/restaurante.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100vh;
+    display: grid;
+    place-items: center;
+}
+.marco_login{
+  height: 400px;
+  width: 380px;
+  border: 1px solid #000;
+  border-radius: 10px;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+.marco_login .iniciar_sesion{
+    width: 95%;
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    row-gap: 10px;
+}
+.iniciar_sesion .img{
+    text-align: center;
+}
+.iniciar_sesion .formulario{
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+}
+.iniciar_sesion .formulario{
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+}
+.iniciar_sesion .formulario .buton{
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+   justify-content: center;
+   align-items:  center;
+}

@@ -55,16 +55,7 @@
                             <input type="text" name="numero" id="numero" class="form-control" placeholder="mesa #">
                         </div>
                     </div>
-                    <div class="form-row">
-                        <div class="col-sm-6">
-                            <label for="cliente">estado</label>
-                            <select name="estado" id="estado" class="form-control">
-                                <option value="0">Seleccione estado</option>
-                                <option value="libre">libre</option>
-                                <option value="ocupado">ocupado</option>
-                            </select>
-                        </div>
-                    </div>
+                    
                 </form>
             </div>
             <div class="modal-footer">

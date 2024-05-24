@@ -5,7 +5,7 @@ class MetodoMenu{
         $cnx= $conexion->conexion();
 
         $sql = "SELECT TME.id_menu,TCA.descripcion AS categoria_menu, TME.descripcion,TME.precio,TCA.id_categoria FROM menu AS TME
-                INNER JOIN categoriamenu AS TCA ON TCA.id_categoria=TME.categoria ";
+                INNER JOIN categoriamenu AS TCA ON TCA.id_categoria=TME.categoria";
         if(!empty($categoria)){
             $sql .= " WHERE  TCA.id_categoria = '$categoria'";
             if(strpos($sql,'WHERE')){
@@ -13,9 +13,9 @@ class MetodoMenu{
                    $sql .= " AND TME.descripcion LIKE '$nombre%'";
                 }
             }
-        }if(!empty($nombre)){
+         }else if(!empty($nombre)){
             $sql .= " WHERE TME.descripcion LIKE '$nombre%'";
-         }
+        }
         $query = mysqli_query($cnx, $sql);
         return $query;
     }

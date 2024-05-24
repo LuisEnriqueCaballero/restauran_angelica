@@ -1,47 +1,65 @@
 <?php
 class MetodoFinanciero{
-    public function lista_egreso(){
+    public function lista_egreso($fech_inic,$fech_final){
         $conexion = new conectar();
         $cnx=$conexion->conexion();
-        $sql="SELECT id,descripcion, monto, fecha_registrado FROM egreso;";
+        $sql = "SELECT TE.id, TD.descripcion, TE.monto, TE.fecha_registrado,TE.mes,TE.anio FROM egreso AS TE
+                INNER JOIN descripcion AS TD ON td.id=TE.descripcion";
+        if (!empty($fech_inic) && !empty($fech_final)) {
+            $fech_inic_formatted = date('Y-m-d', strtotime(str_replace('/', '-', $fech_inic)));
+            $fech_final_formatted = date('Y-m-d', strtotime(str_replace('/', '-', $fech_final)));
+            $sql .= " WHERE fecha_registrado BETWEEN '{$fech_inic_formatted}' AND '{$fech_final_formatted}'";
+        }
         $query=mysqli_query($cnx,$sql);
         return $query;
     }
-    public function lista_ingreso(){
+    public function lista_ingreso($fech_inic,$fech_final){
         $conexion = new conectar();
         $cnx=$conexion->conexion();
-        $sql="SELECT id,descripcion, monto, fecha FROM ingreso;";
+        $sql="SELECT TI.id,TD.descripcion, TI.monto, TI.fecha,TI.mes,TI.anio FROM ingreso AS TI
+        INNER JOIN descripcion AS TD ON TD.id=TI.descripcion";
+        if (!empty($fech_inic) && !empty($fech_final)) {
+            $fech_inic_formatted = date('Y-m-d', strtotime(str_replace('/', '-', $fech_inic)));
+            $fech_final_formatted = date('Y-m-d', strtotime(str_replace('/', '-', $fech_final)));
+            $sql .= " WHERE TI.fecha BETWEEN '{$fech_inic_formatted}' AND '{$fech_final_formatted}'";
+        }
         $query=mysqli_query($cnx,$sql);
         return $query;
     }
-    public function lista_kardex_financiero(){
+    public function lista_kardex_financiero($fech_inic,$fech_final){
         $conexion = new conectar();
         $cnx=$conexion->conexion();
-        $sql="SELECT id, concepto, monto_egreso,monto_ingreso, saldo, fecha FROM kardex_financiero;";
+        $sql="SELECT TFI.id, TDE.descripcion, TFI.monto_egreso,TFI.monto_ingreso, TFI.saldo, TFI.fecha,TFI.mes,TFI.anio FROM kardex_financiero AS TFI
+             INNER JOIN descripcion AS TDE ON TFI.concepto=TDE.id";
+        if (!empty($fech_inic) && !empty($fech_final)) {
+            $fech_inic_formatted = date('Y-m-d', strtotime(str_replace('/', '-', $fech_inic)));
+            $fech_final_formatted = date('Y-m-d', strtotime(str_replace('/', '-', $fech_final)));
+            $sql .= " WHERE TFI.fecha BETWEEN '{$fech_inic_formatted}' AND '{$fech_final_formatted}'";
+        }
         $query=mysqli_query($cnx,$sql);
         return $query;
     }
 
-    public function insertIngreso($descripcion, $monto, $fecha){
+    public function insertIngreso($descripcion, $monto, $fecha,$mes,$anio){
         $conexion = new conectar();
         $cnx=$conexion->conexion();
-        $sql="INSERT INTO ingreso(descripcion, monto, fecha) VALUE('$descripcion', '$monto', '$fecha');";
+        $sql="INSERT INTO ingreso(descripcion, monto, fecha,mes,anio) VALUE('$descripcion', '$monto', '$fecha','$mes','$anio');";
         $query=mysqli_query($cnx,$sql);
         return $query;
     }
 
-    public function insertEgreso($descripcion, $monto, $fecha){
+    public function insertEgreso($descripcion, $monto, $fecha,$mes,$anio){
         $conexion = new conectar();
         $cnx=$conexion->conexion();
-        $sql="INSERT INTO egreso(descripcion, monto, fecha_registrado) VALUE('$descripcion', '$monto', '$fecha');";
+        $sql="INSERT INTO egreso(descripcion, monto, fecha_registrado,mes,anio) VALUE('$descripcion', '$monto', '$fecha','$mes','$anio');";
         $query=mysqli_query($cnx,$sql);
         return $query;
     }
 
-    public function insertKardexfinanciero($concepto, $monto_egreso,$monto_ingreso, $saldo, $fecha){
+    public function insertKardexfinanciero($concepto, $monto_egreso,$monto_ingreso, $saldo, $fecha,$mes,$anio){
         $conexion = new conectar();
         $cnx=$conexion->conexion();
-        $sql="INSERT INTO kardex_financiero (concepto, monto_egreso,monto_ingreso, saldo, fecha) VALUE('$concepto', '$monto_egreso','$monto_ingreso', '$saldo', '$fecha');";
+        $sql="INSERT INTO kardex_financiero (concepto, monto_egreso,monto_ingreso, saldo, fecha,mes,anio) VALUE('$concepto', '$monto_egreso','$monto_ingreso', '$saldo', '$fecha','$mes','$anio');";
         $query=mysqli_query($cnx,$sql);
         return $query;
     }

@@ -42,7 +42,12 @@ $title_pagina = 'lista de venta';
 </div>
 <div class="contenido_infomacion p-1" id="contenido_inf">
     <div class="adm_contenido mt-3 pt-3">
-        <div class="row w-ful">
+        <div class="tabs" style="display:flex; margin-top:-15px;">
+            <div class="tab_pedido_cliente" style="border:1px solid #3A4750;border-radius:0px 0px 5px 5px ;padding:10px 10px; color:#fff; background-color:#51BCDA; cursor: pointer;" onclick="ver_pedido(1)">PEDIDO CLIENTE</div>
+            <div class="tab_pedido_mesa ml-1"  style="border:1px solid #3A4750;border-radius:0px 0px 5px 5px ;padding:10px 10px; color:#fff; background-color:#51BCDA; cursor: pointer;" onclick="ver_pedido(2)">PEDIDO MESA</div>
+        </div>
+        <!-- lista de cliente antendido -->
+        <div class="row w-ful mt-3 pedido_client">
             <div class="col-sm-10">
                 <div class="row ml-1">
                     <div class="col-sm-4 col-lg-4">
@@ -61,12 +66,51 @@ $title_pagina = 'lista de venta';
                         <tr style="height: 70px;">
                             <th scope="col" class="text-center pb-4">#</th>
                             <th scope="col" class="text-center pb-4">datos cliente</th>
+                            <th scope="col" class="text-center pb-4">direccion</th>
+                            <th scope="col" class="text-center pb-4">telefono</th>
+                            <th scope="col" class="text-center pb-4">forma pago</th>
                             <th scope="col" class="text-center pb-4">total</th>
                             <th scope="col" class="text-center pb-4">fecha_venta</th>
-                            <th scope="col" class="text-center pb-4">estado</th>
+                            <th scope="col" class="text-center pb-4">atencion</th>
+                            <th scope="col" class="text-center pb-4">pago</th>
+                            <th scope="col" class="text-center pb-4">accion</th>
                         </tr>
                     </thead>
                     <tbody id="lista_venta">
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <!-- lista de mesa antendido -->
+        <div class="row w-ful mt-3 pedido_mesa" style="display:none;">
+            <div class="col-sm-10">
+                <div class="row ml-1">
+                    <div class="col-sm-4 col-lg-4">
+                        <label for="">mesa</label>
+                        <input type="text" name="mesa" id="mesa" class="form-control">
+                    </div>
+                </div>
+            </div>
+            <div class="busqueda col-sm-2 mt-3">
+                <button class="btn btn-default" id="consultar_mesa" onclick="lista_venta_mesa()"><i class="fa fa-search" aria-hidden="true"></i>
+                    consultar</button>
+            </div>
+            <div class="table col-sm-12">
+                <table class="table table-bordered" id="datable">
+                    <thead class="">
+                        <tr style="height: 70px;">
+                            <th scope="col" class="text-center pb-4">#</th>
+                            <th scope="col" class="text-center pb-4"># mesa</th>
+                            <th scope="col" class="text-center pb-4">forma pago</th>
+                            <th scope="col" class="text-center pb-4">total</th>
+                            <th scope="col" class="text-center pb-4">fecha_venta</th>
+                            <th scope="col" class="text-center pb-4">atencion</th>
+                            <th scope="col" class="text-center pb-4">pago</th>
+                            <th scope="col" class="text-center pb-4">accion</th>
+                        </tr>
+                    </thead>
+                    <tbody id="lista_venta_mesa">
 
                     </tbody>
                 </table>
@@ -132,7 +176,7 @@ $title_pagina = 'lista de venta';
             beforeSend: function() {
                 $("#consultar").attr("disabled", true);
                 $("#consultar").html('<i class="fa fa-spinner fa-spin"></i> Cargando');
-                $('#lista_venta').html('<td colspan="6" align="center"></i> Cargando Entidades ... </td>');
+                $('#lista_venta').html('<td colspan="10" align="center"></i> Cargando Entidades ... </td>');
             },
             success: function(result) {
                 $("#consultar").attr("disabled", false);
@@ -142,6 +186,27 @@ $title_pagina = 'lista de venta';
         })
     }
 
+    function lista_venta_mesa() {
+        let nummesa = $('#mesa').val();
+        $.ajax({
+            type: "POST",
+            url: './Controller/ControllVenta.php?ope=lista_venta_mesa',
+            data: {
+                mesa: nummesa
+            },
+            dataType: 'JSON',
+            beforeSend: function() {
+                $("#consultar_mesa").attr("disabled", true);
+                $("#consultar_mesa").html('<i class="fa fa-spinner fa-spin"></i> Cargando');
+                $('#lista_venta').html('<td colspan="6" align="center"></i> Cargando Entidades ... </td>');
+            },
+            success: function(result) {
+                $("#consultar_mesa").attr("disabled", false);
+                $("#consultar_mesa").html('<i class="fa fa-search" aria-hidden="true"></i> Consultar');
+                $('#lista_venta_mesa').html(result.html);
+            }
+        })
+    }
 
     function matenimiento_venta(val) {
         if (!val) {
@@ -181,16 +246,24 @@ $title_pagina = 'lista de venta';
     }
 
     // incio exportar pdf y excel
-    function expotararchivos(e) {
-
-        var cliente = $('#cliente').val()
-        if (e == 1) {
-            window.open('expexcel.php?exp=reportcliente&cliente=' + cliente, '_blank');
-        } else {
-            window.open('./Controller/ControllCliente.php?ope=6&cliente=' + cliente, '_blank');
+    // function expotararchivos(e) {
+    //     var cliente = $('#cliente').val()
+    //     if (e == 1) {
+    //         window.open('expexcel.php?exp=reportcliente&cliente=' + cliente, '_blank');
+    //     } else {
+    //         window.open('exppdf.php?exp=report_egreso&' + cliente, '_blank');
+    //     }
+    // }
+    function ticke(val,id_pedido){
+        if(val == 3){
+            window.open('exppdf.php?exp=recibo_detalle_pedido&id_pedido='+id_pedido,'_blank');
+        }else if(val==4){
+            window.open('exppdf.php?exp=factura_boleta&id_pedido='+id_pedido,'_blank');
+        }else if(val==5){
+            window.open('exppdf.php?exp=recibo_detalle_pedido_cliente&id_pedido='+id_pedido,'_blank');
+        }else if(val==6){
+            window.open('exppdf.php?exp=factura_boleta_cliente&id_pedido='+id_pedido,'_blank');
         }
-
-
     }
     // fin exportacion
 
@@ -199,6 +272,7 @@ $title_pagina = 'lista de venta';
         $('#contenido_modal').html('')
         body_modal_backdrop()
     }
+
 
     function body_modal_backdrop() {
         $('body').children('.modal-backdrop').first().remove();
@@ -363,7 +437,86 @@ $title_pagina = 'lista de venta';
             }
         })
     }
+    
+
     lista_venta()
+    lista_venta_mesa()
+    function ver_pedido(val){
+        if(val == 1){
+            $('.pedido_mesa').hide();
+            $('.pedido_client').show();
+            return;
+        }
+        if(val == 2){
+            $('.pedido_mesa').show();
+            $('.pedido_client').hide();
+            return;
+        }
+    }
+
+    function atendido(id){
+        let id_pedido=id;
+        $.ajax({
+            type:'POST',
+            data:{
+                id:id_pedido
+            },
+            url:'./Controller/ControllVenta.php?ope=atencion',
+            success:function(r){
+                if(r==1){
+                lista_venta()
+                lista_venta_mesa(); 
+            }
+            }
+        })
+    }
+
+    function cancelado(val){
+        $.ajax({
+            type:'GET',
+            dataType:'HTML',
+            url:'./View/modal_venta/cancelar_pedido.php?val='+val,
+            success:function(resultado){
+                $('#contenido_modal').html('');
+                $('#contenido_modal').html(resultado);
+                $('#venta').modal({
+                    keyboard: false,
+                    backdrop: 'static',
+                    show: true
+                });
+            }
+        })
+    }
+    function cancelar_servicio(){
+        let formulario=$('#formVentaU').serialize();
+        $.ajax({
+            type:'POST',
+            data:formulario,
+            url:'./Controller/ControllVenta.php?ope=cancelado',
+            success:function(r){
+                if(r==1){
+                    lista_venta()
+                    lista_venta_mesa();  
+                }
+            }
+        })
+    }
+    function anulado(id){
+        let id_pedido=id;
+        $.ajax({
+            type:'POST',
+            data:{
+                id:id_pedido
+            },
+            url:'./Controller/ControllVenta.php?ope=anulado',
+            success:function(r){
+                if(r==1){
+                lista_venta()
+                lista_venta_mesa(); 
+            }
+            }
+        })
+    }
 </script>
 
 <!-- style -->

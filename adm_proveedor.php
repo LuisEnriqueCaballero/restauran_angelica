@@ -199,9 +199,8 @@ $title_pagina = 'lista de proveedores';
                 success: function(data) {
                     if (data == 1) {
                         $('#formProveedor')[0].reset();
-                        console.log('hola')
                         lista_proveedor();
-                        body_modal_backdrop()
+                        hide_modal_proveedor()
                         
                         // hide_modal_cliente();
                     }

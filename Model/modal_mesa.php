@@ -4,7 +4,9 @@ class MetodoMesa{
         $conexion = new conectar();
         $cnx = $conexion->conexion();
 
-        $sql="SELECT id_mesa, capacidad, estado, numero FROM mesa ;";
+        $sql="SELECT TM.id_mesa, TM.capacidad, TES.estado, TM.numero FROM mesa AS TM
+              INNER JOIN estado AS TES ON TES.id=TM.estado 
+              WHERE TM.estado <> 7";
         $query = mysqli_query($cnx,$sql);
         return $query;
     }
@@ -18,11 +20,11 @@ class MetodoMesa{
         return $query;
     }
 
-    public function updateMesa($id_mesa, $capacidad, $estado, $numero){
+    public function updateMesa($id_mesa, $capacidad, $numero){
         $conexion = new conectar();
         $cnx = $conexion->conexion();
 
-        $sql="UPDATE mesa SET capacidad='$capacidad', estado='$estado', numero='$numero' WHERE id_mesa='$id_mesa';";
+        $sql="UPDATE mesa SET capacidad='$capacidad', numero='$numero' WHERE id_mesa='$id_mesa';";
         $query = mysqli_query($cnx,$sql);
         return $query;
     }

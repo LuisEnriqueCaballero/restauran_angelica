@@ -59,10 +59,10 @@ $title_pagina = 'lista de cajas';
                     <thead class="">
                         <tr style="height: 70px;">
                             <th scope="col" class="text-center pb-4">#</th>
-                            <th scope="col" class="text-center pb-4">numero caja</th>
-                            <th scope="col" class="text-center pb-4">saldo</th>
-                            <th scope="col" class="text-center pb-4">fecha_abertura</th>
-                            <th scope="col" class="text-center pb-4">fecha_cierre</th>
+                            <th scope="col" class="text-center pb-4">descripcion caja</th>
+                            <th scope="col" class="text-center pb-4">fecha</th>
+                            <th scope="col" class="text-center pb-4">mes</th>
+                            <th scope="col" class="text-center pb-4">año</th>
                             <th scope="col" class="text-center pb-4">estado</th>
                             <th scope="col" class="text-center pb-4">opciones</th>
                         </tr>
@@ -126,7 +126,7 @@ $title_pagina = 'lista de cajas';
         // let nombre = $('#cliente').val();
         $.ajax({
             type: "POST",
-            url: './Controller/ControllCaja.php?ope=1',
+            url: './Controller/ControllCaja.php?ope=caja',
             // data: {
             //     cliente: nombre
             // },
@@ -148,7 +148,7 @@ $title_pagina = 'lista de cajas';
     function matenimiento_caja(val) {
         if (!val) {
             $.ajax({
-                url: 'View/modal_caja/insert_mat_caja.php',
+                url: 'View/modal_caja/insert_mant_caja.php',
                 type: 'POST',
                 dataType: 'HTML',
                 success: function(data) {
@@ -164,7 +164,7 @@ $title_pagina = 'lista de cajas';
             })
         } else {
             $.ajax({
-                url: 'View/modal_caja/update_mat_caja.php?val=' + val,
+                url: 'View/modal_caja/upd_mant_caja.php?val=' + val,
                 type: 'GET',
                 dataType: 'HTML',
                 success: function(data) {
@@ -182,20 +182,18 @@ $title_pagina = 'lista de cajas';
     }
 
     function caja(ope) {
-        // insertar un nuevo cliente
+        // insertar un nuevo caja
         if (ope == 2) {
             let formulario = $('#formCaja').serialize();
             $.ajax({
                 type: 'POST',
                 data: formulario,
-                url: './Controller/ControllCaja.php?ope=' + ope,
+                url: './Controller/ControllCaja.php?ope=crearcaja',
                 success: function(data) {
-                    if (data == 1) {
+                    if (data) {
                         $('#formCaja')[0].reset();
-                        console.log('hola')
-                        body_modal_backdrop()
                         lista_caja();
-                        // hide_modal_cliente();
+                        hide_modal_caja()
                     }
                 }
             })
@@ -205,13 +203,11 @@ $title_pagina = 'lista de cajas';
             $.ajax({
                 type: 'POST',
                 data: formulario,
-                url: './Controller/ControllCaja.php?ope=' + ope,
+                url: './Controller/ControllCaja.php?ope=updatecaja',
                 success: function(data) {
-                    if (data == 1) {
-                        console.log('hola')
-                        hide_modal_caja()
+                    if (data) {
                         lista_caja();
-                        // hide_modal_cliente();
+                        hide_modal_caja()
                     }
                 }
             })
@@ -219,20 +215,23 @@ $title_pagina = 'lista de cajas';
     }
 
     function eliminar_caja(id) {
-        let id_cliente = id;
+        let id_caja = id;
         $.ajax({
             type: 'POST',
             data: {
-                id: id_cliente
+                id: id_caja
             },
-            url: './Controller/ControllCaja.php?ope=4',
+            url: './Controller/ControllCaja.php?ope=deletecaja',
             success: function(data) {
-                if (data == 1) {
+                if (data) {
                     lista_caja();
                 }
             }
         })
     }
+    
+        
+    
 // incio exportar pdf y excel
 function expotararchivos(e){
   

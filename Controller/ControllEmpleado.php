@@ -43,7 +43,7 @@ switch ($ope) {
         $apellido = isset($_POST['apellido']) ? $_POST['apellido'] : '';
         $telefono = isset($_POST['telefono']) ? $_POST['telefono'] : '';
         $puesto = isset($_POST['puesto']) ? $_POST['puesto'] : '';
-        $salario = isset($_POST['salario']) ?number_format($_POST['salario'],2,',','.'): '0.00';
+        $salario = isset($_POST['salario'])?$_POST['salario']: '0.00';
         $fecha = date('Y-m-d');
 
         $result = $metodo_empleado->insertEmpleado($nombre, $apellido, $telefono, $puesto, $salario, $fecha);

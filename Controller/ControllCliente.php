@@ -106,7 +106,6 @@ switch ($ope) {
         break;
         
     case '6':
-
         include_once '../lib/fpdf.php';
 
         $fecha_hoy = date('d-m-Y');

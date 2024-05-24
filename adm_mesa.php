@@ -2,7 +2,6 @@
 include_once 'adm_menu_navegador.php';
 $title_pagina = 'lista de mesa';
 ?>
-
 <div class="conteniodo_titulio">
     <div class="title_conten">
         <h4><?php echo $title_pagina ?></h4>
@@ -74,17 +73,15 @@ $title_pagina = 'lista de mesa';
         </div>
     </div>
 </div>
-
 </section>
 </section>
 </body>
-
-</html>
 <script src="lib/jquery/code.jquery.com_jquery-3.6.0.min.js"></script>
 <script src="lib/jquery/popper.min.js"></script>
 <script src="lib/jquery/bootstrap.min.js"></script>
 <script src="lib/jquery/cdn.datatables.net_1.13.5_js_jquery.dataTables.min.js"></script>
 <script src="js/main.js"></script>
+</html>
 <script>
     $(document).ready(function() {
         $("#datable").DataTable({
@@ -191,10 +188,8 @@ $title_pagina = 'lista de mesa';
                 success: function(data) {
                     if (data == 1) {
                         $('#formMesa')[0].reset();
-                        console.log('hola')
-                        body_modal_backdrop()
                         lista_mesa();
-                        // hide_modal_Mesa();
+                        hide_modal_mesa();
                     }
                 }
             })
@@ -210,8 +205,6 @@ $title_pagina = 'lista de mesa';
                         console.log('hola')
                         lista_mesa();
                         hide_modal_mesa()
-                        
-                        // hide_modal_Mesa();
                     }
                 }
             })

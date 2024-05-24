@@ -2,26 +2,28 @@
 include_once '../Config/cnmysql.php';
 include_once '../Model/model_caja.php';
 include_once '../Model/model_financiero.php';
-
 $metodocaja = new Metodocaja();
 $metodoFinanciero= new MetodoFinanciero();
 $ope = isset($_GET['ope']) ? $_GET['ope'] : '';
-
+$meses=['mes','ENERO','FEBRERO','MARZO','ABRIL','MAYO','JUNIO','JULIO','AGOSTO','SEPTIEMBRE','OCTUBRE','NOVIEMBRE','DICIEMBRE'];
 switch ($ope) {
-    case '1':
+    case 'caja':
         $html = '';
+        $mensaje=false;
         $num=1;
-        $lista=$metodocaja->lista_caja();
+        $lista=$metodocaja->listacajas();
         $num_fila=mysqli_num_rows($lista);
         $informa='no se encontro datos';
         if($num_fila>0){
             foreach ($lista as $key ) {
+                $fecha_actual=date('d-m-Y H:m:s',strtotime($key['fecha']));
+                $mes=$meses[$key['mes']];
                 $html .= "<tr>
                          <td class='text-center text-uppercase'>$num</td>
-                         <td class='text-center text-uppercase'>$key[id_caja]-$key[numero_caja]</td>
-                         <td class='text-center text-uppercase'>$key[monto_inicial]</td>
-                         <td class='text-center text-uppercase'>$key[fecha_apertura]</td>
-                         <td class='text-center text-uppercase'>$key[fecha_cierre]</td>
+                         <td class='text-center text-uppercase'>$key[descripcion]</td>
+                         <td class='text-center text-uppercase'>$fecha_actual</td>
+                         <td class='text-center text-uppercase'>$mes</td>
+                         <td class='text-center text-uppercase'>$key[anio]</td>
                          <td class='text-center text-uppercase'>$key[estado]</td>
                          <td class='text-center'><button class='btn btn-default' onclick='eliminar_caja(" . $key['id_caja'] . ")'><i class='fa fa-trash-o' aria-hidden='true'></i></button>
                          <button class='btn  btn-btn-outline-success' onclick='matenimiento_caja(" . $key['id_caja'] . ")'><i class='fa fa-pencil' aria-hidden='true'></i></button>
@@ -29,47 +31,151 @@ switch ($ope) {
                          </tr>";
                 $num++;         
             }
+            $mensaje=true;
         }else{
             $html .="<tr>
                      <td class='text-center text-uppercase' colspan=7>$informa</td>
+                    </tr>";
+        }
+        echo json_encode(array('html'=>$html,'mensaje'=>$mensaje));
+        break;
+    
+    case 'cierrecaja':
+        $html = '';
+        $num=1;
+        $lista=$metodocaja->lista_multicajascierre();
+        $num_fila=mysqli_num_rows($lista);
+        $informa='no se encontro datos';
+        if($num_fila>0){
+            foreach ($lista as $key ) {
+                $monto_incial=number_format($key['monto_inicial'],2,',','.');
+                $fecha =date('d-m-Y H:m:s', strtotime($key['fecha_cierre']));
+                $mes=$meses[$key['mes']];
+                $html .= "<tr>
+                         <td class='text-center text-uppercase'>$num</td>
+                         <td class='text-center text-uppercase'>$key[descripcion]</td>
+                         <td class='text-center text-uppercase'>$ $monto_incial</td>
+                         <td class='text-center text-uppercase'>$fecha</td>
+                         <td class='text-center text-uppercase'>$mes</td>
+                         <td class='text-center text-uppercase'>$key[anio]</td>
+                         </tr>";
+                $num++;         
+            }
+        }else{
+            $html .="<tr>
+                     <td class='text-center text-uppercase' colspan=6>$informa</td>
+                    </tr>";
+        }
+        echo json_encode(array('html'=>$html));
+        break;
+    case 'crearcaja':
+        $mensaje=true;
+        $descripcion=isset($_POST['descripcion'])?$_POST['descripcion']:'';
+        $fecha=date('Y-m-d H:m:s');
+        $mes =date('m');
+        $anio=date('Y');
+        $insertcaja=$metodocaja->INSERTACAJA($descripcion,'1',$fecha,$mes,$anio);
+        echo $insertcaja;
+        break;
+    
+    case 'updatecaja':
+        $id=isset($_POST['id'])?$_POST['id']:'';
+        $descripcion=isset($_POST['descripcion'])?$_POST['descripcion']:'';
+        $updatecaja=$metodocaja->UPDATECAJAS($id,$descripcion);
+        $mensaje=true;
+        echo $updatecaja;
+        break;
+
+    case 'deletecaja':
+        $mensaje = false;
+        $id=isset($_POST['id'])?$_POST['id']:'';
+        $updatecaja=$metodocaja->DESACTIVARCAJA($id);
+        if($updatecaja){
+            $mensaje=true;
+        }
+        echo $updatecaja;
+        break;
+
+   case '1':
+        $html = '';
+        $num=1;
+        $lista=$metodocaja->lista_multicajas();
+        $num_fila=mysqli_num_rows($lista);
+        $informa='no se encontro datos';
+        if($num_fila>0){
+            foreach ($lista as $key ) {
+                $monto_incial=number_format($key['monto_inicial'],2,',','.');
+                $fecha =date('d-m-Y H:m:s', strtotime($key['fecha_apertura']));
+                $mes=$meses[$key['mes']];
+                $html .= "<tr>
+                         <td class='text-center text-uppercase'>$num</td>
+                         <td class='text-center text-uppercase'>$key[descripcion]</td>
+                         <td class='text-center text-uppercase'>$ $monto_incial</td>
+                         <td class='text-center text-uppercase'>$fecha</td>
+                         <td class='text-center text-uppercase'>$mes</td>
+                         <td class='text-center text-uppercase'>$key[anio]</td>
+                         <td class='text-center text-uppercase'>
+                         <button type='button' onclick='cierre_caja(".$key['id_caja_apert'].")'>$key[estado]</button>
+                         </td>
+                         <td class='text-center text-uppercase'>
+                         <button type='button' class='btn btn-success' onclick='aumentar(".$key['id_caja_apert'].")'><span class='fa fa-plus' aria-hidden='true'></span></button>
+                         </td>
+                         <td class='text-center'><button class='btn  btn-btn-outline-success' onclick='matenimiento_multicaja(" . $key['id_caja_apert'] . ")'><i class='fa fa-pencil' aria-hidden='true'></i></button>
+                         </td>
+                         </tr>";
+                $num++;         
+            }
+        }else{
+            $html .="<tr>
+                     <td class='text-center text-uppercase' colspan=9>$informa</td>
                     </tr>";
         }
         echo json_encode(array('html'=>$html));
         break;
 
     case '2':
-        $numero_caja='caja1';
-        $estado=isset($_POST['estado'])?$_POST['estado']:'abierto';
-        $fecha_apertura=date('Y-m-d');
-        // $fecha_cierre=isset($_POST['fech_cie'])?$_POST['fech_cie']:'';
-        $monto_incial=isset($_POST['monto'])?$_POST['monto']:'0.00';
-        $insert = $metodocaja->insertCaja($numero_caja,$estado,$fecha_apertura,$monto_incial);
-        $concepto='saldo inicia';
-        $egreso='0.00';
-        $ingreso='0.00';
-        $insertaKardex = $metodoFinanciero->insertKardexfinanciero($concepto,$egreso,$ingreso,$monto_incial,$fecha_apertura);
-        echo  $insertaKardex;
-        exit;
+        $caja=isset($_POST['caja'])?$_POST['caja']:'';
+        $monto=isset($_POST['monto'])?$_POST['monto']:0.00;
+        $fecha=date('Y-m-d H:m:s');
+        $mes=date('m');
+        $anio=date('Y');
+        $estado=10;
+        $concepto=4;
+        $insert=$metodocaja->insertmulticaja($caja,$monto,$estado,$fecha,$mes,$anio);
+        $insertkardex=$metodoFinanciero->insertKardexfinanciero($concepto,'0.00','0.00',$monto,$fecha,$mes,$anio);
+        echo $insertkardex;
         break;
 
     case '3':
-        $id_caja='caja1';
-        $numero_caja=isset($_POST['numero'])?$_POST['numero']:'';
-        $estado=isset($_POST['estado'])?$_POST['estado']:'';
-        $fecha_apertura=isset($_POST['fech_apert'])?$_POST['fech_apert']:'';
-        $fecha_cierre=date('Y-m-d');
-        $monto_incial=isset($_POST['monto'])?$_POST['monto']:'';
-        $update=$metodocaja->updateCaja($id_caja,$numero_caja,$estado,$fecha_apertura,$fecha_cierre, $monto_incial);
+        $id=isset($_POST['id'])?$_POST['id']:'';
+        $id_caja=isset($_POST['caja'])?$_POST['caja']:'';
+        $update=$metodocaja->updatemulticaja($id,$id_caja);
         echo $update;
+        
         break;
 
     case '4':
         $id_caja=isset($_POST['id'])?$_POST['id']:'';
-        $delete=$metodocaja->deleteCaja($id_caja);
+        $fecha=date('Y-m-d H:m:s');
+        $delete=$metodocaja->cierrecaja($id_caja,$fecha);
         echo $delete;
         break;
 
-    default:
-        # code...
+    
+    case 'aumentadinero':
+        $id=isset($_POST['id'])?$_POST['id']:'';
+        $monto=isset($_POST['monto'])?$_POST['monto']:'';
+        $ingreso=isset($_POST['dinero'])?$_POST['dinero']:'';
+        $nuevo_monto=(float)$ingreso +(float)$monto;
+        $fecha=date('Y-m-d');
+        $mes=date('m');
+        $anio=date('Y');
+        $concepto='6';
+        $updatemonto=$metodocaja->aumentadinero($id,$nuevo_monto);
+        $insertingreso=$metodoFinanciero->insertIngreso($concepto,$ingreso,$fecha,$mes,$anio);
+        $insertkardex=$metodoFinanciero->insertKardexfinanciero($concepto,'0.00',$ingreso, $nuevo_monto,$fecha,$mes,$anio);
+        echo $insertkardex;
         break;
+   
+       
 }

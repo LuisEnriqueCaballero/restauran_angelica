@@ -49,8 +49,8 @@
     }
 </style>
 <!-- Modal  Estrutura-->
-<div class="modal fade" id="venta" tabindex="-1">
-    <div class="modal-dialog  modal-lg modal-dialog-centered">
+<div class="modal fade" id="venta" tabindex="-1" >
+    <div class="modal-dialog  modal-lg modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" style="font-family: sans-serif;
@@ -99,34 +99,13 @@
                     </div>
                     <div class="form-row">
                         <div class="col-sm-6">
-                            <label for="cliente">Forma de pago</label>
-                            <select name="forma_pago" id="forma_pago" class="form-control" onchange="tipo_pago(this.value)">
-                                <option value="0">Seleccione forma de pago</option>
-                                <option value="efectivo">efectivo</option>
-                                <option value="transferencia">transferencia</option>
-                                <option value="tarjeta">tarjeta</option>
-                            </select>
-                        </div>
-                        <div class="col-sm-6 pago_tarje" style="display: none;">
-                            <label for="cliente">numero operacion</label>
-                            <input type="text" name="transferencia" id="transferencia" class="form-control" placeholder="">
-                        </div>
-                        <div class="col-sm-6 pago_efectivo" style="display: none;">
-                            <label for="cliente">$/ monto efecito</label>
-                            <input type="text" name="efectiv" id="efectiv" class="form-control" placeholder="$/. 0.00" oninput="calcular_vuelto()" step="0.002">
-                        </div>
-                        <div class="col-sm-6">
                             <label for="cliente">$/ monto pagar</label>
-                            <input type="text" name="monto" id="monto" class="form-control" placeholder="$/. 0.00" readonly oninput="calcular_vuelto()" step="0.002">
-                        </div>
-                        <div class="col-sm-6 pago_efectivo" style="display: none;">
-                            <label for="cliente">$/ vuelto</label>
-                            <input type="text" name="vuelto" id="vuelto" class="form-control" placeholder="$/ .0.00" readonly step="0.002">
+                            <input type="text" name="monto" id="monto" class="form-control" placeholder="$/. 0.00" readonly oninput="calcular_vuelto()">
                         </div>
                     </div>
                     <div class="form-row acciones">
                         <button type="button" class="btn btn-default" data-toggle="modal" data-target="#selecplato" style="color:green" onclick="contenido_selecionado()">
-                            <i class="fa fa-plus" aria-hidden="true""></i>
+                            <i class="fa fa-plus" aria-hidden="true"></i>
                             agregar pedido
                         </button>
 
@@ -137,11 +116,11 @@
                         <table class="table table-bordered">
                             <thead class="thead-light">
                                 <tr>
-                                    <th>producto</th>
-                                    <th>cantidad</th>
-                                    <th>precio unitario</th>
-                                    <th>sub_total</th>
-                                    <th>quitar producto</th>
+                                    <th class="text-center text-capitalize">producto</th>
+                                    <th class="text-center text-capitalize">cantidad</th>
+                                    <th class="text-center text-capitalize">precio unitario</th>
+                                    <th class="text-center text-capitalize">sub_total</th>
+                                    <th class="text-center text-capitalize">quitar</th>
                                 </tr>
                             </thead>
                             <tbody id="carrito_venta">
@@ -170,18 +149,4 @@
         }
     }
 </script>
-<script>
-    function tipo_pago(ope) {
 
-        if (ope == 'efectivo') {
-            $('.pago_tarje').hide(2000);
-            $('.pago_efectivo').show(2000);
-        }
-        if (ope == 'tarjeta' || ope == 'transferencia') {
-            $('.pago_efectivo').hide(2000);
-            $('.pago_tarje').show(2000);
-            
-        }
-    }
-
-</script>
