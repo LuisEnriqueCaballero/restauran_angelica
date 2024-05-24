@@ -1,5 +1,4 @@
 <?php
-include_once 'adm_menu_navegador.php';
 $title_pagina = 'pago servio';
 
 $mes=['MES','ENERO','FEBRERO','MARZO','ABRIL','MAYO','JUNIO','JULIO','AGOSTO','SEPTIEMBRE','OCTUBRE','NOVIEMBRE','DICIEMBRE'];
@@ -118,17 +117,6 @@ $maximo_anio=$anio + 10;
         </div>
     </div>
 </div>
-
-</section>
-</section>
-</body>
-
-</html>
-<script src="lib/jquery/code.jquery.com_jquery-3.6.0.min.js"></script>
-<script src="lib/jquery/popper.min.js"></script>
-<script src="lib/jquery/bootstrap.min.js"></script>
-<script src="lib/jquery/cdn.datatables.net_1.13.5_js_jquery.dataTables.min.js"></script>
-<script src="js/main.js"></script>
 <script>
     $(document).ready(function() {
         $("#datable").DataTable({

@@ -1,11 +1,8 @@
 <?php
-include_once 'adm_menu_navegador.php';
-$title_pagina = 'lista de compra';
-?>
-
+$title='Compras';?>
 <div class="conteniodo_titulio">
     <div class="title_conten">
-        <h4><?php echo $title_pagina ?></h4>
+        <h4><?php echo $title;?></h4>
     </div>
     <div class="opciones_contenido">
         <nav class="navbar navbar-expand-lg">
@@ -81,13 +78,6 @@ $title_pagina = 'lista de compra';
 </body>
 
 </html>
-<script src="lib/jquery/code.jquery.com_jquery-3.6.0.min.js"></script>
-<script src="lib/jquery/popper.min.js"></script>
-<script src="lib/jquery/bootstrap.min.js"></script>
-<script src="lib/jquery/cdn.datatables.net_1.13.5_js_jquery.dataTables.min.js"></script>
-<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-<script src="js/main.js"></script>
 <script>
     $(document).ready(function() {
         $("#datable").DataTable({
