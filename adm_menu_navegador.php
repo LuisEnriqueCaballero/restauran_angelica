@@ -1,4 +1,6 @@
 <?php
+session_start();
+if(!empty($_SESSION['usuario'])){
 require_once 'Config/cnmysql.php';
 require_once 'Model/modal_link.php';
 
@@ -126,7 +128,7 @@ $listasubmenu = $metodolink->lista_sublink($id);
                                     </a>
                                     <div class="dropdown-menu dropdown-menus">
                                         <a class="dropdown-item" href="#">configurar perfil</a>
-                                        <a class="dropdown-item" href="#">cerra sesion</a>
+                                        <a class="dropdown-item" href="<?php echo "cerrar_sesion.php"?>">cerra sesion</a>
                                     </div>
                                 </li>
                             </ul>
@@ -264,8 +266,12 @@ $listasubmenu = $metodolink->lista_sublink($id);
 <script src="lib/jquery/cdn.datatables.net_1.13.5_js_jquery.dataTables.min.js"></script>
 <script src="lib/chartjs/chart.umd.min.js"></script>
 <script src="js/main.js"></script>
-
 </html>
+<?php
+}else{
+    header("location:index.php");
+}
+?>
 <script>
 function load(div, url) {
     $('#' + div).load(url);

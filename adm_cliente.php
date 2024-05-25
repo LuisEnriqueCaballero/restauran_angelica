@@ -1,3 +1,6 @@
+<?php
+$title_pagina='Lista Cliente';
+?>
 <div class="conteniodo_titulio">
     <div class="title_conten">
         <h4><?php echo $title_pagina ?></h4>

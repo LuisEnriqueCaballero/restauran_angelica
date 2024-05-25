@@ -51,8 +51,9 @@
             },
             url:'Controller/ControllUsuario.php?ope=validar',
             success:function(restul){
-                if(restul){
-                window.location.href = "adm_dashboard.php";                }
+                if(restul>0){
+                    window.location.href = "adm_menu_navegador.php";
+                }
             }
         })
     }

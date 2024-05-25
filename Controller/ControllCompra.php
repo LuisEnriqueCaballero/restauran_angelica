@@ -192,7 +192,7 @@ switch ($ope) {
                          <td class='text-center'>$ $precio</td>
                          <td class='text-center'>$ $subtotal</td>
                          <td class='text-center'>
-                         <button type='button' class='btn btn-default' onclick='quitar_compra(" .$key['id']. ")' >quitar</button>
+                         <button type='button' class='btn btn-default' onclick='quitar_compra(" .$key['id']. ")'><span class='fa fa-times-circle text-danger' aria-hidden='true'></span></button>
                          </td>
                          </tr>";
             $total += $key['subtotal'];
