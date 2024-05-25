@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 18-05-2024 a las 19:09:29
+-- Tiempo de generación: 25-05-2024 a las 18:45:36
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.0.30
 
@@ -24,6 +24,26 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `atendido`
+--
+
+CREATE TABLE `atendido` (
+  `id` int(11) NOT NULL,
+  `estado` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `atendido`
+--
+
+INSERT INTO `atendido` (`id`, `estado`) VALUES
+(1, 'Atendido'),
+(2, 'Pendiente'),
+(3, 'Anulado');
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `caja`
 --
 
@@ -33,7 +53,7 @@ CREATE TABLE `caja` (
   `fecha` datetime NOT NULL,
   `mes` int(11) NOT NULL,
   `anio` int(11) NOT NULL,
-  `estado` varchar(20) NOT NULL COMMENT 'A:activo,I:inactivo'
+  `estado` int(11) NOT NULL COMMENT 'A:activo,I:inactivo'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -41,7 +61,8 @@ CREATE TABLE `caja` (
 --
 
 INSERT INTO `caja` (`id_caja`, `descripcion`, `fecha`, `mes`, `anio`, `estado`) VALUES
-(000001, 'caja01', '2024-05-14 17:05:15', 5, 2024, 'activo');
+(000003, 'caja03', '2024-05-24 23:05:33', 5, 2024, 5),
+(000004, 'CAJA001', '2024-05-25 15:05:13', 5, 2024, 1);
 
 -- --------------------------------------------------------
 
@@ -70,7 +91,7 @@ INSERT INTO `categoriamenu` (`id_categoria`, `descripcion`) VALUES
 (9, 'sushi'),
 (10, 'criollas'),
 (11, 'combos'),
-(12, 'combos');
+(12, 'combosES');
 
 -- --------------------------------------------------------
 
@@ -96,7 +117,8 @@ INSERT INTO `categoriaproducto` (`id_producto`, `descrip_categoria`) VALUES
 (6, 'EMBUTIDO'),
 (7, 'LIMPIEZA'),
 (8, 'ACEITE'),
-(9, 'CERIAL');
+(9, 'CERIAL'),
+(10, 'MUEBLES');
 
 -- --------------------------------------------------------
 
@@ -118,10 +140,10 @@ CREATE TABLE `clientes` (
 --
 
 INSERT INTO `clientes` (`id_cliente`, `dato_cliente`, `telefono`, `email`, `Direccion`, `estado`) VALUES
-(1, 'JUAN PEREZ', '990990990', '', 'lima 126DDDDD', 'activo'),
+(1, 'JUAN PEREZ', '990990947', '', 'lima 126DDDDD', 'activo'),
 (2, 'maria palacio', '9601114400', '', 'urb los jardines cuadra 6', 'activo'),
 (3, 'jose valdivia ', '936625014', '', 'av. lima 13 jr los asbestos', 'activo'),
-(4, 'luis enrique caballero ', '990360195', '', 'av. los jirasoles de las flores', 'activo');
+(4, 'luis enrique caballero ', '990360195', '', 'av. los jirasoles de las flores', 'inactivo');
 
 -- --------------------------------------------------------
 
@@ -145,7 +167,30 @@ CREATE TABLE `compra` (
 --
 
 INSERT INTO `compra` (`id`, `tipo_boleta`, `numero_recibo`, `id_proveedor`, `total`, `fecha_compra`, `mes`, `anio`) VALUES
-(000001, 'factura', 'f0001-002', 1, 16000.00, '2024-05-16 20:05:42', 2024, 5);
+(000001, 'factura', 'F01-05555', 3, 11000.00, '2024-05-25 15:05:03', 5, 2024);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `descripcion`
+--
+
+CREATE TABLE `descripcion` (
+  `id` int(11) NOT NULL,
+  `descripcion` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `descripcion`
+--
+
+INSERT INTO `descripcion` (`id`, `descripcion`) VALUES
+(1, 'Venta'),
+(2, 'Compra'),
+(3, 'Pago Servicio'),
+(4, 'Saldo inicial'),
+(5, 'Pago trabajadores'),
+(6, 'abonar caja');
 
 -- --------------------------------------------------------
 
@@ -167,8 +212,8 @@ CREATE TABLE `detalle_compra` (
 --
 
 INSERT INTO `detalle_compra` (`id`, `id_compra`, `producto`, `cantidad`, `precio`, `sub_total`) VALUES
-(1, '000001', 1, 2, 2000.00, 4000.00),
-(2, '000001', 2, 4, 3000.00, 12000.00);
+(1, '000001', 1, 5, 1000.00, 5000.00),
+(2, '000001', 2, 8, 750.00, 6000.00);
 
 -- --------------------------------------------------------
 
@@ -190,17 +235,9 @@ CREATE TABLE `detalle_pedido` (
 --
 
 INSERT INTO `detalle_pedido` (`id_detalle`, `id_pedido`, `id_producto`, `cantidad`, `precio_unitario`, `sub_total`) VALUES
-(1, '000001', 1, 2, 3200.00, 6400.00),
-(2, '000002', 1, 2, 3200.00, 6400.00),
-(3, '000002', 3, 3, 3200.00, 9600.00),
-(4, '000002', 6, 3, 3400.00, 10200.00),
-(5, '000002', 9, 2, 3500.00, 7000.00),
-(6, '000003', 6, 4, 3400.00, 13600.00),
-(7, '000003', 15, 5, 20000.00, 100000.00),
-(8, '000003', 9, 4, 3500.00, 14000.00),
-(9, '000003', 8, 1, 2400.00, 2400.00),
-(10, '000003', 2, 2, 3200.00, 6400.00),
-(11, '000003', 4, 7, 3200.00, 22400.00);
+(1, '000001', 2, 5, 3200.00, 16000.00),
+(2, '000001', 3, 1, 3200.00, 3200.00),
+(3, '000001', 11, 5, 800.00, 4000.00);
 
 -- --------------------------------------------------------
 
@@ -210,7 +247,7 @@ INSERT INTO `detalle_pedido` (`id_detalle`, `id_pedido`, `id_producto`, `cantida
 
 CREATE TABLE `egreso` (
   `id` int(11) NOT NULL,
-  `descripcion` varchar(50) NOT NULL,
+  `descripcion` int(11) NOT NULL,
   `monto` decimal(8,2) NOT NULL,
   `fecha_registrado` datetime NOT NULL,
   `mes` int(11) NOT NULL,
@@ -222,7 +259,7 @@ CREATE TABLE `egreso` (
 --
 
 INSERT INTO `egreso` (`id`, `descripcion`, `monto`, `fecha_registrado`, `mes`, `anio`) VALUES
-(1, 'compra', 16000.00, '2024-05-16 20:05:42', 2024, 5);
+(1, 2, 11000.00, '2024-05-25 15:05:03', 5, 2024);
 
 -- --------------------------------------------------------
 
@@ -250,7 +287,35 @@ INSERT INTO `empleado` (`id_empleado`, `nombre_empleado`, `apellido_empleado`, `
 (2, 'maria ', 'angeles del rose', '999032456', 'mesero', 2000.00, '2024-05-14', 'inactivo'),
 (3, 'maria ', 'des', '28283', 'mesero', 20.00, '2024-05-14', 'inactivo'),
 (4, 'dddd', 'ddd', '72255', 'mesero', 2.00, '2024-05-14', 'inactivo'),
-(5, 'eese', 'seses', '4258', 'mesero', 4000.00, '2024-05-14', 'inactivo');
+(5, 'eese', 'seses', '4258', 'mesero', 4000.00, '2024-05-14', 'inactivo'),
+(6, 'Jose Perez', 'gomes alturas', '99365523', 'cocinero', 1200.00, '2024-05-25', 'activo');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `estado`
+--
+
+CREATE TABLE `estado` (
+  `id` int(11) NOT NULL,
+  `estado` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `estado`
+--
+
+INSERT INTO `estado` (`id`, `estado`) VALUES
+(1, 'activo'),
+(2, 'pendiente'),
+(3, 'cancelado'),
+(4, 'anulado'),
+(5, 'eliminado'),
+(6, 'atendido'),
+(7, 'ocupado'),
+(8, 'libre'),
+(9, 'cerrado'),
+(10, 'abierto');
 
 -- --------------------------------------------------------
 
@@ -260,7 +325,7 @@ INSERT INTO `empleado` (`id_empleado`, `nombre_empleado`, `apellido_empleado`, `
 
 CREATE TABLE `ingreso` (
   `id` int(11) NOT NULL,
-  `descripcion` varchar(50) NOT NULL,
+  `descripcion` int(11) NOT NULL,
   `monto` decimal(8,2) NOT NULL,
   `fecha` date NOT NULL,
   `mes` int(11) NOT NULL,
@@ -272,10 +337,8 @@ CREATE TABLE `ingreso` (
 --
 
 INSERT INTO `ingreso` (`id`, `descripcion`, `monto`, `fecha`, `mes`, `anio`) VALUES
-(1, 'aumento caja', 100.00, '2024-05-16', 5, 2024),
-(2, 'venta', 6400.00, '2024-05-16', 5, 2024),
-(3, 'venta', 33200.00, '2024-05-17', 5, 2024),
-(4, 'venta', 158800.00, '2024-05-18', 5, 2024);
+(1, 6, 100.00, '2024-05-25', 5, 2024),
+(2, 1, 23200.00, '2024-05-25', 5, 2024);
 
 -- --------------------------------------------------------
 
@@ -285,7 +348,7 @@ INSERT INTO `ingreso` (`id`, `descripcion`, `monto`, `fecha`, `mes`, `anio`) VAL
 
 CREATE TABLE `kardex_financiero` (
   `id` int(6) UNSIGNED ZEROFILL NOT NULL,
-  `concepto` varchar(50) NOT NULL,
+  `concepto` int(11) NOT NULL,
   `monto_egreso` decimal(8,2) NOT NULL,
   `monto_ingreso` decimal(8,2) NOT NULL,
   `saldo` decimal(8,2) NOT NULL,
@@ -299,13 +362,10 @@ CREATE TABLE `kardex_financiero` (
 --
 
 INSERT INTO `kardex_financiero` (`id`, `concepto`, `monto_egreso`, `monto_ingreso`, `saldo`, `fecha`, `mes`, `anio`) VALUES
-(000001, 'INICIO CAJA', 0.00, 0.00, 20000.00, '2024-05-16', 5, 2024),
-(000002, 'aumento caja', 0.00, 100.00, 20100.00, '2024-05-16', 5, 2024),
-(000003, 'venta', 0.00, 6400.00, 26500.00, '2024-05-16', 5, 2024),
-(000004, 'INICIO CAJA', 0.00, 0.00, 16000.00, '2024-05-16', 5, 2024),
-(000005, 'compra', 16000.00, 0.00, 0.00, '2024-05-16', 5, 2024),
-(000006, 'venta', 0.00, 33200.00, 33200.00, '2024-05-17', 5, 2024),
-(000007, 'venta', 0.00, 158800.00, 192000.00, '2024-05-18', 5, 2024);
+(000001, 4, 0.00, 0.00, 12000.00, '2024-05-25', 5, 2024),
+(000002, 6, 0.00, 100.00, 12100.00, '2024-05-25', 5, 2024),
+(000003, 1, 0.00, 23200.00, 35300.00, '2024-05-25', 5, 2024),
+(000004, 2, 11000.00, 0.00, 24300.00, '2024-05-25', 5, 2024);
 
 -- --------------------------------------------------------
 
@@ -336,6 +396,27 @@ INSERT INTO `linkmenu` (`id`, `link`, `iconno`, `orden`, `estado`) VALUES
 (8, 'venta', 'icon/venta.svg', 8, 'activo'),
 (9, 'pago servicio', 'icon/bill.svg', 10, 'activo'),
 (10, 'caja', 'icon/cash.svg', 6, 'activo');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `medio_pago`
+--
+
+CREATE TABLE `medio_pago` (
+  `id` int(11) NOT NULL,
+  `descripcion` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `medio_pago`
+--
+
+INSERT INTO `medio_pago` (`id`, `descripcion`) VALUES
+(1, 'efectivo'),
+(2, 'tarjeta'),
+(3, 'transferencia'),
+(4, 'Pendiente');
 
 -- --------------------------------------------------------
 
@@ -380,7 +461,7 @@ INSERT INTO `menu` (`id_menu`, `categoria`, `descripcion`, `precio`) VALUES
 CREATE TABLE `mesa` (
   `id_mesa` int(11) NOT NULL,
   `capacidad` int(11) NOT NULL,
-  `estado` varchar(20) NOT NULL COMMENT 'L:libre,O:ocupado',
+  `estado` int(11) NOT NULL COMMENT '7:libre,8:ocupado',
   `numero` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -389,15 +470,9 @@ CREATE TABLE `mesa` (
 --
 
 INSERT INTO `mesa` (`id_mesa`, `capacidad`, `estado`, `numero`) VALUES
-(1, 0, 'libre', 'mesa 1'),
-(2, 0, 'libre', 'mesa 2'),
-(3, 0, 'libre', 'mesa 3'),
-(4, 0, 'libre', 'mesa 4'),
-(5, 0, 'libre', 'mesa 5'),
-(6, 0, 'libre', 'mesa 6'),
-(7, 0, 'libre', 'mesa 7'),
-(8, 0, 'libre', 'mesa 8'),
-(11, 4, 'ocupado', 'muqq');
+(3, 9, 8, 'MESA 01'),
+(4, 5, 8, 'mesa 5'),
+(5, 6, 8, 'Mesa 07');
 
 -- --------------------------------------------------------
 
@@ -409,7 +484,7 @@ CREATE TABLE `multicajas` (
   `id_caja_apert` int(6) UNSIGNED ZEROFILL NOT NULL,
   `id_caja` int(6) UNSIGNED ZEROFILL NOT NULL,
   `monto_inicial` decimal(8,2) NOT NULL,
-  `estado` varchar(20) NOT NULL,
+  `estado` int(11) NOT NULL,
   `fecha_apertura` datetime NOT NULL,
   `fecha_cierre` datetime NOT NULL,
   `mes` int(11) NOT NULL,
@@ -421,8 +496,7 @@ CREATE TABLE `multicajas` (
 --
 
 INSERT INTO `multicajas` (`id_caja_apert`, `id_caja`, `monto_inicial`, `estado`, `fecha_apertura`, `fecha_cierre`, `mes`, `anio`) VALUES
-(000001, 000001, 26500.00, 'cerrado', '2024-05-16 18:05:51', '2024-05-16 18:05:20', 5, 2024),
-(000002, 000001, 192000.00, 'activo', '2024-05-16 18:05:05', '0000-00-00 00:00:00', 5, 2024);
+(000001, 000004, 24300.00, 9, '2024-05-25 15:05:36', '2024-05-25 16:05:40', 5, 2024);
 
 -- --------------------------------------------------------
 
@@ -453,15 +527,15 @@ CREATE TABLE `pedido` (
   `id_pedido` int(6) UNSIGNED ZEROFILL NOT NULL,
   `id_cliente` int(11) NOT NULL,
   `id_mesa` int(11) NOT NULL,
-  `tipo_pago` varchar(50) NOT NULL,
+  `tipo_pago` int(11) NOT NULL,
   `tipo_atencion` varchar(50) NOT NULL,
   `efectivo_total` decimal(8,2) NOT NULL,
   `total` decimal(10,2) NOT NULL,
   `fecha_hora` datetime NOT NULL,
-  `estado` varchar(50) NOT NULL COMMENT 'P:pendiente,C:cancelado,A:anulado',
+  `estado` int(11) NOT NULL COMMENT '2:pendiente,3:cancelado,4:anulado',
   `mes` int(11) NOT NULL,
   `anio` int(11) NOT NULL,
-  `atencion` varchar(40) NOT NULL COMMENT 'A:atendido,P:pendiente,AP:anulado pedido'
+  `atencion` int(11) NOT NULL COMMENT '1:atendido,2:pendiente,3:anulado pedido'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -469,9 +543,7 @@ CREATE TABLE `pedido` (
 --
 
 INSERT INTO `pedido` (`id_pedido`, `id_cliente`, `id_mesa`, `tipo_pago`, `tipo_atencion`, `efectivo_total`, `total`, `fecha_hora`, `estado`, `mes`, `anio`, `atencion`) VALUES
-(000001, 0, 2, 'efectivo', 'efectivo', 0.00, 6400.00, '2024-05-16 18:05:14', 'anulado', 5, 2024, 'anulado'),
-(000002, 0, 4, 'efectivo', 'mesa', 0.00, 33200.00, '2024-05-17 23:05:33', 'anulado', 5, 2024, 'anulado'),
-(000003, 0, 7, 'forma pago', 'mesa', 0.00, 158800.00, '2024-05-18 18:05:56', 'anulado', 5, 2024, 'anulado');
+(000001, 0, 5, 2, 'mesa', 0.00, 23200.00, '2024-05-25 15:05:29', 3, 5, 2024, 1);
 
 -- --------------------------------------------------------
 
@@ -515,7 +587,8 @@ CREATE TABLE `proveedor` (
 
 INSERT INTO `proveedor` (`id_proveedor`, `empresa`, `ruc`, `nombre_proveedor`, `telefono`, `direccion`, `estado`) VALUES
 (1, 'TIENDA EL PATRON', '2020202020', 'JOSE ANTONIO', '9898989', 'AV LOS EUCALITOS', 'activo'),
-(2, 'tienda los angesl', '2000', 'pepe lucho', '85522', 'seess', 'inactivo');
+(2, 'tienda los angesl', '2000', 'pepe lucho', '85522', 'seess', 'inactivo'),
+(3, 'METRO S.A.C', '20068521475', 'JESUS RABANAL', '993647512', 'AV. 13 DE ENERO URB LA HUAYRONA', 'activo');
 
 -- --------------------------------------------------------
 
@@ -622,17 +695,24 @@ CREATE TABLE `usuario` (
 --
 
 INSERT INTO `usuario` (`id`, `nombre`, `password`, `id_roll`, `estado`) VALUES
-(1, 'enrique0602', '1234', 1, 'activo');
+(1, 'enrique0602', '81dc9bdb52d04dc20036dbd8313ed055', 1, 'activo');
 
 --
 -- Índices para tablas volcadas
 --
 
 --
+-- Indices de la tabla `atendido`
+--
+ALTER TABLE `atendido`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indices de la tabla `caja`
 --
 ALTER TABLE `caja`
-  ADD PRIMARY KEY (`id_caja`);
+  ADD PRIMARY KEY (`id_caja`),
+  ADD KEY `estado` (`estado`);
 
 --
 -- Indices de la tabla `categoriamenu`
@@ -659,6 +739,12 @@ ALTER TABLE `compra`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indices de la tabla `descripcion`
+--
+ALTER TABLE `descripcion`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indices de la tabla `detalle_compra`
 --
 ALTER TABLE `detalle_compra`
@@ -674,7 +760,8 @@ ALTER TABLE `detalle_pedido`
 -- Indices de la tabla `egreso`
 --
 ALTER TABLE `egreso`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `descripcion` (`descripcion`);
 
 --
 -- Indices de la tabla `empleado`
@@ -683,21 +770,35 @@ ALTER TABLE `empleado`
   ADD PRIMARY KEY (`id_empleado`);
 
 --
+-- Indices de la tabla `estado`
+--
+ALTER TABLE `estado`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indices de la tabla `ingreso`
 --
 ALTER TABLE `ingreso`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `descripcion` (`descripcion`);
 
 --
 -- Indices de la tabla `kardex_financiero`
 --
 ALTER TABLE `kardex_financiero`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `concepto` (`concepto`);
 
 --
 -- Indices de la tabla `linkmenu`
 --
 ALTER TABLE `linkmenu`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `medio_pago`
+--
+ALTER TABLE `medio_pago`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -710,19 +811,25 @@ ALTER TABLE `menu`
 -- Indices de la tabla `mesa`
 --
 ALTER TABLE `mesa`
-  ADD PRIMARY KEY (`id_mesa`);
+  ADD PRIMARY KEY (`id_mesa`),
+  ADD KEY `estado` (`estado`);
 
 --
 -- Indices de la tabla `multicajas`
 --
 ALTER TABLE `multicajas`
-  ADD PRIMARY KEY (`id_caja_apert`);
+  ADD PRIMARY KEY (`id_caja_apert`),
+  ADD KEY `estado` (`estado`),
+  ADD KEY `id_caja` (`id_caja`);
 
 --
 -- Indices de la tabla `pedido`
 --
 ALTER TABLE `pedido`
-  ADD PRIMARY KEY (`id_pedido`);
+  ADD PRIMARY KEY (`id_pedido`),
+  ADD KEY `estado` (`estado`),
+  ADD KEY `atencion` (`atencion`),
+  ADD KEY `tipo_pago` (`tipo_pago`);
 
 --
 -- Indices de la tabla `producto`
@@ -772,10 +879,16 @@ ALTER TABLE `usuario`
 --
 
 --
+-- AUTO_INCREMENT de la tabla `atendido`
+--
+ALTER TABLE `atendido`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
 -- AUTO_INCREMENT de la tabla `caja`
 --
 ALTER TABLE `caja`
-  MODIFY `id_caja` int(6) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_caja` int(6) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `categoriamenu`
@@ -787,7 +900,7 @@ ALTER TABLE `categoriamenu`
 -- AUTO_INCREMENT de la tabla `categoriaproducto`
 --
 ALTER TABLE `categoriaproducto`
-  MODIFY `id_producto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id_producto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT de la tabla `clientes`
@@ -802,6 +915,12 @@ ALTER TABLE `compra`
   MODIFY `id` int(6) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
+-- AUTO_INCREMENT de la tabla `descripcion`
+--
+ALTER TABLE `descripcion`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
 -- AUTO_INCREMENT de la tabla `detalle_compra`
 --
 ALTER TABLE `detalle_compra`
@@ -811,7 +930,7 @@ ALTER TABLE `detalle_compra`
 -- AUTO_INCREMENT de la tabla `detalle_pedido`
 --
 ALTER TABLE `detalle_pedido`
-  MODIFY `id_detalle` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id_detalle` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `egreso`
@@ -823,25 +942,37 @@ ALTER TABLE `egreso`
 -- AUTO_INCREMENT de la tabla `empleado`
 --
 ALTER TABLE `empleado`
-  MODIFY `id_empleado` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_empleado` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT de la tabla `estado`
+--
+ALTER TABLE `estado`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT de la tabla `ingreso`
 --
 ALTER TABLE `ingreso`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `kardex_financiero`
 --
 ALTER TABLE `kardex_financiero`
-  MODIFY `id` int(6) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(6) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `linkmenu`
 --
 ALTER TABLE `linkmenu`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
+-- AUTO_INCREMENT de la tabla `medio_pago`
+--
+ALTER TABLE `medio_pago`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `menu`
@@ -853,31 +984,31 @@ ALTER TABLE `menu`
 -- AUTO_INCREMENT de la tabla `mesa`
 --
 ALTER TABLE `mesa`
-  MODIFY `id_mesa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id_mesa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `multicajas`
 --
 ALTER TABLE `multicajas`
-  MODIFY `id_caja_apert` int(6) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_caja_apert` int(6) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `pedido`
 --
 ALTER TABLE `pedido`
-  MODIFY `id_pedido` int(6) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_pedido` int(6) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `producto`
 --
 ALTER TABLE `producto`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `proveedor`
 --
 ALTER TABLE `proveedor`
-  MODIFY `id_proveedor` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_proveedor` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `reservar_mesa`
@@ -912,6 +1043,51 @@ ALTER TABLE `usuario`
 --
 -- Restricciones para tablas volcadas
 --
+
+--
+-- Filtros para la tabla `caja`
+--
+ALTER TABLE `caja`
+  ADD CONSTRAINT `caja_ibfk_1` FOREIGN KEY (`estado`) REFERENCES `estado` (`id`) ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `egreso`
+--
+ALTER TABLE `egreso`
+  ADD CONSTRAINT `egreso_ibfk_1` FOREIGN KEY (`descripcion`) REFERENCES `descripcion` (`id`) ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `ingreso`
+--
+ALTER TABLE `ingreso`
+  ADD CONSTRAINT `ingreso_ibfk_1` FOREIGN KEY (`descripcion`) REFERENCES `descripcion` (`id`) ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `kardex_financiero`
+--
+ALTER TABLE `kardex_financiero`
+  ADD CONSTRAINT `kardex_financiero_ibfk_1` FOREIGN KEY (`concepto`) REFERENCES `descripcion` (`id`) ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `mesa`
+--
+ALTER TABLE `mesa`
+  ADD CONSTRAINT `mesa_ibfk_1` FOREIGN KEY (`estado`) REFERENCES `estado` (`id`);
+
+--
+-- Filtros para la tabla `multicajas`
+--
+ALTER TABLE `multicajas`
+  ADD CONSTRAINT `multicajas_ibfk_1` FOREIGN KEY (`estado`) REFERENCES `estado` (`id`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `multicajas_ibfk_2` FOREIGN KEY (`id_caja`) REFERENCES `caja` (`id_caja`) ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `pedido`
+--
+ALTER TABLE `pedido`
+  ADD CONSTRAINT `pedido_ibfk_1` FOREIGN KEY (`estado`) REFERENCES `estado` (`id`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `pedido_ibfk_2` FOREIGN KEY (`atencion`) REFERENCES `atendido` (`id`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `pedido_ibfk_3` FOREIGN KEY (`tipo_pago`) REFERENCES `medio_pago` (`id`) ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `sublinkmenu`
