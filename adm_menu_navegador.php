@@ -61,7 +61,7 @@ $listasubmenu = $metodolink->lista_sublink($id);
                 <li class="list_menu">
                     <div class="contenido_menu_link  activo">
                         <img src="icon/financial-report-svgrepo-com.svg" alt="" class="iconos_principal">
-                        <a href="adm_dashboard.php" class="link_menu">dashboard</a>
+                        <a href="adm_menu_navegador" class="link_menu">dashboard</a>
                     </div>
                 </li>
                 <?php
