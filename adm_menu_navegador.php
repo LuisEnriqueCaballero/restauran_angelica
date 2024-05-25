@@ -269,7 +269,7 @@ $listasubmenu = $metodolink->lista_sublink($id);
 </html>
 <?php
 }else{
-    header("location:index.php");
+    header("location:index.html");
 }
 ?>
 <script>
