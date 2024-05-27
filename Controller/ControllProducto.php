@@ -101,8 +101,8 @@ switch ($ope) {
     case 'seleccionar':
         $html ='';
         $num=1;
-        $categoria='';
-        $producto='';
+        $categoria=isset($_POST['catego'])?$_POST['catego']:'';
+        $producto=isset($_POST['produc'])?$_POST['produc']:'';
         $lista = $MetodoProducto->lista_Producto($categoria,$producto);
         $num_fila=mysqli_num_rows($lista);
         $infor='NO SE ENCONTRO PRODUCTO';
@@ -113,7 +113,7 @@ switch ($ope) {
                           <td class='text-center'>$key[descrip_categoria]</td>
                           <td class='text-center'>$key[descrip_producto] <input type='text' hidden name='nombre".$num."' id='nombre".$num."' value='".$key['descrip_producto']."'></td>
                           <td class='text-center'><input type='text' name='precio".$num."' id='precio".$num."'></td>
-                          <td class='text-center'><input type='number' name='cantidad".$num."' id='cantidad".$num."'></td>
+                          <td class='text-center'><input type='number' min='1' name='cantidad".$num."' id='cantidad".$num."'></td>
                           <td class='text-center control-boton'><button class='btn btn-default' onclick='seleccionar(".$num.")'><i class='fa fa-hand-pointer-o' aria-hidden='true'></i>seleccione</button>
                           </td class='text-center'>
                            </tr>";

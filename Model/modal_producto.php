@@ -4,9 +4,9 @@ class MetodoProducto{
         $conexion = new conectar();
         $cnx=$conexion->conexion();
         $sql="SELECT id_producto ,descrip_categoria FROM categoriaproducto";
-        // if(!empty($categoria)){
-        //     $sql .=" WHERE descrip_categoria LIKE '$categoria%'";
-        // }
+        if(!empty($categoria)){
+            $sql .=" WHERE descrip_categoria LIKE '$categoria%'";
+        }
         $query =mysqli_query($cnx,$sql);
         return $query;
     }

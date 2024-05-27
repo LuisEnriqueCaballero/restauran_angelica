@@ -22,7 +22,7 @@ let logo_menu=document.querySelector('.logo_menu');
     list_menu.addEventListener('click', function(e){
         const elemento=list_menu.nextElementSibling;
         
-        console.log(elemento)
+       // console.log(elemento)
         let altura=0;
         if(elemento.clientHeight === 0){
             altura= elemento.scrollHeight; 
