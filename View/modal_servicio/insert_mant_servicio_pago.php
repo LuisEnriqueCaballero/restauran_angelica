@@ -1,8 +1,8 @@
 <?php
 include_once '../../Config/cnmysql.php';
-include_once '../../Model/modal_categoria.php';
-$metodocategoria= new MetodoCategoria();
-$lista =$metodocategoria->lista_categoria();
+include_once '../../Model/model_servicio.php';
+$metodoservicio=new MetodoServicio();
+$listaservicio=$metodoservicio->listaServicio();
 ?>
 
 <!-- style modal -->
@@ -83,12 +83,14 @@ $lista =$metodocategoria->lista_categoria();
                         <div class="col-sm-6">
                             <label for="cliente">servicio</label>
                             <select name="servicio" id="servicio" class="form-control">
-                                <option value="0">selec servicio</option>
-                                <option value="luz">servicio luz</option>
-                                <option value="agua">servicio agua</option>
-                                <option value="gas">servicio gas</option>
-                                <option value="internet">servicio internet</option>
-                                <option value="empleado">pago empleado</option>
+                                <option value="0">seleccione servicio</option>
+                                <?php
+                           foreach ($listaservicio as $key) {
+                           ?>
+                           <option value="<?php echo $key['id']?>"><?php echo $key['descripcion']?></option>
+                           <?php
+                           }
+                           ?>
                             </select>
                         </div>
                     </div>

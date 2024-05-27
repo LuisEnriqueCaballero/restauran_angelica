@@ -3,7 +3,7 @@ class MetodoServicio{
     public function lista_pago_servicio(){
         $conexion=new conectar();
         $cnx=$conexion->conexion();
-        $sql="SELECT empresa,ruc, tipo_servicio,numero_recibo,monto_pago,fecha_pago,mes,anio FROM pago_servicio;";
+        $sql="SELECT TPS.empresa,TPS.ruc, TTS.descripcion,TPS.numero_recibo,TPS.monto_pago,TPS.fecha_pago,TPS.mes,TPS.anio FROM pago_servicio AS TPS INNER JOIN tipo_servicio AS TTS ON TTS.id=TPS.tipo_servicio;";
         $query=mysqli_query($cnx,$sql);
         return $query;
     }
@@ -32,6 +32,13 @@ class MetodoServicio{
         $conexion=new conectar();
         $cnx=$conexion->conexion();
         $sql="DELETE FROM pago_servicio WHERE id='$id'; ";
+        $query=mysqli_query($cnx,$sql);
+        return $query;
+    }
+    public function listaServicio(){
+        $conexion=new conectar();
+        $cnx=$conexion->conexion();
+        $sql="SELECT id, descripcion FROM tipo_servicio;";
         $query=mysqli_query($cnx,$sql);
         return $query;
     }

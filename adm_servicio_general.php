@@ -1,6 +1,11 @@
 <?php
-$title_pagina = 'pago servio';
+require_once 'Config/cnmysql.php';
+require_once 'Model/model_servicio.php';
 
+$metodoservicio=new MetodoServicio();
+$listaservicio=$metodoservicio->listaServicio();
+
+$title_pagina = 'pago servio';
 $mes=['MES','ENERO','FEBRERO','MARZO','ABRIL','MAYO','JUNIO','JULIO','AGOSTO','SEPTIEMBRE','OCTUBRE','NOVIEMBRE','DICIEMBRE'];
 $anio=date('Y');
 $maximo_anio=$anio + 10;
@@ -82,11 +87,13 @@ $maximo_anio=$anio + 10;
                         <label for="">servicio</label>
                         <select name="servicio" id="servicio" class="form-control">
                            <option value="0">selec servicio</option>
-                           <option value="luz">servicio luz</option>
-                           <option value="agua">servicio agua</option>
-                           <option value="gas">servicio gas</option>
-                           <option value="internet">servicio internet</option>
-                           <option value="empleado">pago empleado</option>
+                           <?php
+                           foreach ($listaservicio as $key) {
+                           ?>
+                           <option value="<?php echo $key['id']?>"><?php echo $key['descripcion']?></option>
+                           <?php
+                           }
+                           ?>
                         </select>
                     </div>
                 </div>

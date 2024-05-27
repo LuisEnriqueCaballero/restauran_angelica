@@ -27,7 +27,7 @@ switch ($ope) {
                 $html .='<tr>
                          <td class="text-center text-capitalize">'.$key['empresa'].'</td>
                          <td class="text-center text-capitalize">'.$key['ruc'].'</td>
-                         <td class="text-center text-capitalize">'.$key['tipo_servicio'].'</td>
+                         <td class="text-center text-capitalize">'.$key['descripcion'].'</td>
                          <td class="text-center text-capitalize">'.$key['numero_recibo'].'</td>
                          <td class="text-center text-capitalize">$ '.$key['monto_pago'].'</td>
                          <td class="text-center text-capitalize">'.$nueva_fecha.'</td>
@@ -54,9 +54,9 @@ switch ($ope) {
         $fecha=isset($_POST['fecha'])?$_POST['fecha']:'';
         $mes=date('m');
         $anio=date('Y');
-        $servicio=3;
+        $servicio='3';
         $insert=$metodoservicio->insertPagoServicio($empresa,$ruc,$servicio,$recibo,$monto,$fecha,$mes,$anio);
-        $insertegreso=$metodofinanza->insertEgreso($servicio,$monto,$fecha);
+        $insertegreso=$metodofinanza->insertEgreso($servicio,$monto,$fecha,$mes,$anio);
         $caja=$metodocaja->ultimocaja();
         foreach ($caja as $key) {
             $id_caja=$key['id_caja_apert'];
@@ -64,7 +64,7 @@ switch ($ope) {
         }
         $nuevo_saldo=$monto_actual-$monto;
         $updatecaha=$metodocaja->updatemontocaja($id_caja,$nuevo_saldo);
-        $insertkardex=$metodofinanza->insertKardexfinanciero( $servicio,$monto,0,$nuevo_saldo,$fecha);
+        $insertkardex=$metodofinanza->insertKardexfinanciero( $servicio,$monto,0,$nuevo_saldo,$fecha,$mes,$anio);
         
         echo json_encode(array('mensaje'=>$mensaje));
         break;
