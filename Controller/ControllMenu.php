@@ -55,8 +55,9 @@ switch ($ope) {
                     <td class='text-center text-uppercase'>$key[categoria_menu]</td>
                     <td class='text-center text-uppercase'>$key[descripcion] <input type='text' hidden name='nombre".$num."' id='nombre".$num."' value='".$key['descripcion']."'></td>
                     <td class='text-center'>$ $precio <input type='text' hidden name='precio".$num."' id='precio".$num."' value='".$key['precio']."'></td>
-                    <td class='text-center'><input type='number' class='control-form' name='cantidad".$num."' id='cantidad".$num."'></td>
-                    <td class='text-center control-boton'><button class='btn btn-default' onclick='seleccionar(".$num.")'><i class='fa fa-hand-pointer-o' aria-hidden='true'></i>seleccione</button>
+                    <td class='text-center'><input type='number' min='1' class='control-form' name='cantidad".$num."' id='cantidad".$num."'></td>
+                    <td class='text-center control-boton'><button class='btn btn-default' onclick='seleccionar(".$num.")'><span class='fa fa-plus-circle text-danger' aria-hidden='true'></span>
+                    Agregar</button>
                     </td class='text-center'>
                     </tr>";
         }
