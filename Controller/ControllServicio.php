@@ -54,7 +54,7 @@ switch ($ope) {
         $fecha=isset($_POST['fecha'])?$_POST['fecha']:'';
         $mes=date('m');
         $anio=date('Y');
-        $servicio=isset($_POST['servicio'])?$_POST['servicio']:'';
+        $servicio=3;
         $insert=$metodoservicio->insertPagoServicio($empresa,$ruc,$servicio,$recibo,$monto,$fecha,$mes,$anio);
         $insertegreso=$metodofinanza->insertEgreso($servicio,$monto,$fecha);
         $caja=$metodocaja->ultimocaja();
