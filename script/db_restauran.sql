@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 25-05-2024 a las 18:45:36
+-- Tiempo de generación: 28-05-2024 a las 01:40:12
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.0.30
 
@@ -259,7 +259,8 @@ CREATE TABLE `egreso` (
 --
 
 INSERT INTO `egreso` (`id`, `descripcion`, `monto`, `fecha_registrado`, `mes`, `anio`) VALUES
-(1, 2, 11000.00, '2024-05-25 15:05:03', 5, 2024);
+(1, 2, 11000.00, '2024-05-25 15:05:03', 5, 2024),
+(2, 3, 2000.00, '2024-05-27 00:00:00', 5, 2024);
 
 -- --------------------------------------------------------
 
@@ -365,7 +366,8 @@ INSERT INTO `kardex_financiero` (`id`, `concepto`, `monto_egreso`, `monto_ingres
 (000001, 4, 0.00, 0.00, 12000.00, '2024-05-25', 5, 2024),
 (000002, 6, 0.00, 100.00, 12100.00, '2024-05-25', 5, 2024),
 (000003, 1, 0.00, 23200.00, 35300.00, '2024-05-25', 5, 2024),
-(000004, 2, 11000.00, 0.00, 24300.00, '2024-05-25', 5, 2024);
+(000004, 2, 11000.00, 0.00, 24300.00, '2024-05-25', 5, 2024),
+(000005, 3, 2000.00, 0.00, 22300.00, '2024-05-27', 5, 2024);
 
 -- --------------------------------------------------------
 
@@ -496,7 +498,7 @@ CREATE TABLE `multicajas` (
 --
 
 INSERT INTO `multicajas` (`id_caja_apert`, `id_caja`, `monto_inicial`, `estado`, `fecha_apertura`, `fecha_cierre`, `mes`, `anio`) VALUES
-(000001, 000004, 24300.00, 9, '2024-05-25 15:05:36', '2024-05-25 16:05:40', 5, 2024);
+(000001, 000004, 22300.00, 9, '2024-05-25 15:05:36', '2024-05-25 16:05:40', 5, 2024);
 
 -- --------------------------------------------------------
 
@@ -508,7 +510,7 @@ CREATE TABLE `pago_servicio` (
   `id` int(11) NOT NULL,
   `empresa` varchar(50) NOT NULL,
   `ruc` varchar(20) NOT NULL,
-  `tipo_servicio` varchar(20) NOT NULL,
+  `tipo_servicio` int(11) NOT NULL,
   `numero_recibo` varchar(50) NOT NULL,
   `monto_pago` int(11) NOT NULL,
   `fecha_pago` int(11) NOT NULL,
@@ -516,6 +518,14 @@ CREATE TABLE `pago_servicio` (
   `anio` int(11) NOT NULL,
   `estado` varchar(50) NOT NULL COMMENT 'C:cancelado,P:pediente,A:anulado'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `pago_servicio`
+--
+
+INSERT INTO `pago_servicio` (`id`, `empresa`, `ruc`, `tipo_servicio`, `numero_recibo`, `monto_pago`, `fecha_pago`, `mes`, `anio`, `estado`) VALUES
+(0, 'entel', '206011636', 3, '00011155', 2000, 2024, 5, 2024, ''),
+(0, 'entel', '206011636', 3, '00011155', 2000, 2024, 5, 2024, '');
 
 -- --------------------------------------------------------
 
@@ -662,6 +672,28 @@ INSERT INTO `sublinkmenu` (`id`, `sublinkmenu`, `enlace`, `link`, `orden`, `esta
 (17, 'servicio general', 'adm_servicio_general.php', 9, 1, 'activo'),
 (22, 'apertura caja', 'adm_caja_apertura.php', 10, 2, 'activo'),
 (23, 'cierre caja', 'adm_caja_cierre.php', 10, 3, 'activo');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `tipo_servicio`
+--
+
+CREATE TABLE `tipo_servicio` (
+  `id` int(11) NOT NULL,
+  `descripcion` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `tipo_servicio`
+--
+
+INSERT INTO `tipo_servicio` (`id`, `descripcion`) VALUES
+(1, 'servicio agua'),
+(2, 'servicio luz'),
+(3, 'servicio gas'),
+(4, 'servicio internet'),
+(5, 'Pago empleados');
 
 -- --------------------------------------------------------
 
@@ -863,6 +895,12 @@ ALTER TABLE `sublinkmenu`
   ADD KEY `link` (`link`);
 
 --
+-- Indices de la tabla `tipo_servicio`
+--
+ALTER TABLE `tipo_servicio`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indices de la tabla `transaciones`
 --
 ALTER TABLE `transaciones`
@@ -936,7 +974,7 @@ ALTER TABLE `detalle_pedido`
 -- AUTO_INCREMENT de la tabla `egreso`
 --
 ALTER TABLE `egreso`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `empleado`
@@ -960,7 +998,7 @@ ALTER TABLE `ingreso`
 -- AUTO_INCREMENT de la tabla `kardex_financiero`
 --
 ALTER TABLE `kardex_financiero`
-  MODIFY `id` int(6) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(6) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `linkmenu`
@@ -1027,6 +1065,12 @@ ALTER TABLE `roll`
 --
 ALTER TABLE `sublinkmenu`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+
+--
+-- AUTO_INCREMENT de la tabla `tipo_servicio`
+--
+ALTER TABLE `tipo_servicio`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `transaciones`

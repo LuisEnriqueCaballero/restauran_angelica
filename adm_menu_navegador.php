@@ -29,8 +29,7 @@ $listasubmenu = $metodolink->lista_sublink($id);
 </head>
 
 <body>
-    <div id="contenido_modal">
-
+    <div class="modal fade" id="modal_example" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"> 
     </div>
     <div id="contenido_pedido">
 
@@ -128,7 +127,8 @@ $listasubmenu = $metodolink->lista_sublink($id);
                                     </a>
                                     <div class="dropdown-menu dropdown-menus">
                                         <a class="dropdown-item" href="#">configurar perfil</a>
-                                        <a class="dropdown-item" href="<?php echo "cerrar_sesion.php"?>">cerra sesion</a>
+                                        <a class="dropdown-item" href="<?php echo "cerrar_sesion.php"?>">cerra
+                                            sesion</a>
                                     </div>
                                 </li>
                             </ul>
@@ -266,6 +266,7 @@ $listasubmenu = $metodolink->lista_sublink($id);
 <script src="lib/jquery/cdn.datatables.net_1.13.5_js_jquery.dataTables.min.js"></script>
 <script src="lib/chartjs/chart.umd.min.js"></script>
 <script src="js/main.js"></script>
+
 </html>
 <?php
 }else{

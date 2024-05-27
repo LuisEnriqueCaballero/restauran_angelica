@@ -139,9 +139,9 @@
                 type: 'POST',
                 dataType: 'HTML',
                 success: function(data) {
-                    $('#contenido_modal').html('');
-                    $('#contenido_modal').html(data);
-                    $('#caja').modal({
+                    $('#modal_example').html('');
+                    $('#modal_example').html(data);
+                    $('#modal_example').modal({
                         keyboard: false,
                         backdrop: 'static',
                         show: true
@@ -234,17 +234,9 @@ function expotararchivos(e){
 // fin exportacion
 
     function hide_modal_caja() {
-        $('#caja').modal('hide');
-        $('#contenido_modal').html('')
-        body_modal_backdrop()
+        $('#modal_example').modal('hide');
+        $('#modal_example').html('')
     }
-
-    function body_modal_backdrop() {
-        $('body').children('.modal-backdrop').remove();
-        $('body').removeClass();
-        $('body').removeAttr('style');
-    }
-
     lista_caja();
 </script>
 
