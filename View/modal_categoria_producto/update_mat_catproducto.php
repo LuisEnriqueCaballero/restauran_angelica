@@ -40,7 +40,6 @@ foreach($listaeGetProducto as $key){
     
 </style>
 <!-- Modal  Estrutura-->
-<div class="modal fade" id="categoria" tabindex="-1" >
     <div class="modal-dialog  modal-lg modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
@@ -68,4 +67,3 @@ foreach($listaeGetProducto as $key){
             </div>
         </div>
     </div>
-</div>

@@ -42,7 +42,6 @@ $lista =$metodocategoria->lista_categoria();
     }
 </style>
 <!-- Modal  Estrutura-->
-<div class="modal fade" id="menu" tabindex="-1">
     <div class="modal-dialog  modal-lg modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
@@ -90,4 +89,3 @@ $lista =$metodocategoria->lista_categoria();
             </div>
         </div>
     </div>
-</div>

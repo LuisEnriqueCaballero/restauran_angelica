@@ -63,14 +63,13 @@ foreach($venta as $key){
     }
 </style>
 <!-- Modal  Estrutura-->
-<div class="modal fade" id="venta" tabindex="-1" >
     <div class="modal-dialog  modal-lg modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" style="font-family: sans-serif;
         text-transform: capitalize;
         font-size: 25px; color:#11235A">Pago servicio</h5>
-                <button type="button" class="close" aria-label="Close" onclick="hide_modal_venta()">
+                <button type="button" class="close" aria-label="Close" onclick="hide_modal_cancelar()">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
@@ -111,12 +110,11 @@ foreach($venta as $key){
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" class="cancelar" style="color: red;" onclick="hide_modal_venta()">Cancelar</button>
+                <button type="button" class="btn btn-default" class="cancelar" style="color: red;" onclick="hide_modal_cancelar()">Cancelar</button>
                 <button type="button" class="btn btn-default" onclick="cancelar_servicio()" class="aniadir" style="color:green">agregar</button>
             </div>
         </div>
     </div>
-</div>
 <script>
     function tipo_pago(ope) {
 

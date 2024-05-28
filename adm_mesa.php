@@ -138,9 +138,9 @@ $title_pagina = 'lista de mesa';
                 type: 'POST',
                 dataType: 'HTML',
                 success: function(data) {
-                    $('#contenido_modal').html('');
-                    $('#contenido_modal').html(data);
-                    $('#mesa').modal({
+                    $('#modalmedia').html('');
+                    $('#modalmedia').html(data);
+                    $('#modalmedia').modal({
                         keyboard: false,
                         backdrop: 'static',
                         show: true
@@ -154,9 +154,9 @@ $title_pagina = 'lista de mesa';
                 type: 'GET',
                 dataType: 'HTML',
                 success: function(data) {
-                    $('#contenido_modal').html('');
-                    $('#contenido_modal').html(data);
-                    $('#mesa').modal({
+                    $('#modalmedia').html('');
+                    $('#modalmedia').html(data);
+                    $('#modalmedia').modal({
                         keyboard: false,
                         backdrop: 'static',
                         show: true
@@ -231,15 +231,8 @@ function expotararchivos(e){
 // fin exportacion
 
     function hide_modal_mesa() {
-        $('#mesa').modal('hide');
-        $('#contenido_modal').html('')
-        body_modal_backdrop()
-    }
-
-    function body_modal_backdrop() {
-        $('body').children('.modal-backdrop').remove();
-        $('body').removeClass();
-        $('body').removeAttr('style');
+        $('#modalmedia').modal('hide');
+        $('#modalmedia').html('')
     }
 
     lista_mesa();

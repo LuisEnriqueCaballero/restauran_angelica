@@ -132,9 +132,9 @@
                 type: 'POST',
                 dataType: 'HTML',
                 success: function(data) {
-                    $('#contenido_modal').html('');
-                    $('#contenido_modal').html(data);
-                    $('#categoria').modal({
+                    $('#modalmedia').html('');
+                    $('#modalmedia').html(data);
+                    $('#modalmedia').modal({
                         keyboard: false,
                         backdrop: 'static',
                         show: true
@@ -148,9 +148,9 @@
                 type: 'POS',
                 dataType: 'HTML',
                 success: function(data) {
-                    $('#contenido_modal').html('');
-                    $('#contenido_modal').html(data);
-                    $('#categoria').modal({
+                    $('#modalmedia').html('');
+                    $('#modalmedia').html(data);
+                    $('#modalmedia').modal({
                         keyboard: false,
                         backdrop: 'static',
                         show: true
@@ -172,10 +172,8 @@
                 success: function(data) {
                     if (data == 1) {
                         $('#formCategoria')[0].reset();
-                        console.log('hola')
-                        body_modal_backdrop()
+                        hide_modal_categoria();
                         lista_categoriaproducto();
-                        // hide_modal_categoria();
                     }
                 }
             })
@@ -191,7 +189,6 @@
                         console.log('hola')
                         hide_modal_categoria()
                         lista_categoriaproducto();
-                        // hide_modal_categoria();
                     }
                 }
             })
@@ -228,15 +225,8 @@ function expotararchivos(e){
 // fin exportacion
 
     function hide_modal_categoria() {
-        $('#categoria').modal('hide');
-        $('#contenido_modal').html('')
-        body_modal_backdrop()
-    }
-
-    function body_modal_backdrop() {
-        $('body').children('.modal-backdrop').remove();
-        $('body').removeClass();
-        $('body').removeAttr('style');
+        $('#modalmedia').modal('hide');
+        $('#modalmedia').html('');
     }
 
     lista_categoriaproducto();

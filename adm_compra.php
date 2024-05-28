@@ -144,9 +144,9 @@ $title='Compras';?>
                 type: 'POST',
                 dataType: 'HTML',
                 success: function(data) {
-                    $('#contenido_modal').html('');
-                    $('#contenido_modal').html(data);
-                    $('#compra').modal({
+                    $('#modalmedia').html('');
+                    $('#modalmedia').html(data);
+                    $('#modalmedia').modal({
                         keyboard: false,
                         backdrop: 'static',
                         show: true
@@ -194,15 +194,8 @@ function expotararchivos(e){
 // fin exportacion
 
     function hide_modal_compra() {
-        $('#venta').modal('hide');
-        $('#contenido_modal').html('')
-        body_modal_backdrop()
-    }
-
-    function body_modal_backdrop() {
-        $('body').children('.modal-backdrop').remove();
-        $('body').removeClass();
-        $('body').removeAttr('style');
+        $('#modalmedia').modal('hide');
+        $('#modalmedia').html('')
     }
 
     // lista_venta();
@@ -213,9 +206,9 @@ function expotararchivos(e){
             dataType:'HTML',
             url:'View/modal_compra/select_producto.php',
             success:function(datos){
-                    $('#contenido_pedido').html('');
-                    $('#contenido_pedido').html(datos);
-                    $('#selecproducto').modal({
+                    $('#listado').html('');
+                    $('#listado').html(datos);
+                    $('#listado').modal({
                         keyboard: false,
                         backdrop: 'static',
                         show: true
@@ -225,9 +218,8 @@ function expotararchivos(e){
         })
     }
     function hide_modal_lista() {
-        $('#selecproducto').modal('hide');
-        $('#contenido_pedido').html('')
-        body_modal_backdrop()
+        $('#listado').modal('hide');
+        $('#listado').html('');
     }
 // avanzar
     function seleccionar(cont){

@@ -42,7 +42,6 @@ $lista =$metodoproducto->lista_CategoriaProducto();
     }
 </style>
 <!-- Modal  Estrutura-->
-<div class="modal fade" id="producto" tabindex="-1">
     <div class="modal-dialog  modal-lg modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
@@ -84,4 +83,3 @@ $lista =$metodoproducto->lista_CategoriaProducto();
             </div>
         </div>
     </div>
-</div>

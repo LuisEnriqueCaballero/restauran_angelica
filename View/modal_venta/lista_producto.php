@@ -89,8 +89,7 @@ modal-header .modal-title {
 
 
 <!-- Modal -->
-<div class="modal fade" id="selecplato" data-backdrop="static" data-keyboard="false" tabindex="-1"
-    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+
     <div class="modal-dialog  modal-xl modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
@@ -150,7 +149,7 @@ modal-header .modal-title {
             </div>
         </div>
     </div>
-</div>
+
 <script>
 function lista_plato() {
     let nombre = $('#plato').val();

@@ -42,7 +42,6 @@ $listaservicio=$metodoservicio->listaServicio();
     }
 </style>
 <!-- Modal  Estrutura-->
-<div class="modal fade" id="servicio" tabindex="-1">
     <div class="modal-dialog  modal-lg modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
@@ -102,4 +101,3 @@ $listaservicio=$metodoservicio->listaServicio();
             </div>
         </div>
     </div>
-</div>

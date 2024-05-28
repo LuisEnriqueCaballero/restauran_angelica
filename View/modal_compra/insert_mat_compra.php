@@ -52,7 +52,7 @@ $lista_provee=$proveedor->selectProveedor();
     }
 </style>
 <!-- Modal  Estrutura-->
-<div class="modal fade" id="compra" tabindex="-1">
+
     <div class="modal-dialog  modal-lg modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header">
@@ -129,7 +129,6 @@ $lista_provee=$proveedor->selectProveedor();
             </div>
         </div>
     </div>
-</div>
 
 <script>
     function tipo_reb(ope){

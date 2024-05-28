@@ -159,9 +159,9 @@ $title_pagina = 'lista de productos';
                 type: 'POST',
                 dataType: 'HTML',
                 success: function(data) {
-                    $('#contenido_modal').html('');
-                    $('#contenido_modal').html(data);
-                    $('#producto').modal({
+                    $('#modalmedia').html('');
+                    $('#modalmedia').html(data);
+                    $('#modalmedia').modal({
                         keyboard: false,
                         backdrop: 'static',
                         show: true
@@ -175,9 +175,9 @@ $title_pagina = 'lista de productos';
                 type: 'POST',
                 dataType: 'HTML',
                 success: function(data) {
-                    $('#contenido_modal').html('');
-                    $('#contenido_modal').html(data);
-                    $('#producto').modal({
+                    $('#modalmedia').html('');
+                    $('#modalmedia').html(data);
+                    $('#modalmedia').modal({
                         keyboard: false,
                         backdrop: 'static',
                         show: true
@@ -200,9 +200,8 @@ $title_pagina = 'lista de productos';
                     if (data == 1) {
                         $('#formProducto')[0].reset();
                         console.log('hola')
-                        body_modal_backdrop()
+                        hide_modal_producto()
                         lista_producto();
-                        // hide_modal_categoria();
                     }
                 }
             })
@@ -218,7 +217,6 @@ $title_pagina = 'lista de productos';
                         console.log('hola')
                         hide_modal_producto()
                         lista_producto();
-                        // hide_modal_categoria();
                     }
                 }
             })
@@ -255,17 +253,9 @@ function expotararchivos(e){
 // fin exportacion
 
     function hide_modal_producto() {
-        $('#producto').modal('hide');
-        $('#contenido_modal').html('')
-        body_modal_backdrop()
+        $('#modalmedia').modal('hide');
+        $('#modalmedia').html('');
     }
-
-    function body_modal_backdrop() {
-        $('body').children('.modal-backdrop').remove();
-        $('body').removeClass();
-        $('body').removeAttr('style');
-    }
-
     lista_producto();
 </script>
 

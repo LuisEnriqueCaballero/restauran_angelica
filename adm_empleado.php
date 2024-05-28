@@ -144,9 +144,9 @@ $title_pagina = 'lista trabajadores'
                 type: 'POST',
                 dataType: 'HTML',
                 success: function(data) {
-                    $('#contenido_modal').html('');
-                    $('#contenido_modal').html(data);
-                    $('#empleado').modal({
+                    $('#modalmedia').html('');
+                    $('#modalmedia').html(data);
+                    $('#modalmedia').modal({
                         keyboard: false,
                         backdrop: 'static',
                         show: true
@@ -160,9 +160,9 @@ $title_pagina = 'lista trabajadores'
                 type: 'GET',
                 dataType: 'HTML',
                 success: function(data) {
-                    $('#contenido_modal').html('');
-                    $('#contenido_modal').html(data);
-                    $('#empleado').modal({
+                    $('#modalmedia').html('');
+                    $('#modalmedia').html(data);
+                    $('#modalmedia').modal({
                         keyboard: false,
                         backdrop: 'static',
                         show: true
@@ -200,7 +200,6 @@ $title_pagina = 'lista trabajadores'
                 url:'./Controller/ControllEmpleado.php?ope=3',
                 success:function(result){
                     if(result == 1){
-                        console.log('hola'),
                         lista_empleado()
                         hide_modal_empleado()
                         
@@ -227,15 +226,8 @@ $title_pagina = 'lista trabajadores'
     }
 
     function hide_modal_empleado() {
-        $('#empleado').modal('hide');
-        $('#contenido_modal').html('')
-        body_modal_backdrop()
-    }
-
-    function body_modal_backdrop() {
-        $('body').children('.modal-backdrop').remove();
-        $('body').removeClass();
-        $('body').removeAttr('style');
+        $('#modalmedia').modal('hide');
+        $('#modalmedia').html('');
     }
     lista_empleado();
 </script>
