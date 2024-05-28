@@ -35,7 +35,7 @@ $listasubmenu = $metodolink->lista_sublink($id);
     </div>
     <div class="modal fade" id="cancelar" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     </div>
-    <div class="modal fade" id="alerta" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="mensaje" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     </div>
     <section class="slider">
         <nav class="menu">
@@ -265,6 +265,7 @@ $listasubmenu = $metodolink->lista_sublink($id);
 <script src="lib/jquery/bootstrap.min.js"></script>
 <script src="lib/jquery/cdn.datatables.net_1.13.5_js_jquery.dataTables.min.js"></script>
 <script src="lib/chartjs/chart.umd.min.js"></script>
+<script src="lib/alert/sweetalert.min.js"></script>
 <script src="js/main.js"></script>
 
 </html>

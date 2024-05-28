@@ -15,22 +15,27 @@ $title_pagina = 'lista trabajadores'
                             exportar
                         </a>
                         <div class="dropdown-menu">
-                            <a class="dropdown-item" href="javascript:void(0)" onclick="expotararchivos('1')"><i class="fa fa-file-excel-o" aria-hidden="true"></i>
+                            <a class="dropdown-item" href="javascript:void(0)" onclick="expotararchivos('1')"><i
+                                    class="fa fa-file-excel-o" aria-hidden="true"></i>
                                 excel</a>
-                            <a class="dropdown-item" href="javascript:void(0)" onclick="expotararchivos('2')"><i class="fa fa-file-pdf-o" aria-hidden="true"></i>
+                            <a class="dropdown-item" href="javascript:void(0)" onclick="expotararchivos('2')"><i
+                                    class="fa fa-file-pdf-o" aria-hidden="true"></i>
                                 pdf</a>
                         </div>
                     </li>
                 </ul>
                 <ul class="navbar-nav">
                     <li class="nav-item dropdown" style="color: #365a64;">
-                        <a class="nav-link btn-block" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
+                        <a class="nav-link btn-block" href="#" role="button" data-toggle="dropdown"
+                            aria-expanded="false">
                             <i class="fa fa-chevron-down" aria-hidden="true"></i>
                             opciones trabajadores
                         </a>
                         <div class="dropdown-menu" style="color: #365a64;">
-                            <a class="dropdown-item" class="btn" href="#" onclick="matenimiento_empleado()"><i class="fa fa-user" aria-hidden="true"></i> agregar trabajador</a>
-                            <a class="dropdown-item" href="#"><i class="fa fa-users" aria-hidden="true"></i> agregar masivo trabajador</a>
+                            <a class="dropdown-item" class="btn" href="#" onclick="matenimiento_empleado()"><i
+                                    class="fa fa-user" aria-hidden="true"></i> agregar trabajador</a>
+                            <a class="dropdown-item" href="#"><i class="fa fa-users" aria-hidden="true"></i> agregar
+                                masivo trabajador</a>
                         </div>
                     </li>
                 </ul>
@@ -50,7 +55,8 @@ $title_pagina = 'lista trabajadores'
                 </div>
             </div>
             <div class="busqueda col-sm-2 mt-3">
-                <button class="btn btn-default" id="consultar_empleado" onclick="lista_empleado()"><i class="fa fa-search" aria-hidden="true"></i>
+                <button class="btn btn-default" id="consultar_empleado" onclick="lista_empleado()"><i
+                        class="fa fa-search" aria-hidden="true"></i>
                     consultar</button>
             </div>
             <div class="table col-sm-12">
@@ -76,158 +82,176 @@ $title_pagina = 'lista trabajadores'
     </div>
 </div>
 <script>
-  
-    $(document).ready(function() {
-        $("#datableempleado").DataTable({
-            searching: false, // Desactivar el buscador
-            lengthChange: false, // Desactivar la opción de cambiar el número de filas por página
-            paging: true, // Habilitar la paginación
-            info: false, // Mostrar información sobre la tabla
-            // pagingType: "simple", // Tipo de paginación simple para mostrar solo los botones de navegación
-            ordering: false, //para desactiva el orden columna
-            language: {
-                "decimal": "",
-                "emptyTable": "No hay datos disponibles en la tabla",
-                "info": "Mostrando _START_ a _END_ de _TOTAL_ registros",
-                "infoEmpty": "Mostrando 0 a 0 de 0 registros",
-                "infoFiltered": "(filtrados de _MAX_ registros totales)",
-                "infoPostFix": "",
-                "thousands": ",",
-                "lengthMenu": "Mostrar _MENU_ registros por página",
-                "loadingRecords": "Cargando...",
-                "processing": "Procesando...",
-                "search": "Buscar:",
-                "zeroRecords": "No se encontraron registros coincidentes",
-                "paginate": {
-                    "first": "Primero",
-                    "last": "Último",
-                    "next": "Siguiente",
-                    "previous": "Anterior"
-                },
-                "aria": {
-                    "sortAscending": ": Activar para ordenar la columna en orden ascendente",
-                    "sortDescending": ": Activar para ordenar la columna en orden descendente"
-                }
+$(document).ready(function() {
+    $("#datableempleado").DataTable({
+        searching: false, // Desactivar el buscador
+        lengthChange: false, // Desactivar la opción de cambiar el número de filas por página
+        paging: true, // Habilitar la paginación
+        info: false, // Mostrar información sobre la tabla
+        // pagingType: "simple", // Tipo de paginación simple para mostrar solo los botones de navegación
+        ordering: false, //para desactiva el orden columna
+        language: {
+            "decimal": "",
+            "emptyTable": "No hay datos disponibles en la tabla",
+            "info": "Mostrando _START_ a _END_ de _TOTAL_ registros",
+            "infoEmpty": "Mostrando 0 a 0 de 0 registros",
+            "infoFiltered": "(filtrados de _MAX_ registros totales)",
+            "infoPostFix": "",
+            "thousands": ",",
+            "lengthMenu": "Mostrar _MENU_ registros por página",
+            "loadingRecords": "Cargando...",
+            "processing": "Procesando...",
+            "search": "Buscar:",
+            "zeroRecords": "No se encontraron registros coincidentes",
+            "paginate": {
+                "first": "Primero",
+                "last": "Último",
+                "next": "Siguiente",
+                "previous": "Anterior"
+            },
+            "aria": {
+                "sortAscending": ": Activar para ordenar la columna en orden ascendente",
+                "sortDescending": ": Activar para ordenar la columna en orden descendente"
             }
-        });
-    })
+        }
+    });
+})
 
-    function lista_empleado(){
-        let nombre = $('#empleado').val();
-        $.ajax({
-            type:'POST',
-            url:'./Controller/ControllEmpleado.php?ope=1',
-            data:{empleado:nombre},
-            dataType:'JSON',
+function lista_empleado() {
+    let nombre = $('#empleado').val();
+    $.ajax({
+        type: 'POST',
+        url: './Controller/ControllEmpleado.php?ope=1',
+        data: {
+            empleado: nombre
+        },
+        dataType: 'JSON',
 
-            beforeSend:function(){
-                $("#consultar_empleado").attr("disabled", true);
-                $("#consultar_empleado").html('<i class="fa fa-spinner fa-spin"></i> Cargando');
-                $('#lista_empleado').html('<td colspan="8" align="center"></i> Cargando Entidades ... </td>');
-            },
-            success:function(result){
-                $("#consultar_empleado").attr("disabled", false);
-                $("#consultar_empleado").html('<i class="fa fa-search" aria-hidden="true"></i> Consultar');
-                $('#lista_empleado').html(result.html);
-            },
-            error: function(xhr, status, error) {
+        beforeSend: function() {
+            $("#consultar_empleado").attr("disabled", true);
+            $("#consultar_empleado").html('<i class="fa fa-spinner fa-spin"></i> Cargando');
+            $('#lista_empleado').html('<td colspan="8" align="center"></i> Cargando Entidades ... </td>');
+        },
+        success: function(result) {
+            $("#consultar_empleado").attr("disabled", false);
+            $("#consultar_empleado").html('<i class="fa fa-search" aria-hidden="true"></i> Consultar');
+            $('#lista_empleado').html(result.html);
+        },
+        error: function(xhr, status, error) {
             console.error(xhr.responseText); // Muestra los errores en la consola
         }
 
+    })
+}
+
+function matenimiento_empleado(val) {
+    if (!val) {
+        $.ajax({
+            url: 'View/modal_empleado/insert_mat_empleado.php',
+            type: 'POST',
+            dataType: 'HTML',
+            success: function(data) {
+                $('#modalmedia').html('');
+                $('#modalmedia').html(data);
+                $('#modalmedia').modal({
+                    keyboard: false,
+                    backdrop: 'static',
+                    show: true
+                });
+            },
+            timeout: 40000
+        })
+    } else {
+        $.ajax({
+            url: 'View/modal_empleado/update_mat_empleado.php?val=' + val,
+            type: 'GET',
+            dataType: 'HTML',
+            success: function(data) {
+                $('#modalmedia').html('');
+                $('#modalmedia').html(data);
+                $('#modalmedia').modal({
+                    keyboard: false,
+                    backdrop: 'static',
+                    show: true
+                });
+            },
+            timeout: 40000
         })
     }
+}
 
-    function matenimiento_empleado(val) {
-        if (!val) {
-            $.ajax({
-                url: 'View/modal_empleado/insert_mat_empleado.php',
-                type: 'POST',
-                dataType: 'HTML',
-                success: function(data) {
-                    $('#modalmedia').html('');
-                    $('#modalmedia').html(data);
-                    $('#modalmedia').modal({
-                        keyboard: false,
-                        backdrop: 'static',
-                        show: true
-                    });
-                },
-                timeout: 40000
-            })
-        } else {
-            $.ajax({
-                url: 'View/modal_empleado/update_mat_empleado.php?val=' + val,
-                type: 'GET',
-                dataType: 'HTML',
-                success: function(data) {
-                    $('#modalmedia').html('');
-                    $('#modalmedia').html(data);
-                    $('#modalmedia').modal({
-                        keyboard: false,
-                        backdrop: 'static',
-                        show: true
-                    });
-                },
-                timeout: 40000
-            })
-        }
-    }
-
-    function empleado(e){
-        if(e=='2'){
-            let formulario=$('#formEmpleado').serialize();
-            $.ajax({
-                type:'POST',
-                data:formulario,
-                url:'./Controller/ControllEmpleado.php?ope=2',
-                success:function(result){
-                    if(result == 1){
-                        $('#formEmpleado')[0].reset();
-                        console.log('hola')
-                        hide_modal_empleado()
-                        lista_empleado()
-                        
-                    }
-                },error: function(xhr, status, error) {
-            console.error(xhr.responseText); // Muestra los errores en la consola
-                }
-            })
-        }else{
-            let formulario=$('#formEmpleadoU').serialize();
-            $.ajax({
-                type:'POST',
-                data:formulario,
-                url:'./Controller/ControllEmpleado.php?ope=3',
-                success:function(result){
-                    if(result == 1){
-                        lista_empleado()
-                        hide_modal_empleado()
-                        
-                    }
-                }
-            })
-        }
-    }
-
-    function eliminar(id){
-        let id_cliente=id;
+function empleado(e) {
+    if (e == '2') {
+        let formulario = $('#formEmpleado').serialize();
         $.ajax({
-                type:'POST',
-                data:{id_cliente:id_cliente},
-                url:'./Controller/ControllEmpleado.php?ope=4',
-                success:function(result){
-                    if(result == 1){
-                        lista_empleado()
-                        hide_modal_empleado()
-                        
-                    }
-                }
-            })
-    }
+            type: 'POST',
+            data: formulario,
+            url: './Controller/ControllEmpleado.php?ope=2',
+            success: function(result) {
+                if (result == 1) {
+                    $('#formEmpleado')[0].reset();
+                    console.log('hola')
+                    hide_modal_empleado()
+                    lista_empleado()
 
-    function hide_modal_empleado() {
-        $('#modalmedia').modal('hide');
-        $('#modalmedia').html('');
+                }
+            },
+            error: function(xhr, status, error) {
+                console.error(xhr.responseText); // Muestra los errores en la consola
+            }
+        })
+    } else {
+        let formulario = $('#formEmpleadoU').serialize();
+        $.ajax({
+            type: 'POST',
+            data: formulario,
+            url: './Controller/ControllEmpleado.php?ope=3',
+            success: function(result) {
+                if (result == 1) {
+                    lista_empleado()
+                    hide_modal_empleado()
+
+                }
+            }
+        })
     }
-    lista_empleado();
+}
+
+function eliminar(id) {
+    let id_cliente = id;
+    swal({
+            title: "¿ESTAS SEGURO QUE QUIERE ELIMINAR ESTE DATO?",
+            text: "A eliminar este dato, ya no podras recuperarlo",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        })
+        .then((willDelete) => {
+            if (willDelete) {
+                $.ajax({
+                    type: 'POST',
+                    data: {
+                        id_cliente: id_cliente
+                    },
+                    url: './Controller/ControllEmpleado.php?ope=4',
+                    success: function(result) {
+                        if (result) {
+                            swal("El dato hacido eliminado correctamente!", {
+                                icon: "success",
+                            });
+                            lista_empleado()
+                        }
+                    }
+                })
+            } else {
+                swal("Tu datos no fue eliminado");
+            }
+        });
+}
+
+function hide_modal_empleado() {
+    $('#modalmedia').modal('hide');
+    $('#modalmedia').html('');
+}
+lista_empleado();
 </script>
