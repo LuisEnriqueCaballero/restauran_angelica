@@ -16,7 +16,6 @@ $lista =$metodocategoria->lista_categoria();
 ?>
 
 <!-- Modal  Estrutura-->
-<div class="modal fade" id="menu" tabindex="-1" >
     <div class="modal-dialog  modal-lg modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
@@ -66,7 +65,6 @@ $lista =$metodocategoria->lista_categoria();
             </div>
         </div>
     </div>
-</div>
 <!-- style modal -->
 <style>
     .modal-body form .form-row{

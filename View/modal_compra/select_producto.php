@@ -75,9 +75,7 @@ modal-header .modal-title {
 
 
 <!-- Modal -->
-<div class="modal fade" id="selecproducto" data-backdrop="static" data-keyboard="false" tabindex="-1"
-    aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog  modal-xl modal-dialog-centered">
+<div class="modal-dialog  modal-lg">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title">lista de productos</h5>
@@ -136,10 +134,9 @@ modal-header .modal-title {
                     onclick="hide_modal_lista()">salir</button>
             </div>
         </div>
-    </div>
 </div>
 <script>
-list_producto();
+
 function list_producto() {
     let categoria=$('#categoria').val();
     let producto=$('#producto').val();
@@ -164,5 +161,5 @@ function list_producto() {
 
     })
 }
-
+list_producto();
 </script>

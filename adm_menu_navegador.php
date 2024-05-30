@@ -29,13 +29,13 @@ $listasubmenu = $metodolink->lista_sublink($id);
 </head>
 
 <body>
-    <div class="modal fade" id="modal_example" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"> 
+    <div class="modal fade" id="modalmedia" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     </div>
-    <div id="contenido_pedido">
-
+    <div class="modal fade" id="listado" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     </div>
-    <div id="contenido_venta">
-
+    <div class="modal fade" id="cancelar" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    </div>
+    <div class="modal fade" id="alerta" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     </div>
     <section class="slider">
         <nav class="menu">

@@ -138,9 +138,9 @@ $title_pagina='Lista Cliente';
                 type: 'POST',
                 dataType: 'HTML',
                 success: function(data) {
-                    $('#contenido_modal').html('');
-                    $('#contenido_modal').html(data);
-                    $('#cliente').modal({
+                    $('#modalmedia').html('');
+                    $('#modalmedia').html(data);
+                    $('#modalmedia').modal({
                         keyboard: false,
                         backdrop: 'static',
                         show: true
@@ -150,13 +150,13 @@ $title_pagina='Lista Cliente';
             })
         } else {
             $.ajax({
-                url: 'View/modal_cliente/update_mat_cliente.php?val=' + val,
+                url: 'View/modal_cliente/update_mat_cliente.php?val='+val,
                 type: 'GET',
                 dataType: 'HTML',
                 success: function(data) {
-                    $('#contenido_modal').html('');
-                    $('#contenido_modal').html(data);
-                    $('#cliente').modal({
+                    $('#modalmedia').html('');
+                    $('#modalmedia').html(data);
+                    $('#modalmedia').modal({
                         keyboard: false,
                         backdrop: 'static',
                         show: true
@@ -189,13 +189,11 @@ $title_pagina='Lista Cliente';
             $.ajax({
                 type: 'POST',
                 data: formulario,
-                url: './Controller/ControllCliente.php?ope=' + ope,
+                url: './Controller/ControllCliente.php?ope='+ope,
                 success: function(data) {
-                    if (data == 1) {
-                        console.log('hola')
-                        hide_modal_cliente()
+                    if (data) {
+                        hide_modal_cliente();
                         lista_cliente();
-                        // hide_modal_cliente();
                     }
                 }
             })
@@ -232,17 +230,9 @@ function expotararchivos(e){
 // fin exportacion
 
     function hide_modal_cliente() {
-        $('#cliente').modal('hide');
-        $('#contenido_modal').html('')
-        body_modal_backdrop()
+        $('#modalmedia').modal('hide');
+        $('#modalmedia').html('');
     }
-
-    function body_modal_backdrop() {
-        $('body').children('.modal-backdrop').remove();
-        $('body').removeClass();
-        $('body').removeAttr('style');
-    }
-
     lista_cliente();
 </script>
 

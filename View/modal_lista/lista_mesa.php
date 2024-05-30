@@ -78,7 +78,6 @@
 
 
 <!-- Modal -->
-<div class="modal fade" id="mesa" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog  modal-xl modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
@@ -109,7 +108,6 @@
             </div>
         </div>
     </div>
-</div>
 <script>
     function lista_mesa() {
         // let nombre = $('#plato').val();

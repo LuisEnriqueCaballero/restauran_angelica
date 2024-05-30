@@ -49,7 +49,6 @@
     }
 </style>
 <!-- Modal  Estrutura-->
-<div class="modal fade" id="venta" tabindex="-1" >
     <div class="modal-dialog  modal-lg modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header">
@@ -136,7 +135,6 @@
             </div>
         </div>
     </div>
-</div>
 <script>
     function forma_atencion(val) {
         if (val == 'mesa') {

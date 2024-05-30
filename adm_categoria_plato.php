@@ -132,9 +132,9 @@
                 type: 'POST',
                 dataType: 'HTML',
                 success: function(data) {
-                    $('#contenido_modal').html('');
-                    $('#contenido_modal').html(data);
-                    $('#categoria').modal({
+                    $('#modalmedia').html('');
+                    $('#modalmedia').html(data);
+                    $('#modalmedia').modal({
                         keyboard: false,
                         backdrop: 'static',
                         show: true
@@ -148,9 +148,9 @@
                 type: 'GET',
                 dataType: 'HTML',
                 success: function(data) {
-                    $('#contenido_modal').html('');
-                    $('#contenido_modal').html(data);
-                    $('#categoria').modal({
+                    $('#modalmedia').html('');
+                    $('#modalmedia').html(data);
+                    $('#modalmedia').modal({
                         keyboard: false,
                         backdrop: 'static',
                         show: true
@@ -224,17 +224,9 @@ function expotararchivos(e){
 // fin exportacion
 
     function hide_modal_categoria() {
-        $('#categoria').modal('hide');
-        $('#contenido_modal').html('')
-        body_modal_backdrop()
+        $('#modalmedia').modal('hide');
+        $('#modalmedia').html('');
     }
-
-    function body_modal_backdrop() {
-        $('body').children('.modal-backdrop').remove();
-        $('body').removeClass();
-        $('body').removeAttr('style');
-    }
-
     lista_categoria();
 </script>
 

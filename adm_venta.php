@@ -203,9 +203,9 @@ $title_pagina = 'lista de venta';
                 type: 'POST',
                 dataType: 'HTML',
                 success: function(data) {
-                    $('#contenido_modal').html('');
-                    $('#contenido_modal').html(data);
-                    $('#venta').modal({
+                    $('#modalmedia').html('');
+                    $('#modalmedia').html(data);
+                    $('#modalmedia').modal({
                         keyboard: false,
                         backdrop: 'static',
                         show: true
@@ -256,16 +256,13 @@ $title_pagina = 'lista de venta';
     // fin exportacion
 
     function hide_modal_venta() {
-        $('#venta').modal('hide');
-        $('#contenido_modal').html('')
-        body_modal_backdrop()
+        $('#modalmedia').modal('hide');
+        $('#modalmedia').html('');
     }
 
-
-    function body_modal_backdrop() {
-        $('body').children('.modal-backdrop').first().remove();
-        $('body').removeClass();
-        $('body').removeAttr('style');
+    function hide_modal_cancelar() {
+        $('#cancelar').modal('hide');
+        $('#cancelar').html('');
     }
 
     function contenido_selecionado() {
@@ -274,9 +271,9 @@ $title_pagina = 'lista de venta';
             dataType: 'HTML',
             url: 'View/modal_venta/lista_producto.php',
             success: function(datos) {
-                $('#contenido_pedido').html('');
-                $('#contenido_pedido').html(datos);
-                $('#selecplato').modal({
+                $('#listado').html('');
+                $('#listado').html(datos);
+                $('#listado').modal({
                     keyboard: false,
                     backdrop: 'static',
                     show: true
@@ -287,9 +284,8 @@ $title_pagina = 'lista de venta';
     }
 
     function hide_modal_lista() {
-        $('#selecplato').modal('hide');
-        $('#contenido_pedido').html('')
-        body_modal_backdrop()
+        $('#listado').modal('hide');
+        $('#listado').html('')
     }
 
     function seleccionar(cont) {
@@ -358,9 +354,9 @@ $title_pagina = 'lista de venta';
                     dataType: 'HTML',
                     url: 'View/modal_lista/lista_mesa.php',
                     success: function(resulta) {
-                        $('#contenido_pedido').html('');
-                        $('#contenido_pedido').html(resulta);
-                        $('#mesa').modal({
+                        $('#listado').html('');
+                        $('#listado').html(resulta);
+                        $('#listado').modal({
                             keyboard: false,
                             backdrop: 'static',
                             show: true
@@ -373,9 +369,9 @@ $title_pagina = 'lista de venta';
                     dataType: 'HTML',
                     url: 'View/modal_lista/lista_cliente.php',
                     success: function(resultado) {
-                        $('#contenido_pedido').html('');
-                        $('#contenido_pedido').html(resultado);
-                        $('#list_cliente').modal({
+                        $('#listado').html('');
+                        $('#listado').html(resultado);
+                        $('#listado').modal({
                             keyboard: false,
                             backdrop: 'static',
                             show: true
@@ -465,9 +461,9 @@ $title_pagina = 'lista de venta';
             dataType:'HTML',
             url:'./View/modal_venta/cancelar_pedido.php?val='+val,
             success:function(resultado){
-                $('#contenido_modal').html('');
-                $('#contenido_modal').html(resultado);
-                $('#venta').modal({
+                $('#cancelar').html('');
+                $('#cancelar').html(resultado);
+                $('#cancelar').modal({
                     keyboard: false,
                     backdrop: 'static',
                     show: true
@@ -483,6 +479,7 @@ $title_pagina = 'lista de venta';
             url:'./Controller/ControllVenta.php?ope=cancelado',
             success:function(r){
                 if(r==1){
+                    hide_modal_cancelar();
                     lista_venta()
                     lista_venta_mesa();  
                 }

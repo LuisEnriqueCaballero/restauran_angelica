@@ -137,9 +137,9 @@
                 type: 'POST',
                 dataType: 'HTML',
                 success: function(data) {
-                    $('#contenido_modal').html('');
-                    $('#contenido_modal').html(data);
-                    $('#caja').modal({
+                    $('#modalmedia').html('');
+                    $('#modalmedia').html(data);
+                    $('#modalmedia').modal({
                         keyboard: false,
                         backdrop: 'static',
                         show: true
@@ -153,9 +153,9 @@
                 type: 'GET',
                 dataType: 'HTML',
                 success: function(data) {
-                    $('#contenido_modal').html('');
-                    $('#contenido_modal').html(data);
-                    $('#caja').modal({
+                    $('#modalmedia').html('');
+                    $('#modalmedia').html(data);
+                    $('#modalmedia').modal({
                         keyboard: false,
                         backdrop: 'static',
                         show: true
@@ -176,8 +176,8 @@
                 url: './Controller/ControllCaja.php?ope=' + ope,
                 success: function(data) {
                     if (data) {
-                        lista_multicaja();
                         hide_modal_caja();
+                        lista_multicaja();
                     }
                 }
             })
@@ -190,8 +190,8 @@
                 url: './Controller/ControllCaja.php?ope=' + ope,
                 success: function(data) {
                     if (data) {
-                        lista_multicaja();
                         hide_modal_caja();
+                        lista_multicaja();
                     }
                 }
             })
@@ -219,9 +219,9 @@
             dataType: 'HTML',
             url: 'View/modal_caja/aumenta_monto.php?val=' + val,
             success: function(data) {
-                    $('#contenido_modal').html('');
-                    $('#contenido_modal').html(data);
-                    $('#caja').modal({
+                    $('#modalmedia').html('');
+                    $('#modalmedia').html(data);
+                    $('#modalmedia').modal({
                         keyboard: false,
                         backdrop: 'static',
                         show: true
@@ -259,17 +259,9 @@ function expotararchivos(e){
 // fin exportacion
 
     function hide_modal_caja() {
-        $('#caja').modal('hide');
-        $('#contenido_modal').html('')
-        body_modal_backdrop()
+        $('#modalmedia').modal('hide');
+        $('#modalmedia').html('');
     }
-
-    function body_modal_backdrop() {
-        $('body').children('.modal-backdrop').remove();
-        $('body').removeClass();
-        $('body').removeAttr('style');
-    }
-
 </script>
 
 <!-- style -->

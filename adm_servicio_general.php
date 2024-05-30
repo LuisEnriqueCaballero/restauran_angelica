@@ -196,9 +196,9 @@ $maximo_anio=$anio + 10;
                 type: 'POST',
                 dataType: 'HTML',
                 success: function(data) {
-                    $('#contenido_modal').html('');
-                    $('#contenido_modal').html(data);
-                    $('#servicio').modal({
+                    $('#modalmedia').html('');
+                    $('#modalmedia').html(data);
+                    $('#modalmedia').modal({
                         keyboard: false,
                         backdrop: 'static',
                         show: true
@@ -219,8 +219,8 @@ $maximo_anio=$anio + 10;
             success: function(resul) {
                 if (resul) {
                     $('#formservicio')[0].reset();
+                    hide_modal_servicio();
                     lista_pago_servicio_general();
-                    hide_modal_servicio()
                 }
             }
         })
@@ -242,17 +242,10 @@ $maximo_anio=$anio + 10;
     // fin exportacion
 
     function hide_modal_servicio() {
-        $('#servicio').modal('hide');
-        $('#contenido_modal').html('')
+        $('#modalmedia').modal('hide');
+        $('#modalmedia').html('')
         body_modal_backdrop()
     }
-
-    function body_modal_backdrop() {
-        $('body').children('.modal-backdrop').first().remove();
-        $('body').removeClass();
-        $('body').removeAttr('style');
-    }
-
     lista_pago_servicio_general();
 
 </script>

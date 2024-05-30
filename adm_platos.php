@@ -160,9 +160,9 @@ $title_pagina = 'lista de plato';
                 type: 'POST',
                 dataType: 'HTML',
                 success: function(data) {
-                    $('#contenido_modal').html('');
-                    $('#contenido_modal').html(data);
-                    $('#menu').modal({
+                    $('#modalmedia').html('');
+                    $('#modalmedia').html(data);
+                    $('#modalmedia').modal({
                         keyboard: false,
                         backdrop: 'static',
                         show: true
@@ -176,9 +176,9 @@ $title_pagina = 'lista de plato';
                 type: 'GET',
                 dataType: 'HTML',
                 success: function(data) {
-                    $('#contenido_modal').html('');
-                    $('#contenido_modal').html(data);
-                    $('#menu').modal({
+                    $('#modalmedia').html('');
+                    $('#modalmedia').html(data);
+                    $('#modalmedia').modal({
                         keyboard: false,
                         backdrop: 'static',
                         show: true
@@ -200,9 +200,8 @@ $title_pagina = 'lista de plato';
                 success: function(data) {
                     if (data == 1) {
                         $('#formMenu')[0].reset();
-                        listaplato();
                         hideModalplato();
-                        // hide_modal_cliente();
+                        listaplato();
                     }
                 }
             })
@@ -215,8 +214,8 @@ $title_pagina = 'lista de plato';
                 url: './Controller/ControllMenu.php?ope=' + ope,
                 success: function(data) {
                     if (data == 1) {
-                        listaplato();
                         hideModalplato();
+                        listaplato();
                     }
                 }
             })
@@ -251,17 +250,9 @@ $title_pagina = 'lista de plato';
     // fin exportacion
 
     function hideModalplato() {
-        $('#menu').modal('hide');
-        $('#contenido_modal').html('')
-        bodyModalBackdrop()
+        $('#modalmedia').modal('hide');
+        $('#modalmedia').html('');
     }
-
-    function bodyModalBackdrop() {
-        $('body').children('.modal-backdrop').remove();
-        $('body').removeClass();
-        $('body').removeAttr('style');
-    }
-
     listaplato();
 </script>
 

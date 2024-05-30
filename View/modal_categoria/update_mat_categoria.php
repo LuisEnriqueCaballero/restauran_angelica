@@ -13,7 +13,6 @@ foreach($restul as $datos){
 ?>
 
 <!-- Modal  Estrutura-->
-<div class="modal fade" id="categoria" tabindex="-1" >
     <div class="modal-dialog  modal-lg modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
@@ -41,7 +40,6 @@ foreach($restul as $datos){
             </div>
         </div>
     </div>
-</div>
 <!-- style modal -->
 <style>
     .modal-body form .form-row{

@@ -11,8 +11,8 @@ foreach($restul as $datos){
 ?>
 
 <!-- Modal  Estrutura-->
-<div class="modal fade" id="caja" tabindex="-1" >
-    <div class="modal-dialog  modal-lg modal-dialog-centered">
+
+    <div class="modal-dialog modal-sm">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" style="font-family: sans-serif;
@@ -26,7 +26,7 @@ foreach($restul as $datos){
                 <form id="formCajaU">
                     <input type="text" hidden name="id" id="id" value="<?php echo $id?>">
                     <div class="form-row">
-                        <div class="col-sm-6">
+                        <div class="col-sm-12">
                             <label for="cliente">DESCRIPCION</label>
                             <input type="text" name="descripcion" id="descripcion" class="form-control" value="<?php echo $descripcion;?>">
                         </div>
@@ -40,7 +40,7 @@ foreach($restul as $datos){
             </div>
         </div>
     </div>
-</div>
+
 <!-- style modal -->
 <style>
     .modal-body form .form-row{

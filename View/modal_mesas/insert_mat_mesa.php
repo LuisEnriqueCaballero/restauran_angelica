@@ -32,7 +32,7 @@
     
 </style>
 <!-- Modal  Estrutura-->
-<div class="modal fade" id="mesa" tabindex="-1" >
+
     <div class="modal-dialog  modal-lg modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
@@ -64,4 +64,3 @@
             </div>
         </div>
     </div>
-</div>

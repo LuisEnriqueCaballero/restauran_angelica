@@ -139,9 +139,9 @@
                 type: 'POST',
                 dataType: 'HTML',
                 success: function(data) {
-                    $('#modal_example').html('');
-                    $('#modal_example').html(data);
-                    $('#modal_example').modal({
+                    $('#modalmedia').html('');
+                    $('#modalmedia').html(data);
+                    $('#modalmedia').modal({
                         keyboard: false,
                         backdrop: 'static',
                         show: true
@@ -155,9 +155,9 @@
                 type: 'GET',
                 dataType: 'HTML',
                 success: function(data) {
-                    $('#contenido_modal').html('');
-                    $('#contenido_modal').html(data);
-                    $('#caja').modal({
+                    $('#modalmedia').html('');
+                    $('#modalmedia').html(data);
+                    $('#modalmedia').modal({
                         keyboard: false,
                         backdrop: 'static',
                         show: true
@@ -234,8 +234,8 @@ function expotararchivos(e){
 // fin exportacion
 
     function hide_modal_caja() {
-        $('#modal_example').modal('hide');
-        $('#modal_example').html('')
+        $('#modalmedia').modal('hide');
+        $('#modalmedia').html('')
     }
     lista_caja();
 </script>
