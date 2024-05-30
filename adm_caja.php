@@ -179,8 +179,8 @@
                 success: function(data) {
                     if (data) {
                         $('#formCaja')[0].reset();
+                        hide_modal_caja();
                         lista_caja();
-                        hide_modal_caja()
                     }
                 }
             })
@@ -193,8 +193,8 @@
                 url: './Controller/ControllCaja.php?ope=updatecaja',
                 success: function(data) {
                     if (data) {
-                        lista_caja();
                         hide_modal_caja()
+                        lista_caja();
                     }
                 }
             })

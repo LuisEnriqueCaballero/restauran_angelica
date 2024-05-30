@@ -184,9 +184,8 @@ $title_pagina = 'lista trabajadores'
                     if(result == 1){
                         $('#formEmpleado')[0].reset();
                         console.log('hola')
-                        hide_modal_empleado()
-                        lista_empleado()
-                        
+                        hide_modal_empleado();
+                        lista_empleado();
                     }
                 },error: function(xhr, status, error) {
             console.error(xhr.responseText); // Muestra los errores en la consola
@@ -200,9 +199,8 @@ $title_pagina = 'lista trabajadores'
                 url:'./Controller/ControllEmpleado.php?ope=3',
                 success:function(result){
                     if(result == 1){
-                        lista_empleado()
-                        hide_modal_empleado()
-                        
+                        hide_modal_empleado();
+                        lista_empleado();
                     }
                 }
             })

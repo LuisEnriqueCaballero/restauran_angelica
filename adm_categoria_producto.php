@@ -186,7 +186,6 @@
                 url: './Controller/ControllProducto.php?ope=' + ope,
                 success: function(data) {
                     if (data == 1) {
-                        console.log('hola')
                         hide_modal_categoria()
                         lista_categoriaproducto();
                     }

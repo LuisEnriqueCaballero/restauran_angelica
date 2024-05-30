@@ -172,8 +172,8 @@
                 success: function(data) {
                     if (data == 1) {
                         $('#formCategoria')[0].reset();
-                        lista_categoria();
                         hide_modal_categoria();
+                        lista_categoria();
                     }
                 }
             })
@@ -186,8 +186,8 @@
                 url: './Controller/ControllCategoria.php?ope=' + ope,
                 success: function(data) {
                     if (data == 1) {
-                        lista_categoria();
                         hide_modal_categoria();
+                        lista_categoria();
                     }
                 }
             })

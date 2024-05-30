@@ -170,8 +170,7 @@ $title='Compras';?>
                     if (data.mensaje) {
                         $('#formCompra')[0].reset();
                         $('#carrito_compra').html(data.html);
-                        lista_compra()
-                        // hide_modal_cliente();
+                        lista_compra();
                     }
                 }
             })

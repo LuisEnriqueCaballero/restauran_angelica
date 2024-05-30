@@ -199,8 +199,7 @@ $title_pagina = 'lista de productos';
                 success: function(data) {
                     if (data == 1) {
                         $('#formProducto')[0].reset();
-                        console.log('hola')
-                        hide_modal_producto()
+                        hide_modal_producto();
                         lista_producto();
                     }
                 }
@@ -214,8 +213,7 @@ $title_pagina = 'lista de productos';
                 url: './Controller/ControllProducto.php?ope=' + ope,
                 success: function(data) {
                     if (data == 1) {
-                        console.log('hola')
-                        hide_modal_producto()
+                        hide_modal_producto();
                         lista_producto();
                     }
                 }

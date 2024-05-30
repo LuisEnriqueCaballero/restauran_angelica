@@ -227,6 +227,8 @@ $title_pagina = 'lista de venta';
                 if (resul.mensaje) {
                     $('#formVenta')[0].reset();
                     $('#carrito_venta').html(resul.html);
+                    lista_venta();
+                    lista_venta_mesa();
                 }
             }
         })

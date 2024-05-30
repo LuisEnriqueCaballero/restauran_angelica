@@ -178,8 +178,8 @@ $title_pagina='Lista Cliente';
                 success: function(data) {
                     if (data == 1) {
                         $('#formCliente')[0].reset();
+                        hide_modal_cliente();
                         lista_cliente();
-                        hide_modal_cliente()
                     }
                 }
             })

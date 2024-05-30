@@ -36,6 +36,7 @@ class MetodoFinanciero{
             $fech_final_formatted = date('Y-m-d', strtotime(str_replace('/', '-', $fech_final)));
             $sql .= " WHERE TFI.fecha BETWEEN '{$fech_inic_formatted}' AND '{$fech_final_formatted}'";
         }
+        $sql .=" ORDER BY TFI.fecha ASC";
         $query=mysqli_query($cnx,$sql);
         return $query;
     }

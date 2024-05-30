@@ -187,10 +187,8 @@ $title_pagina = 'lista de proveedores';
                 success: function(data) {
                     if (data == 1) {
                         $('#formProveedor')[0].reset();
+                        hide_modal_proveedor();
                         lista_proveedor();
-                        hide_modal_proveedor()
-                        
-                        // hide_modal_cliente();
                     }
                 }
             })
@@ -203,10 +201,8 @@ $title_pagina = 'lista de proveedores';
                 url: './Controller/ControllProveedor.php?ope=' + ope,
                 success: function(data) {
                     if (data == 1) {
-                        console.log('hola')
-                        hide_modal_proveedor()
+                        hide_modal_proveedor();
                         lista_proveedor();
-                        // hide_modal_cliente();
                     }
                 }
             })

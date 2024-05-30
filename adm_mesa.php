@@ -178,8 +178,8 @@ $title_pagina = 'lista de mesa';
                 success: function(data) {
                     if (data == 1) {
                         $('#formMesa')[0].reset();
-                        lista_mesa();
                         hide_modal_mesa();
+                        lista_mesa();
                     }
                 }
             })
@@ -192,9 +192,8 @@ $title_pagina = 'lista de mesa';
                 url: './Controller/ControllMesa.php?ope=' + ope,
                 success: function(data) {
                     if (data == 1) {
-                        console.log('hola')
+                        hide_modal_mesa();
                         lista_mesa();
-                        hide_modal_mesa()
                     }
                 }
             })
