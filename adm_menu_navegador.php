@@ -33,9 +33,9 @@ $listasubmenu = $metodolink->lista_sublink($id);
     </div>
     <div class="modal fade" id="listado" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     </div>
-    <div class="modal fade" id="cancelar" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="modalmensaje" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     </div>
-    <div class="modal fade" id="alerta" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="modaleliminar" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     </div>
     <section class="slider">
         <nav class="menu">
@@ -446,4 +446,45 @@ function graficopie() {
         }
     })
 }
+</script>
+<script>
+function viewsmodal(id,viewmodal,divmodal,title,titulo,pregunta,aviso) {
+    $.ajax({
+        type: 'GET',
+        dataType: 'HTML',
+        url: 'View/'+viewmodal+'?val='+id,
+        success: function(data) {
+            $('#modal'+divmodal).html('');
+            $('#modal'+divmodal).html(data);
+            $('#modal'+title).html(titulo);
+            $('#pregunta').html(pregunta);
+            $('#aviso').html(aviso);
+            $('#modal'+divmodal).modal({
+                keyboard: false,
+                backdrop: 'static',
+                show: true
+            });
+        },
+    })
+}
+function mensaje_confirmacion(div,viewmodal,confirmacion){
+    $.ajax({
+        dataType: 'HTML',
+        url: 'View/modal_mensaje_confirmacion/'+viewmodal,
+        success: function(data) {
+            $('#modal'+div).html('');
+            $('#modal'+div).html(data);
+            $('#confirmacion').html('<span class="fa fa-spinner fa-spin"></span>'+ confirmacion);
+            $('#modal'+div).modal({
+                keyboard: false,
+                backdrop: 'static',
+                show: true
+            });
+        },
+    })
+}
+function hide_modal(div) {
+        $('#modal'+div).modal('hide');
+        $('#modal'+div).html('');
+    }
 </script>

@@ -146,7 +146,7 @@ $title_pagina='Lista Cliente';
                         show: true
                     });
                 },
-                timeout: 40000
+                timeout: 4000
             })
         } else {
             $.ajax({
@@ -234,6 +234,46 @@ function expotararchivos(e){
         $('#modalmedia').html('');
     }
     lista_cliente();
+
+    function mensaje_eliminar(id){
+        let modaltiutlo='mensajelabel'
+        let titulo='Eliminar dato';
+        let viemodal='modal_cliente/delete_mat_cliente.php';
+        let mensaje='¿desea eliminar este datos?';
+        let aviso='Si elimina este dato ya no se podra recuperar';
+        viewsmodal(id,viemodal,'eliminar',modaltiutlo,titulo,mensaje,aviso);
+    }
+    function mensaje_confir(){
+        let div='mensaje';
+        let viewmodal='modal_confirmacion.php';
+        let confirmacion=' esta procesando';
+        mensaje_confirmacion(div,viewmodal,confirmacion);
+    }
+    function elimar_datos(ope,option){
+        let id=$('#cliente').val();
+        if(option == 1){
+            $.ajax({
+                type:'POST',
+                datatype:'JSON',
+                data:{
+                    idcliente:id
+                },
+                url:'./Controller/ControllCliente.php?ope='+ope,
+                success:function(resulta){
+                    if(resulta){
+                        hide_modal('eliminar');
+                        mensaje_confir();
+                        setTimeout(function() {
+                            hide_modal('mensaje');
+                        }, 5000);
+                        lista_cliente();
+                    }
+                }
+            })
+        }else{
+            hide_modal('eliminar');
+        }
+    }
 </script>
 
 <!-- style -->
