@@ -5,3 +5,13 @@
         </div>
     </div>
 </div>
+
+<style>
+    #confirmacion{
+        font-family:'sans-serif';
+        font-size:18px;
+        font-weight:500;
+        color:#000;
+        text-align:center;
+    }
+</style>

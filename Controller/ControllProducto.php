@@ -64,7 +64,7 @@ switch ($ope) {
                           <td class='text-center'>$num</td>
                           <td class='text-center'>$key[descrip_categoria]</td>
                           <td class='text-center'>$key[descrip_producto]</td>
-                          <td class='text-center'><button class='btn btn-default' onclick='eliminar_producto(" . $key['id'] . ")'><i class='fa fa-trash-o' aria-hidden='true'></i></button>
+                          <td class='text-center'><button class='btn btn-default' onclick='mensaje_eliminar(" . $key['id'] . ")'><i class='fa fa-trash-o' aria-hidden='true'></i></button>
                           <button class='btn  btn-btn-outline-success' onclick='matenimiento_producto(" . $key['id'] . ")'><i class='fa fa-pencil' aria-hidden='true'></i></button></td>
                            </tr>";
                 $num++;
@@ -93,7 +93,7 @@ switch ($ope) {
         break;
 
     case '8':
-        $id=isset($_POST['id'])?$_POST['id']:'';
+        $id=isset($_POST['idproducto'])?$_POST['idproducto']:'';
         $delete=$MetodoProducto->DeleteProducto($id);
         echo $delete;
         break;

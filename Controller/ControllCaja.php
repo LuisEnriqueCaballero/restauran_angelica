@@ -25,7 +25,7 @@ switch ($ope) {
                          <td class='text-center text-uppercase'>$mes</td>
                          <td class='text-center text-uppercase'>$key[anio]</td>
                          <td class='text-center text-uppercase'>$key[estado]</td>
-                         <td class='text-center'><button class='btn btn-default' onclick='eliminar_caja(" . $key['id_caja'] . ")'><i class='fa fa-trash-o' aria-hidden='true'></i></button>
+                         <td class='text-center'>
                          <button class='btn  btn-btn-outline-success' onclick='matenimiento_caja(" . $key['id_caja'] . ")'><i class='fa fa-pencil' aria-hidden='true'></i></button>
                          </td>
                          </tr>";

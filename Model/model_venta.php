@@ -54,12 +54,13 @@ class MetodoVenta{
                INNER JOIN mesa AS TBM ON TBM.id_mesa=TBPED.id_mesa
                INNER JOIN estado AS TES ON TES.id=TBPED.estado
                INNER JOIN atendido AS TAS ON TAS.id=TBPED.atencion
-               INNER JOIN medio_pago AS TPS ON TPS.id=TBPED.tipo_pago ";
+               INNER JOIN medio_pago AS TPS ON TPS.id=TBPED.tipo_pago
+               WHERE TBPED.estado <> 4 ";
               if(!empty($cliente)){
-                $sql .=" WHERE TBC.dato_cliente={$cliente}";
+                $sql .=" AND TBC.dato_cliente={$cliente}";
               }
               if(!empty($mesa)){
-                $sql .=" WHERE TBM.numero={$mesa}";
+                $sql .=" AND TBM.numero={$mesa}";
               }
          
         $query=mysqli_query($cnx,$sql);

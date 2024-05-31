@@ -265,7 +265,7 @@ switch ($ope) {
         break;   
     
     case 'anulado':
-        $id=isset($_POST['id'])?$_POST['id']:'';
+        $id=isset($_POST['idpedido'])?$_POST['idpedido']:'';
         $updateatencion=$metodoVenta->anulado($id);
         echo $updateatencion;
         break;

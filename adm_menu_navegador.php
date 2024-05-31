@@ -37,6 +37,8 @@ $listasubmenu = $metodolink->lista_sublink($id);
     </div>
     <div class="modal fade" id="modaleliminar" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     </div>
+    <div class="modal fade" id="modalpedido" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    </div>
     <div class="modal fade" id="cancelar" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     </div>
     <section class="slider">

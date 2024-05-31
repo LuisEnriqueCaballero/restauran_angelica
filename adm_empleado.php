@@ -207,7 +207,7 @@ $title_pagina = 'lista trabajadores'
         }
     }
 
-    function eliminar(id){
+    /*function eliminar(id){
         let id_cliente=id;
         $.ajax({
                 type:'POST',
@@ -221,11 +221,52 @@ $title_pagina = 'lista trabajadores'
                     }
                 }
             })
-    }
+        }*/
 
     function hide_modal_empleado() {
         $('#modalmedia').modal('hide');
         $('#modalmedia').html('');
+    }
+
+    function mensaje_eliminar(id){
+        let modaltiutlo='mensajelabel'
+        let titulo='Eliminar dato';
+        let viemodal='modal_empleado/delete_mat_empleado.php';
+        let mensaje='¿Desea eliminar este dato?';
+        let aviso='Si elimina este dato ya no se podra recuperarlo';
+        viewsmodal(id,viemodal,'eliminar',modaltiutlo,titulo,mensaje,aviso);
+    }
+    function mensaje_confir(){
+        let div='mensaje';
+        let viewmodal='modal_confirmacion.php';
+        let confirmacion=' esta procesando';
+        mensaje_confirmacion(div,viewmodal,confirmacion);
+    }
+
+    function elimar_datos(ope,option){
+        let id=$('#empleado').val();
+        if(option == 1){
+            $.ajax({
+                type:'POST',
+                datatype:'JSON',
+                data:{
+                    idempleado:id
+                },
+                url:'./Controller/ControllEmpleado.php?ope='+ope,
+                success:function(resulta){
+                    if(resulta){
+                        hide_modal('eliminar');
+                        mensaje_confir();
+                        setTimeout(function() {
+                            hide_modal('mensaje');
+                        }, 5000);
+                        lista_empleado();
+                    }
+                }
+            })
+        }else{
+            hide_modal('eliminar');
+        }
     }
     lista_empleado();
 </script>

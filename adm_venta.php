@@ -423,10 +423,6 @@ $title_pagina = 'lista de venta';
             }
         })
     }
-    
-
-    lista_venta()
-    lista_venta_mesa()
     function ver_pedido(val){
         if(val == 1){
             $('.pedido_mesa').hide();
@@ -489,21 +485,47 @@ $title_pagina = 'lista de venta';
         })
     }
     function anulado(id){
-        let id_pedido=id;
         $.ajax({
-            type:'POST',
-            data:{
-                id:id_pedido
-            },
-            url:'./Controller/ControllVenta.php?ope=anulado',
-            success:function(r){
-                if(r==1){
-                lista_venta()
-                lista_venta_mesa(); 
-            }
+            type:'GET',
+            dataType:'HTML',
+            url:'./View/modal_venta/anular_pedido.php?val='+id,
+            success:function(data){
+                $('#modalpedido').html('');
+                $('#modalpedido').html(data);
+                $('#modalmensajelabel').html('Anular Pedido');
+                $('#pregunta').html('¿Deseas anular este pedido?');
+                $('#aviso').html('Al anular este pedido ya no podra recurarlo');
+                $('#modalpedido').modal({
+                keyboard: false,
+                backdrop: 'static',
+                show: true
+            });
             }
         })
     }
+    function anular_pedido(ope){
+        let id=$('#pedido').val();
+        if(ope==1){
+            $.ajax({
+            type:'POST',
+            data:{
+                idpedido:id
+            },
+            url:'./Controller/ControllVenta.php?ope=anulado',
+            success:function(resultado){
+                if(resultado){
+                    hide_modal('pedido');
+                    lista_venta();
+                    lista_venta_mesa();
+                }
+            }
+        })
+        }else{
+         hide_modal('pedido');
+        }
+    }
+    lista_venta()
+    lista_venta_mesa()
 </script>
 
 <!-- style -->

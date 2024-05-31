@@ -220,22 +220,6 @@ $title_pagina = 'lista de productos';
             })
         }
     }
-
-    function eliminar_producto(id) {
-        let id_producto = id;
-        $.ajax({
-            type: 'POST',
-            data: {
-                id: id_producto
-            },
-            url: './Controller/ControllProducto.php?ope=8',
-            success: function(data) {
-                if (data == 1) {
-                    lista_producto();
-                }
-            }
-        })
-    }
 // incio exportar pdf y excel
 function expotararchivos(e){
   
@@ -245,14 +229,53 @@ function expotararchivos(e){
     }else{
         window.open('./Controller/Controllcategoria.php?ope=6&categoria='+categoria,'_blank');
     }
-	
-
 }
 // fin exportacion
 
     function hide_modal_producto() {
         $('#modalmedia').modal('hide');
         $('#modalmedia').html('');
+    }
+
+    function mensaje_eliminar(id){
+        let modaltiutlo='mensajelabel'
+        let titulo='Eliminar dato';
+        let viemodal='modal_producto/delete_mat_producto.php';
+        let mensaje='¿Desea eliminar este dato?';
+        let aviso='Si elimina este dato ya no se podra recuperarlo';
+        viewsmodal(id,viemodal,'eliminar',modaltiutlo,titulo,mensaje,aviso);
+    }
+    function mensaje_confir(){
+        let div='mensaje';
+        let viewmodal='modal_confirmacion.php';
+        let confirmacion=' esta procesando';
+        mensaje_confirmacion(div,viewmodal,confirmacion);
+    }
+
+    function elimar_datos(ope,option){
+        let id=$('#producto').val();
+        if(option == 1){
+            $.ajax({
+                type:'POST',
+                datatype:'JSON',
+                data:{
+                    idproducto:id
+                },
+                url:'./Controller/ControllProducto.php?ope='+ope,
+                success:function(resulta){
+                    if(resulta){
+                        hide_modal('eliminar');
+                        mensaje_confir();
+                        setTimeout(function() {
+                            hide_modal('mensaje');
+                        }, 5000);
+                        lista_producto();
+                    }
+                }
+            })
+        }else{
+            hide_modal('eliminar');
+        }
     }
     lista_producto();
 </script>

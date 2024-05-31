@@ -24,7 +24,7 @@ switch ($ope) {
                          <td class='text-center'>$value[nombre_proveedor]</td>
                          <td class='text-center'>$value[telefono]</td>
                          <td class='text-center'>$value[direccion]</td>
-                         <td class='text-center'><button class='btn btn-default' onclick='eliminar_proveedor(" . $value['id_proveedor'] . ")'><i class='fa fa-trash-o' aria-hidden='true'></i></button>
+                         <td class='text-center'><button class='btn btn-default' onclick='mensaje_eliminar(" . $value['id_proveedor'] . ")'><i class='fa fa-trash-o' aria-hidden='true'></i></button>
                          <button class='btn  btn-btn-outline-success' onclick='matenimiento_proveedor(" . $value['id_proveedor'] . ")'><i class='fa fa-pencil' aria-hidden='true'></i></button>
                        </td>
                          </tr>";
@@ -64,7 +64,7 @@ switch ($ope) {
         break;
 
     case '4':
-        $id=isset($_POST['id'])?$_POST['id']:'';
+        $id=isset($_POST['idproveedor'])?$_POST['idproveedor']:'';
         $resulta=$metodoProveedor->deleteProveedor($id);
         echo $resulta;
         break;

@@ -1,14 +1,13 @@
 <?php
 include_once '../../Config/cnmysql.php';
-include_once '../../Model/model_cliente.php';
-$metodocliente=new MetodoCliente();
+include_once '../../Model/modal_proveedor.php';
+$metodoproveedor=new MetodoProveedor;;
 $val= isset($_GET['val'])?$_GET['val']:'';
-$restul=$metodocliente->getcliente($val);
+$restul=$metodoproveedor->getProveedor($val);
 foreach($restul as $datos){
-    $id=$datos['id_cliente'];
+    $id=$datos['id_proveedor'];
 }
 ?>
-
 <div class="modal-dialog">
     <div class="modal-content" id="modalmensajeconten">
         <div class="modal-content">
@@ -21,7 +20,7 @@ foreach($restul as $datos){
             <div class="modal-body">
                 <h4 id="pregunta"></h4>
                 <span id="aviso"></span>
-                    <input type="text" hidden name="cliente" id="cliente" value="<?php echo $id?>">
+                    <input type="text" hidden name="proveedor" id="proveedor" value="<?php echo $id?>">
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger anular"

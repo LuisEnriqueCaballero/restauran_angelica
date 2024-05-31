@@ -199,22 +199,6 @@ $title_pagina='Lista Cliente';
             })
         }
     }
-
-    function eliminar_cliente(id) {
-        let id_cliente = id;
-        $.ajax({
-            type: 'POST',
-            data: {
-                id: id_cliente
-            },
-            url: './Controller/ControllCliente.php?ope=4',
-            success: function(data) {
-                if (data == 1) {
-                    lista_cliente();
-                }
-            }
-        })
-    }
 // incio exportar pdf y excel
 function expotararchivos(e){
   
@@ -239,8 +223,8 @@ function expotararchivos(e){
         let modaltiutlo='mensajelabel'
         let titulo='Eliminar dato';
         let viemodal='modal_cliente/delete_mat_cliente.php';
-        let mensaje='¿desea eliminar este datos?';
-        let aviso='Si elimina este dato ya no se podra recuperar';
+        let mensaje='¿Desea eliminar este dato?';
+        let aviso='Si elimina este dato ya no se podra recuperarlo';
         viewsmodal(id,viemodal,'eliminar',modaltiutlo,titulo,mensaje,aviso);
     }
     function mensaje_confir(){

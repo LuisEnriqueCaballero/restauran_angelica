@@ -15,15 +15,16 @@ switch ($ope) {
         if($num_fila>0){
             while ($row = mysqli_fetch_array($result)) {
                 $fecha_modificada=date('d/m/Y',strtotime($row['fech_contrato']));
+                $salario=number_format($row['salario'],0,'','.');
                 $html .= "<tr>
                        <td class='text-center'>$num</td>
                        <td class='text-center'>$row[nombre_empleado]</td>
                        <td class='text-center'>$row[apellido_empleado]</td>
                        <td class='text-center'>$row[telefono]</td>
                        <td class='text-center'>$row[puesto]</td>
-                       <td class='text-center'>$/.$row[salario]</td>
+                       <td class='text-center'>$ $salario</td>
                        <td class='text-center'>$fecha_modificada</td>
-                       <td class='text-center'><button class='btn btn-default' onclick='eliminar(" . $row['id_empleado'] . ")'><i class='fa fa-trash-o' aria-hidden='true'></i></button>
+                       <td class='text-center'><button class='btn btn-default' onclick='mensaje_eliminar(" . $row['id_empleado'] . ")'><i class='fa fa-trash-o' aria-hidden='true'></i></button>
                        <button class='btn  btn-btn-outline-success' onclick='matenimiento_empleado(" . $row['id_empleado'] . ")'><i class='fa fa-pencil' aria-hidden='true'></i></button>
                        </td>
                        </tr>";
@@ -65,7 +66,7 @@ switch ($ope) {
         break;
 
     case '4':
-        $id=isset($_POST['id_cliente']) ? $_POST['id_cliente'] : '';
+        $id=isset($_POST['idempleado']) ? $_POST['idempleado'] : '';
         $result =$metodo_empleado->deleteEmpleado($id);
         echo $result;
         break;

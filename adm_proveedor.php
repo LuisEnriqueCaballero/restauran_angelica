@@ -208,22 +208,6 @@ $title_pagina = 'lista de proveedores';
             })
         }
     }
-
-    function eliminar_proveedor(id) {
-        let id_proveedor = id;
-        $.ajax({
-            type: 'POST',
-            data: {
-                id: id_proveedor
-            },
-            url: './Controller/ControllProveedor.php?ope=4',
-            success: function(data) {
-                if (data == 1) {
-                    lista_proveedor();
-                }
-            }
-        })
-    }
 // incio exportar pdf y excel
 function expotararchivos(e){
   
@@ -241,6 +225,47 @@ function expotararchivos(e){
     function hide_modal_proveedor() {
         $('#modalmedia').modal('hide');
         $('#modalmedia').html('');
+    }
+
+    function mensaje_eliminar(id){
+        let modaltiutlo='mensajelabel'
+        let titulo='Eliminar dato';
+        let viemodal='modal_proveedor/delete_mat_proveedor.php';
+        let mensaje='¿Desea eliminar este dato?';
+        let aviso='Si elimina este dato ya no se podra recuperarlo';
+        viewsmodal(id,viemodal,'eliminar',modaltiutlo,titulo,mensaje,aviso);
+    }
+    function mensaje_confir(){
+        let div='mensaje';
+        let viewmodal='modal_confirmacion.php';
+        let confirmacion=' esta procesando';
+        mensaje_confirmacion(div,viewmodal,confirmacion);
+    }
+
+    function elimar_datos(ope,option){
+        let id=$('#proveedor').val();
+        if(option == 1){
+            $.ajax({
+                type:'POST',
+                datatype:'JSON',
+                data:{
+                    idproveedor:id
+                },
+                url:'./Controller/ControllProveedor.php?ope='+ope,
+                success:function(resulta){
+                    if(resulta){
+                        hide_modal('eliminar');
+                        mensaje_confir();
+                        setTimeout(function() {
+                            hide_modal('mensaje');
+                        }, 5000);
+                        lista_proveedor();
+                    }
+                }
+            })
+        }else{
+            hide_modal('eliminar');
+        }
     }
     lista_proveedor();
 </script>

@@ -142,23 +142,8 @@ $title='Lista Egreso';
         } else {
             window.open('exppdf.php?exp=report_egreso&inic_date='+inicio+'&fin_date='+final, '_blank');
         }
-
-
     }
     // fin exportacion
-
-    function hide_modal_caja() {
-        $('#caja').modal('hide');
-        $('#contenido_modal').html('')
-        body_modal_backdrop()
-    }
-
-    function body_modal_backdrop() {
-        $('body').children('.modal-backdrop').remove();
-        $('body').removeClass();
-        $('body').removeAttr('style');
-    }
-
     lista_egreso();
 </script>
 
