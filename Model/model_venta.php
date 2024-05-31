@@ -18,10 +18,10 @@ class MetodoVenta{
         return $query;
     }
     
-    public function insertVenta($id_cliente,$estado,$fecha_hora,$total,$id_mesa,$tipo_pago,$tipo_atencion,$atencion,$mes,$anio){
+    public function insertVenta($id_cliente,$estado,$fecha_hora,$total,$id_mesa,$tipo_pago,$tipo_atencion,$atencion,$mes,$anio,$efectivo_total){
         $conectar= new conectar();
         $cnx = $conectar->conexion();
-        $sql="INSERT INTO pedido( id_cliente,estado,fecha_hora,total,id_mesa,tipo_pago,tipo_atencion,atencion,mes,anio) VALUE ('$id_cliente','$estado','$fecha_hora','$total','$id_mesa','$tipo_pago','$tipo_atencion','$atencion','$mes','$anio')";
+        $sql="INSERT INTO pedido(id_cliente,estado,fecha_hora,total,id_mesa,tipo_pago,tipo_atencion,atencion,mes,anio,efectivo_total) VALUE ('$id_cliente','$estado','$fecha_hora','$total','$id_mesa','$tipo_pago','$tipo_atencion','$atencion','$mes','$anio','$efectivo_total')";
         $query=mysqli_query($cnx,$sql);
         return $query;
     }
