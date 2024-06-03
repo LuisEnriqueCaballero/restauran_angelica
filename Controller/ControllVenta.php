@@ -248,19 +248,20 @@ switch ($ope) {
         $concepto = '1';
         
         if($updateatencion){
-            // insertar ingreso
-            $insertingreso = $metodofinanciero->insertIngreso($concepto, $monto_total, $fecha_hora,$mes,$anio);
             // obtener mi ultima datos de mi ultima caja
             $ultimacaja=$metodocaja->ultimocaja();
             foreach ($ultimacaja as $key) {
             $id_caja=$key['id_caja_apert'];
             $monto_incial=$key['monto_inicial'];
         }
-            // update actulizar mi monto de mi caja
-            $monto_final=floatval($monto_total)+ floatval($monto_incial);
-            $updatecaja=$metodocaja->updatemontocaja($id_caja,$monto_final);
-            // inserta mi kader financiero
-            $metodofinanciero->insertKardexfinanciero($concepto, '0.00', $monto_total, $monto_final, $fecha_hora,$mes,$anio);
+
+        // insertar ingreso
+        $insertingreso = $metodofinanciero->insertIngreso($concepto, $monto_total, $fecha_hora,$mes,$anio,$id_caja);
+        // update actulizar mi monto de mi caja
+        $monto_final=floatval($monto_total)+ floatval($monto_incial);
+        $updatecaja=$metodocaja->updatemontocaja($id_caja,$monto_final);
+        // inserta mi kader financiero
+        $metodofinanciero->insertKardexfinanciero($concepto, '0.00', $monto_total, $monto_final, $fecha_hora,$mes,$anio,$id_caja);
         }
         echo 1;
         break;   

@@ -270,3 +270,19 @@ $title_pagina = 'lista trabajadores'
     }
     lista_empleado();
 </script>
+<!-- style -->
+<style>
+    #lista_empleado .even {
+        background-color: #212120;
+        height: 60px;
+        color: #F3F3F3;
+        text-transform: capitalize;
+    }
+
+    #lista_empleado .odd {
+        background-color: #3A4750;
+        height: 60px;
+        color: #F3F3F3;
+        text-transform: capitalize;
+    }
+</style>

@@ -28,7 +28,8 @@ switch ($ope) {
                        </tr>";
             }
         }else{
-            $html .= "<tr>
+            $class='even';
+            $html .= "<tr class=" . $class . ">
                      <td class='text-center' colspan=5>$comentario</td>
                      </tr>";
         }

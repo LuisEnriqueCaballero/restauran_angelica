@@ -263,17 +263,16 @@ function expotararchivos(e){
 <!-- style -->
 <style>
     #lista_cliente .even {
-        background-color: #F3F0FB;
+        background-color: #212120;
         height: 60px;
-        color: #365a64;
+        color: #F3F3F3;
         text-transform: capitalize;
     }
 
     #lista_cliente .odd {
-        background-color: #E7EAEF;
+        background-color: #3A4750;
         height: 60px;
-        color: #365a64;
+        color: #F3F3F3;
         text-transform: capitalize;
-
     }
 </style>

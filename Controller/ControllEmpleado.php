@@ -14,9 +14,10 @@ switch ($ope) {
         $num = 1;
         if($num_fila>0){
             while ($row = mysqli_fetch_array($result)) {
+                $class=($num % 2===0)?'even':'odd';
                 $fecha_modificada=date('d/m/Y',strtotime($row['fech_contrato']));
                 $salario=number_format($row['salario'],0,'','.');
-                $html .= "<tr>
+                $html .= "<tr class='$class'>
                        <td class='text-center'>$num</td>
                        <td class='text-center'>$row[nombre_empleado]</td>
                        <td class='text-center'>$row[apellido_empleado]</td>
@@ -31,7 +32,8 @@ switch ($ope) {
                 $num++;
             }
         }else{
-            $html .="<tr>
+            $class=($num % 2===0)?'even':'odd';
+            $html .="<tr class='$class'>
                      <td class='text-center' colspan=8>$comentario</td>
                      </tr>";
         }

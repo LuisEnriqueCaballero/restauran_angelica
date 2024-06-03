@@ -297,6 +297,7 @@ justify-content: start;
   align-items: center;
   margin: auto;
   justify-content: space-between;
+  background-color: var(--color-panel);
 }
 .contenido_infomacion .adm_contenido .table{
   width: 100%;

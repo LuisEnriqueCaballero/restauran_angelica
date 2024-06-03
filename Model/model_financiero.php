@@ -41,26 +41,26 @@ class MetodoFinanciero{
         return $query;
     }
 
-    public function insertIngreso($descripcion, $monto, $fecha,$mes,$anio){
+    public function insertIngreso($descripcion, $monto, $fecha,$mes,$anio,$id_caja){
         $conexion = new conectar();
         $cnx=$conexion->conexion();
-        $sql="INSERT INTO ingreso(descripcion, monto, fecha,mes,anio) VALUE('$descripcion', '$monto', '$fecha','$mes','$anio');";
+        $sql="INSERT INTO ingreso(descripcion, monto, fecha,mes,anio,idcaja) VALUE('$descripcion', '$monto', '$fecha','$mes','$anio','$id_caja');";
         $query=mysqli_query($cnx,$sql);
         return $query;
     }
 
-    public function insertEgreso($descripcion, $monto, $fecha,$mes,$anio){
+    public function insertEgreso($descripcion, $monto, $fecha,$mes,$anio,$id_caja){
         $conexion = new conectar();
         $cnx=$conexion->conexion();
-        $sql="INSERT INTO egreso(descripcion, monto, fecha_registrado,mes,anio) VALUE('$descripcion', '$monto', '$fecha','$mes','$anio');";
+        $sql="INSERT INTO egreso(descripcion, monto, fecha_registrado,mes,anio,idcaja) VALUE('$descripcion', '$monto', '$fecha','$mes','$anio','$id_caja');";
         $query=mysqli_query($cnx,$sql);
         return $query;
     }
 
-    public function insertKardexfinanciero($concepto, $monto_egreso,$monto_ingreso, $saldo, $fecha,$mes,$anio){
+    public function insertKardexfinanciero($concepto, $monto_egreso,$monto_ingreso, $saldo, $fecha,$mes,$anio,$id_caja){
         $conexion = new conectar();
         $cnx=$conexion->conexion();
-        $sql="INSERT INTO kardex_financiero (concepto, monto_egreso,monto_ingreso, saldo, fecha,mes,anio) VALUE('$concepto', '$monto_egreso','$monto_ingreso', '$saldo', '$fecha','$mes','$anio');";
+        $sql="INSERT INTO kardex_financiero (concepto, monto_egreso,monto_ingreso, saldo, fecha,mes,anio,idcaja) VALUE('$concepto', '$monto_egreso','$monto_ingreso', '$saldo', '$fecha','$mes','$anio','$id_caja');";
         $query=mysqli_query($cnx,$sql);
         return $query;
     }

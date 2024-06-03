@@ -15,7 +15,8 @@ switch ($ope) {
         $comentario = 'No Hay Datos Registrado';
         if ($num_fila > 0) {
             foreach ($lista as $key) {
-                $html .= "<tr>
+                $class=($numero % 2 ===0)?'even':'odd';
+                $html .= "<tr class='$class'>
                          <td class='text-center'>$numero</td>
                          <td class='text-center text-uppercase'>$key[numero]</td>
                          <td class='text-center'>$key[capacidad]</td>

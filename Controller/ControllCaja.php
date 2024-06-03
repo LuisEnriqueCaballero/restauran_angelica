@@ -143,7 +143,11 @@ switch ($ope) {
         $estado=10;
         $concepto=4;
         $insert=$metodocaja->insertmulticaja($caja,$monto,$estado,$fecha,$mes,$anio);
-        $insertkardex=$metodoFinanciero->insertKardexfinanciero($concepto,'0.00','0.00',$monto,$fecha,$mes,$anio);
+        $ultimalista=$metodocaja->ultimocaja();
+        foreach($ultimalista as $key){
+            $id_caja=$key['id_caja_apert'];
+        }
+        $insertkardex=$metodoFinanciero->insertKardexfinanciero($concepto,'0.00','0.00',$monto,$fecha,$mes,$anio,$id_caja);
         echo $insertkardex;
         break;
 

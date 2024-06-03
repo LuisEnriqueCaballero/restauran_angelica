@@ -51,12 +51,19 @@ switch ($ope) {
         $concepto = '2';
         $lista = $_SESSION['carrito_compra'];
 
+        // haciendo consulta del monto de caja
+        $ultimomonto=$metodoCaja->ultimocaja();
+        foreach ($ultimomonto as $key) {
+            $id_caja = $key['id_caja_apert'];
+            $montocaja = $key['monto_inicial'];
+        }
+
         // insertando dato las tablas
         // insertando a la tabla de compra
         $insert = $metodoCompra->insertCompra($tipo_boleta, $num_recibo, $id_proveedor, $total,$fecha_hora,$mes,$anio);
 
         // insertando a la tabla de egreso
-        $insertegreso = $metodofinanciero->insertEgreso($concepto, $total, $fecha_hora,$mes,$anio);
+        $insertegreso = $metodofinanciero->insertEgreso($concepto, $total, $fecha_hora,$mes,$anio,$id_caja);
 
         // haciendo consulta de id de la ultima compra
         $consulta = $metodoCompra->ultimoCompra();
@@ -67,19 +74,12 @@ switch ($ope) {
             $metodoCompra->detalleCompra($idcompra, $lista[$i]['id'], $lista[$i]['cantidad'], $lista[$i]['precio'], $lista[$i]['subtotal']);
         }
 
-        // haciendo consulta del monto de caja
-        $ultimomonto=$metodoCaja->ultimocaja();
-        foreach ($ultimomonto as $key) {
-            $id_caja = $key['id_caja_apert'];
-            $montocaja = $key['monto_inicial'];
-        }
-        
         // actulizacion del monto de caja
         $updatemonto=$montocaja - $total ;
         $update=$metodoCaja->updatemontocaja($id_caja,$updatemonto);
 
         // insertando datos en tabla de kardex financiero
-        $metodofinanciero->insertKardexfinanciero($concepto, $total,'0.00', $updatemonto, $fecha_hora,$mes,$anio);
+        $metodofinanciero->insertKardexfinanciero($concepto, $total,'0.00', $updatemonto, $fecha_hora,$mes,$anio,$id_caja);
         unset($_SESSION['carrito_compra']);
         $html .="<tr>
                 <td colspan=5>$infomacion</td>

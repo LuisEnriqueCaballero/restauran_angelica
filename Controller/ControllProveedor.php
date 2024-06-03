@@ -17,7 +17,8 @@ switch ($ope) {
         $comentario='No Hay Datos Registrado';
         if($num_fila>0){
             foreach ($lista as $key => $value) {
-                $html .="<tr>
+                $class=($num % 2===0)?'even':'odd';
+                $html .="<tr class='$class'>
                          <td class='text-center'>$num</td>
                          <td class='text-center'>$value[empresa]</td>
                          <td class='text-center'>$value[ruc]</td>
@@ -31,7 +32,8 @@ switch ($ope) {
                 $num++;
             }
         }else{
-            $html .="<tr>
+            $class=($num % 2===0)?'even':'odd';
+            $html .="<tr class='$class'>
                      <td class='text-center' colspan=7>$comentario</td>
                     <tr>";
         }
