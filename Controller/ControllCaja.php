@@ -3,7 +3,6 @@ include_once '../Config/cnmysql.php';
 include_once '../Model/model_caja.php';
 include_once '../Model/model_financiero.php';
 date_default_timezone_set('America/Santiago');
-exit;
 $metodocaja = new Metodocaja();
 $metodoFinanciero= new MetodoFinanciero();
 $ope = isset($_GET['ope']) ? $_GET['ope'] : '';
@@ -18,7 +17,7 @@ switch ($ope) {
         $informa='no se encontro datos';
         if($num_fila>0){
             foreach ($lista as $key ) {
-                $fecha_actual=date('d/m/Y H:m:s',strtotime($key['fecha']));
+                $fecha_actual=date('d/m/Y H:i:s',strtotime($key['fecha']));
                 $mes=$meses[$key['mes']];
                 $html .= "<tr>
                          <td class='text-center text-uppercase'>$num</td>
@@ -73,7 +72,7 @@ switch ($ope) {
     case 'crearcaja':
         $mensaje=true;
         $descripcion=isset($_POST['descripcion'])?$_POST['descripcion']:'';
-        $fecha=date('Y-m-d H:m:s');
+        $fecha=date('Y-m-d H:i:s');
         $mes =date('m');
         $anio=date('Y');
         $insertcaja=$metodocaja->INSERTACAJA($descripcion,'1',$fecha,$mes,$anio);
