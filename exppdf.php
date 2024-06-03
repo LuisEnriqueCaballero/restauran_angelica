@@ -22,7 +22,7 @@ $objetoPDF= new FPDF();
 switch ($exp) {
     case 'report_plato':
         $num=0;
-        $fecha=date('d-m-Y H:m:s');
+        $fecha=date('d-m-Y H:i:s');
         $plato=isset($_REQUEST['plato'])?$_REQUEST['plato']:'';
         $categoria=isset($_REQUEST['categoria'])?$_REQUEST['categoria']:'0';
         $metodomenu=new MetodoMenu();
@@ -68,7 +68,7 @@ switch ($exp) {
     
     case 'report_egreso':
         $metodoegreso=new MetodoFinanciero();
-        $fecha=date('d-m-Y H:m:s');
+        $fecha=date('d-m-Y H:i:s');
         $inic_date=isset($_REQUEST['inic_date'])?$_REQUEST['inic_date']:'';
         $fin_date=isset($_REQUEST['fin_date'])?$_REQUEST['fin_date']:'';
         $listaegreso=$metodoegreso->lista_egreso($inic_date,$fin_date);
@@ -110,7 +110,7 @@ switch ($exp) {
     
     case 'reporte_ingreso':
         $metodoingreso=new MetodoFinanciero();
-        $fecha=date('d-m-Y H:m:s');
+        $fecha=date('d-m-Y H:i:s');
         $inic_date=isset($_REQUEST['inic_date'])?$_REQUEST['inic_date']:'';
         $fin_date=isset($_REQUEST['fin_date'])?$_REQUEST['fin_date']:'';
 
@@ -371,7 +371,7 @@ switch ($exp) {
             $total=$key['total'];
         }
         $listapedido=$metodoventa->detalle_ticke($id_pedido);
-        $objetoticke= new FPDF('p','mm',array(80,258));
+        $objetoticke= new FPDF('p', 'mm', 'A4');
     
         $objetoticke->AddPage();
         $objetoticke->SetFont('ARIAL','B',11);
@@ -450,7 +450,7 @@ switch ($exp) {
             $total=$key['total'];
         }
         $listapedido=$metodoventa->detalle_ticke($id_pedido);
-        $objetoticke= new FPDF('p','mm',array(80,258));
+        $objetoticke= new FPDF('p', 'mm', 'A4');
     
         $objetoticke->AddPage();
         $objetoticke->SetFont('ARIAL','B',11);

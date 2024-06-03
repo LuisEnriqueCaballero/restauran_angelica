@@ -2,6 +2,8 @@
 include_once '../Config/cnmysql.php';
 include_once '../Model/model_caja.php';
 include_once '../Model/model_financiero.php';
+date_default_timezone_set('America/Santiago');
+exit;
 $metodocaja = new Metodocaja();
 $metodoFinanciero= new MetodoFinanciero();
 $ope = isset($_GET['ope']) ? $_GET['ope'] : '';
@@ -16,7 +18,7 @@ switch ($ope) {
         $informa='no se encontro datos';
         if($num_fila>0){
             foreach ($lista as $key ) {
-                $fecha_actual=date('d-m-Y H:m:s',strtotime($key['fecha']));
+                $fecha_actual=date('d/m/Y H:m:s',strtotime($key['fecha']));
                 $mes=$meses[$key['mes']];
                 $html .= "<tr>
                          <td class='text-center text-uppercase'>$num</td>
@@ -49,7 +51,7 @@ switch ($ope) {
         if($num_fila>0){
             foreach ($lista as $key ) {
                 $monto_incial=number_format($key['monto_inicial'],2,',','.');
-                $fecha =date('d-m-Y H:m:s', strtotime($key['fecha_cierre']));
+                $fecha =date('d-m-Y H:i:s', strtotime($key['fecha_cierre']));
                 $mes=$meses[$key['mes']];
                 $html .= "<tr>
                          <td class='text-center text-uppercase'>$num</td>
@@ -105,7 +107,7 @@ switch ($ope) {
         if($num_fila>0){
             foreach ($lista as $key ) {
                 $monto_incial=number_format($key['monto_inicial'],2,',','.');
-                $fecha =date('d-m-Y H:m:s', strtotime($key['fecha_apertura']));
+                $fecha =date('d-m-Y H:i:s', strtotime($key['fecha_apertura']));
                 $mes=$meses[$key['mes']];
                 $html .= "<tr>
                          <td class='text-center text-uppercase'>$num</td>
@@ -136,7 +138,7 @@ switch ($ope) {
     case '2':
         $caja=isset($_POST['caja'])?$_POST['caja']:'';
         $monto=isset($_POST['monto'])?$_POST['monto']:0.00;
-        $fecha=date('Y-m-d H:m:s');
+        $fecha=date('Y-m-d H:i:s');
         $mes=date('m');
         $anio=date('Y');
         $estado=10;
@@ -156,7 +158,7 @@ switch ($ope) {
 
     case '4':
         $id_caja=isset($_POST['id'])?$_POST['id']:'';
-        $fecha=date('Y-m-d H:m:s');
+        $fecha=date('Y-m-d H:i:s');
         $delete=$metodocaja->cierrecaja($id_caja,$fecha);
         echo $delete;
         break;

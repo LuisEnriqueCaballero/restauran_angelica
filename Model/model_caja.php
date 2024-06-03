@@ -103,6 +103,8 @@ class Metodocaja{
         $conexion=new conectar();
         $cnx= $conexion->conexion();
         $sql="INSERT INTO caja(descripcion,estado,fecha,mes,anio) VALUES ('$descripcion','$estado','$fecha','$mes','$anio')";
+        echo $sql;
+        exit;
         $query=mysqli_query($cnx,$sql);
         return $query;
     }

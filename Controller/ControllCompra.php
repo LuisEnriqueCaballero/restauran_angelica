@@ -1,4 +1,5 @@
 <?php
+date_default_timezone_set('America/Santiago');
 session_start();
 include_once '../Config/cnmysql.php';
 include_once '../Model/model_compra.php';
@@ -41,7 +42,7 @@ switch ($ope) {
         $mensaje=true;
         $infomacion='tabla esta vacida';
         $id_proveedor = isset($_POST['proveedor']) ? $_POST['proveedor'] : '';
-        $fecha_hora = date('Y-m-d H:m:s');
+        $fecha_hora = date('Y-m-d H:i:s');
         $mes=date('m');
         $anio=date('Y');
         $tipo_boleta=isset($_POST['tipo_recibo']) ? $_POST['tipo_recibo'] : '';

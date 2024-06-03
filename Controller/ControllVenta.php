@@ -1,4 +1,5 @@
 <?php
+date_default_timezone_set('America/Santiago');
 session_start();
 include_once '../Config/cnmysql.php';
 include_once '../Model/model_venta.php';
@@ -83,7 +84,7 @@ switch ($ope) {
         $forma_pago = 4;
         $estado = 2;
         $efectivo_total=0.00;
-        $fecha_hora = date('Y-m-d H:m:s');
+        $fecha_hora = date('Y-m-d H:i:s');
         $mes=date('m');
         $anio=date('Y');
         $total = isset($_POST['monto']) ? $_POST['monto'] : '';
@@ -240,7 +241,7 @@ switch ($ope) {
         $tipo=isset($_POST['forma_pago'])?$_POST['forma_pago']:'';
         $monto_efectivo=isset($_POST['efectiv'])?$_POST['efectiv']:'0.00';
         $monto_total=isset($_POST['monto'])?$_POST['monto']:'';
-        $fecha_hora = date('Y-m-d H:m:s');
+        $fecha_hora = date('Y-m-d H:i:s');
         $mes=date('m');
         $anio=date('Y');
         $updateatencion=$metodoVenta->atendido_pagado($id,$tipo,$monto_efectivo);
