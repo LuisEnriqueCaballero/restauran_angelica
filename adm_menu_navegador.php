@@ -3,6 +3,7 @@ session_start();
 if(!empty($_SESSION['usuario'])){
 require_once 'Config/cnmysql.php';
 require_once 'Model/modal_link.php';
+require_once 'Model/model_grafico.php';
 
 $title='Dashbord';
 $metodolink = new linkmenu();
@@ -16,8 +17,31 @@ foreach ($listamenu as $key) {
 $fecha=date('Y-m-d');
 $listasubmenu = $metodolink->lista_sublink($id);
 $anio=date('Y');
+$messi=date('m');
 $maximo=$anio + 10;
 $mes =['Seleccione el mes','Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
+
+$messi=intval($messi);
+$mesdelanio=$mes[$messi];
+$metodografico = new MetodoGraficos();
+$ultimacaja =$metodografico->monto_cajahoy($fecha);
+foreach($ultimacaja AS $key){
+    $cajahoy=$key['CAJA'];
+    $monto=$key['monto_inicial'];
+}
+$monto_ingreso=$metodografico->Monto_ingreso_mes_anio($messi,$anio);
+foreach($monto_ingreso AS $key){
+    $montoI=$key['monto_ingreso'];
+}
+
+$monto_ingreso=$metodografico->Monto_egreso_mes_anio($messi,$anio);
+foreach($monto_ingreso AS $key){
+    $montoE=$key['monto_egreso'];
+}
+$monto_anio=$metodografico->Monto_total_anio($anio);
+foreach($monto_anio AS $key){
+    $montoA=$key['monto'];
+}
 ?>
 
 <!DOCTYPE html>
@@ -157,13 +181,29 @@ $mes =['Seleccione el mes','Enero','Febrero','Marzo','Abril','Mayo','Junio','Jul
                             <div class="card-body">
                                 <div class="cards">
                                     <figcaption>
-                                        <span>Caja del dia</span>
+                                        <span class="text-left">
+                                            <?php
+                                                if(isset($cajahoy)){
+                                                   echo $cajahoy;
+                                                }else{
+                                                    echo $cajahoy ='No hay caja creada';
+                                                }
+                                                ?>
+                                                del dia
+                                                </span>
                                         <img src="icon/cash2.svg" alt="">
-                                        <span class='fecha'>fecha:<?php echo date('d/m/Y')?></span>
+                                        <span class='fecha'>fecha: <?php echo date('d/m/Y')?></span>
                                     </figcaption>
                                     <div class='montos'>
                                         <span>Monto total</span>
-                                        <h3>$1.20000000</h3>
+                                        <h3>
+                                            <?php if(isset($monto)){
+                                                echo '$ '.number_format($monto,0,'','.');
+                                            }else{
+                                                echo '$ 0';
+                                                }
+                                                ?>
+                                        </h3>
                                         <span class='pago'>Pag. tarjeta + Pag. efectivo +Pag. transferencia</span>
                                     </div>
                                 </div>
@@ -173,12 +213,20 @@ $mes =['Seleccione el mes','Enero','Febrero','Marzo','Abril','Mayo','Junio','Jul
                             <div class="card-body">
                                 <div class="cards">
                                     <figcaption>
-                                        <span>Ingreso mes <?php echo date('m/Y')?></span>
+                                        <span>Ingreso del mes <?php echo $mesdelanio?> del <?php echo $anio?></span>
                                         <img src="icon/cash2.svg" alt="">
                                     </figcaption>
                                     <div class='montos'>
                                         <span>Monto total</span>
-                                        <h3>$1.20000000</h3>
+                                        <h3>
+                                            <?php
+                                            if(isset($montoI)){
+                                                echo '$ '. number_format($montoI,'0','','.');
+                                            }else{
+                                                echo '$ 0';
+                                            }
+                                            ?>
+                                        </h3>
                                         <span class='pago'>Ingreso</span>
                                     </div>
                                 </div>
@@ -188,12 +236,20 @@ $mes =['Seleccione el mes','Enero','Febrero','Marzo','Abril','Mayo','Junio','Jul
                             <div class="card-body">
                                 <div class="cards">
                                     <figcaption>
-                                        <span>Egreso mes <?php echo date('m/Y')?></span>
+                                        <span>Egreso del mes <?php echo $mesdelanio?> del <?php echo $anio?></span>
                                         <img src="icon/cash2.svg" alt="">
                                     </figcaption>
                                     <div class='montos'>
                                         <span>Monto total</span>
-                                        <h3>$1.20000000</h3>
+                                        <h3>
+                                          <?php
+                                            if(isset($montoE)){
+                                                echo '$ '. number_format($montoE,0,'','.');
+                                            }else{
+                                                echo '$ 0';
+                                            }
+                                            ?>
+                                        </h3>
                                         <span class='pago'>Egreso</span>
                                     </div>
                                 </div>
@@ -208,7 +264,15 @@ $mes =['Seleccione el mes','Enero','Febrero','Marzo','Abril','Mayo','Junio','Jul
                                     </figcaption>
                                     <div class='montos'>
                                         <span>Monto total</span>
-                                        <h3>$1.20000000</h3>
+                                        <h3>
+                                          <?php
+                                            if(isset($montoA)){
+                                                echo '$ '. number_format($montoA,0,'','.');
+                                            }else{
+                                                echo '$ 0';
+                                            }
+                                            ?>
+                                        </h3>
                                         <span class='pago'>Ingreso - Egreso</span>
                                     </div>
                                 </div>
@@ -514,7 +578,6 @@ function grafifecha() {
 function graficopie() {
     let mes = $('#mes').val();
     let anio = $('#anio').val();
-    console.log(mes+' '+anio);
     $.ajax({
         type:'POST',
         data:{

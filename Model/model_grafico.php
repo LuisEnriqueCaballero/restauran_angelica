@@ -26,13 +26,13 @@ class MetodoGraficos{
     public function plato_pedido_dia($fecha_inicial,$fecha_final){
         $conexion=new conectar();
         $cnx=$conexion->conexion();
-        $sql="SELECT TPA.descripcion,SUM(td.cantidad) AS CANTIDAD, DATE(TP.fecha_hora) FROM detalle_pedido AS TD 
+        $sql="SELECT TPA.descripcion,SUM(td.cantidad) AS CANTIDAD FROM detalle_pedido AS TD 
               INNER JOIN menu AS TPA ON TD.id_producto=TPA.id_menu
               INNER JOIN pedido AS TP ON TP.id_pedido=TD.id_pedido ";
         if(isset($fecha_inicial) AND isset($fecha_final)){
-            $sql .=" WHERE TP.fecha_hora BETWEEN '$fecha_inicial' AND '$fecha_final'";
+            $sql .=" WHERE date(TP.fecha_hora) BETWEEN '$fecha_inicial' AND '$fecha_final'";
         }
-        $sql .=" GROUP BY TD.id_producto,DATE(TP.fecha_hora) ORDER BY `CANTIDAD` DESC LIMIT 10";
+        $sql .=" GROUP BY TD.id_producto ORDER BY `CANTIDAD` DESC LIMIT 10";
         $query=mysqli_query($cnx,$sql);
         return $query;
     }
@@ -54,6 +54,39 @@ class MetodoGraficos{
             $sql .=" WHERE YEAR(TP.fecha_hora)='$anio'";
         }
         $sql .=" GROUP BY id_producto ORDER BY `CANTIDAD` DESC LIMIT 10";
+        $query=mysqli_query($cnx,$sql);
+        return $query;
+    }
+    public function monto_cajahoy($fecha){
+        $conexion=new conectar();
+        $cnx=$conexion->conexion();
+        $sql="SELECT CONCAT(TC.id_caja,'-',TC.descripcion) AS CAJA,TMC.monto_inicial FROM multicajas AS TMC
+              INNER JOIN caja AS TC ON TMC.id_caja=TC.id_caja  WHERE date(TMC.fecha_apertura) = '$fecha' 
+              AND TMC.estado <> '9' ORDER BY TMC.id_caja_apert desc LIMIT 1";
+        $query=mysqli_query($cnx,$sql);
+        return $query;
+    }
+    public function Monto_egreso_mes_anio($mes,$anio){
+        $conexion=new conectar();
+        $cnx=$conexion->conexion();
+        $sql="SELECT SUM(monto) AS monto_egreso,mes FROM egreso
+              WHERE mes ='$mes' AND anio='$anio'";
+        $query=mysqli_query($cnx,$sql);
+        return $query;
+    }
+    public function Monto_ingreso_mes_anio($mes,$anio){
+        $conexion=new conectar();
+        $cnx=$conexion->conexion();
+        $sql="SELECT SUM(monto) AS monto_ingreso,mes FROM ingreso
+              WHERE mes='$mes' AND anio='$anio'";
+        $query=mysqli_query($cnx,$sql);
+        return $query;
+    }
+    public function Monto_total_anio($anio){
+        $conexion=new conectar();
+        $cnx=$conexion->conexion();
+        $sql="SELECT  Sum(monto_ingreso)-SUM(monto_egreso) AS monto FROM kardex_financiero
+             WHERE anio='2024' AND concepto  NOT IN(4,6)";
         $query=mysqli_query($cnx,$sql);
         return $query;
     }
