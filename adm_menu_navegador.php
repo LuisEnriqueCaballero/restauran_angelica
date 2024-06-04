@@ -4,6 +4,7 @@ if(!empty($_SESSION['usuario'])){
 require_once 'Config/cnmysql.php';
 require_once 'Model/modal_link.php';
 
+$title='Dashbord';
 $metodolink = new linkmenu();
 $listamenu =$metodolink->lista_link();
 
@@ -12,7 +13,11 @@ foreach ($listamenu as $key) {
     $menu=$key['link'];
     $icono=$key['iconno'];
 }
+$fecha=date('Y-m-d');
 $listasubmenu = $metodolink->lista_sublink($id);
+$anio=date('Y');
+$maximo=$anio + 10;
+$mes =['Seleccione el mes','Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
 ?>
 
 <!DOCTYPE html>
@@ -142,123 +147,208 @@ $listasubmenu = $metodolink->lista_sublink($id);
             </header>
             <div id="contenido_restaurante">
                 <div class="conteniodo_titulio">
-                    <?php
-                     $anio=date('Y');
-                     $maxano=$anio +10;
-                     $fecha=date('Y-m-d');
-                     ?>
-                </div>
-                <div class="contenido_infomacion p-1">
-                    <div class="contenido_cajas">
-                        <div class="card" style="width:380px;">
-                            <div class="card-body">
-                                <div class="cards">
-                                    <div>
-                                        <h4>Monto Caja del dia</h4>
-                                        <h5>Cantidad</h5>
-                                        <h5>fecha</h5>
-                                    </div>
-                                    <div>
-                                        <img src="" alt="">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card" style="width:380px;">
-                            <div class="card-body">
-                                <div class="cards">
-                                    <div>
-                                        <h4>Monto Caja del Mes</h4>
-                                        <h5>Cantidad</h5>
-                                        <h5>mes</h5>
-                                    </div>
-                                    <div>
-                                        <img src="" alt="">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card" style="width:380px;">
-                            <div class="card-body">
-                                <div class="cards">
-                                    <div>
-                                        <h4>Monto Caja del año</h4>
-                                        <h5>Cantidad</h5>
-                                        <h5>año</h5>
-                                    </div>
-                                    <div>
-                                        <img src="" alt="">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
+                    <div class="title_conten">
+                        <h4><?php echo $title?></h4>
                     </div>
                 </div>
-                <div class="graficas">
-                    <h1 class="titulo_graficas text-center">GRAFICAS DEL RESTAURAN</h1>
-                    <div class="grafica_material grafica_dashbord">
-                        <h2>Grafica lineal de Ingreso vs Egreso por dia</h2>
-                        <div class="form-row" style="display:flex; justify-content: flex-start;align-items:center">
-                            <div class="col-sm-3">
-                                <label for="">Desde</label>
-                                <input type="date" name="fech_inicio" id="fech_inicio" class="form-control"
-                                    value='2024-05-01'>
-                            </div>
-                            <div class="col-sm-3">
-                                <label for="">Hasta</label>
-                                <input type="date" name="fech_fin" id="fech_fin" class="form-control"
-                                    value="<?php echo $fecha?>">
-                            </div>
-                            <div class="col-sm-3" style="margin-top:30px">
-                                <button type="button" class="btn btn-success form-control"
-                                    onclick="grafifecha()">Buscar</button>
+                <div class="contenido_infomacion">
+                    <div class="cajas">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="cards">
+                                    <figcaption>
+                                        <span>Caja del dia</span>
+                                        <img src="icon/cash2.svg" alt="">
+                                        <span class='fecha'>fecha:<?php echo date('d/m/Y')?></span>
+                                    </figcaption>
+                                    <div class='montos'>
+                                        <span>Monto total</span>
+                                        <h3>$1.20000000</h3>
+                                        <span class='pago'>Pag. tarjeta + Pag. efectivo +Pag. transferencia</span>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        <canvas id="datafechas">
-
-                        </canvas>
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="cards">
+                                    <figcaption>
+                                        <span>Ingreso mes <?php echo date('m/Y')?></span>
+                                        <img src="icon/cash2.svg" alt="">
+                                    </figcaption>
+                                    <div class='montos'>
+                                        <span>Monto total</span>
+                                        <h3>$1.20000000</h3>
+                                        <span class='pago'>Ingreso</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="cards">
+                                    <figcaption>
+                                        <span>Egreso mes <?php echo date('m/Y')?></span>
+                                        <img src="icon/cash2.svg" alt="">
+                                    </figcaption>
+                                    <div class='montos'>
+                                        <span>Monto total</span>
+                                        <h3>$1.20000000</h3>
+                                        <span class='pago'>Egreso</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="cards">
+                                    <figcaption>
+                                        <span>Monto total del año <?php echo date('Y')?></span>
+                                        <img src="icon/cash2.svg" alt="">
+                                    </figcaption>
+                                    <div class='montos'>
+                                        <span>Monto total</span>
+                                        <h3>$1.20000000</h3>
+                                        <span class='pago'>Ingreso - Egreso</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="grafica_mensual grafica_dashbord">
-                        <h2>Grafica barras de Ingreso vs Egreso mes por año</h2>
-                        <label for="">Año</label>
-                        <select name="anio" id="anio" class="form-control" onchange="anio()">
-                            <?php
-                for($i=$anio; $i<$maxano; $i++){
-                ?>
-                            <option value="<?php echo $i?>"><?php echo $i?></option>
-                            <?php
-                 }
-                ?>
-                        </select>
-                        <canvas id="dataanio">
+                </div>
+                <div class="graficos_dasbord">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="cards ">
+                                <div class='titulo-grafica'>
+                                    <p>Grafica lineal de Ingreso vs Egreso por dia</p>
+                                </div>
+                                <div class='form-grafica'>
+                                    <div class="col-sm-4">
+                                        <label for="">Desde</label>
+                                        <input type="date" name="fech_inicio" id="fech_inicio" class="form-control"
+                                            value='2024-05-01'>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <label for="">Hasta</label>
+                                        <input type="date" name="fech_fin" id="fech_fin" class="form-control"
+                                            value="<?php echo $fecha?>">
+                                    </div>
+                                    <div class="col-sm-3" style="margin-top:30px">
+                                        <button type="button" class="btn btn-success form-control"
+                                            onclick="grafifecha()">Buscar</button>
+                                    </div>
+                                </div>
+                                <canvas id="datafechas">
 
-                        </canvas>
+                                </canvas>
+                            </div>
+                        </div>
                     </div>
-                    <div class="grafica_mensual grafica_dashbord mt-1">
-                        <h2>Grafica de pie pedido mas demandado</h2>
-                        <canvas id="graficopie">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="cards">
+                                <div class='titulo-grafica'>
+                                    <p>Grafica barras de Ingreso vs Egreso mes por año</p>
+                                </div>
+                                <div class='form-grafica'>
+                                    <div class="col-sm-4">
+                                        <label for="">Año</label>
+                                        <select name="anio" id="anio" class="form-control" onchange="anio()">
+                                            <?php
+                                         for($i=$anio; $i<$maximo; $i++){
+                                         ?>
+                                            <option value="<?php echo $i?>"><?php echo $i?></option>
+                                            <?php
+                                          }
+                                         ?>
+                                        </select>
+                                    </div>
+                                </div>
+                                <canvas id="dataanio">
 
-                        </canvas>
+                                </canvas>
+                            </div>
+                        </div>
                     </div>
-                    <div class="grafica_mensual grafica_dashbord mt-1">
-                        <h2>tabla de lista menu mas pedidos</h2>
-                        <table class="table table-bordered mt-4">
-                            <thead class="thead-dark">
-                                <tr>
-                                    <th class="text-center text-capitalize">#Orden</th>
-                                    <th class="text-center text-capitalize">Producto</th>
-                                    <th class="text-center text-capitalize">Cantidad</th>
-                                </tr>
-                            </thead>
-                            <tbody id="lista_pedido">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="cards">
+                                <div class='titulo-grafica'>
+                                    <p>Grafica de pastel pedido mas demandado del mes</p>
+                                </div>
+                                <div class='form-grafica'>
+                                    <div class="col-sm-4">
+                                        <label for="">Mes</label>
+                                        <select name="mes" id="mes" class="form-control" onchange="graficopie()">
+                                            <?php
+                                         for($i=0; $i<count($mes); $i++){
+                                            $select=($i==date('m'))?'selected':'';
+                                         ?>
+                                            <option value="<?php echo $i?>" <?php echo $select ?>><?php echo $mes[$i]?></option>
+                                            <?php
+                                          }
+                                         ?>
+                                        </select>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <label for="">Año</label>
+                                        <select name="anio" id="anio" class="form-control" onchange="graficopie()">
+                                            <?php
+                                         for($i=$anio; $i<$maximo; $i++){
+                                         ?>
+                                            <option value="<?php echo $i?>"><?php echo $i?></option>
+                                            <?php
+                                          }
+                                         ?>
+                                        </select>
+                                    </div>
+                                </div>
+                                <canvas id="graficopie">
 
-                            </tbody>
-                        </table>
+                                </canvas>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="cards">
+                                <div class='titulo-grafica'>
+                                    <p>Lista pedidos mas demandado por dia</p>
+                                </div>
+                                <div class='form-grafica'>
+                                    <div class="col-sm-4">
+                                        <label for="">Desde</label>
+                                        <input type="date" name="fech_ini" id="fech_ini" class="form-control"
+                                        value="<?php echo $fecha?>">
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <label for="">Hasta</label>
+                                        <input type="date" name="fech" id="fech" class="form-control"
+                                            value="<?php echo $fecha?>">
+                                    </div>
+                                    <div class="col-sm-3" style="margin-top:30px">
+                                        <button type="button" class="btn btn-success form-control"
+                                            onclick="lista_pedido()">Buscar</button>
+                                    </div>
+                                </div>
+                                <table class="table table-bordered mt-4">
+                                    <thead class="thead-dark">
+                                        <tr>
+                                            <th class="text-center text-capitalize">#Orden</th>
+                                            <th class="text-center text-capitalize">Producto</th>
+                                            <th class="text-center text-capitalize">Cantidad</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="lista_pedido">
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="material_demandado">
-
                 </div>
             </div>
         </section>
@@ -287,9 +377,16 @@ grafifecha();
 graficopie();
 lista_pedido();
 
-function lista_pedido() {
+function lista_pedido(){
+    let fecha_inicial=$('#fech_ini').val();
+    let fecha_fin=$('#fech').val();
     $.ajax({
-        dataType: 'json',
+        type:"POST",
+        data:{
+            fech_ini:fecha_inicial,
+            fech_fin:fecha_fin
+        },
+        dataType:'JSON',
         url: './Controller/ControllGrafica.php?ope=maspedido',
         success: function(result) {
             $('#lista_pedido').html(result.html);
@@ -415,7 +512,15 @@ function grafifecha() {
 }
 
 function graficopie() {
+    let mes = $('#mes').val();
+    let anio = $('#anio').val();
+    console.log(mes+' '+anio);
     $.ajax({
+        type:'POST',
+        data:{
+            meses:mes,
+            anios:anio
+        },
         url: './Controller/ControllGrafica.php?ope=grafico_pie',
         dataType: 'json',
         success: function(resulta) {
@@ -452,18 +557,18 @@ function graficopie() {
 }
 </script>
 <script>
-function viewsmodal(id,viewmodal,divmodal,title,titulo,pregunta,aviso) {
+function viewsmodal(id, viewmodal, divmodal, title, titulo, pregunta, aviso) {
     $.ajax({
         type: 'GET',
         dataType: 'HTML',
-        url: 'View/'+viewmodal+'?val='+id,
+        url: 'View/' + viewmodal + '?val=' + id,
         success: function(data) {
-            $('#modal'+divmodal).html('');
-            $('#modal'+divmodal).html(data);
-            $('#modal'+title).html(titulo);
+            $('#modal' + divmodal).html('');
+            $('#modal' + divmodal).html(data);
+            $('#modal' + title).html(titulo);
             $('#pregunta').html(pregunta);
             $('#aviso').html(aviso);
-            $('#modal'+divmodal).modal({
+            $('#modal' + divmodal).modal({
                 keyboard: false,
                 backdrop: 'static',
                 show: true
@@ -471,15 +576,16 @@ function viewsmodal(id,viewmodal,divmodal,title,titulo,pregunta,aviso) {
         },
     })
 }
-function mensaje_confirmacion(div,viewmodal,confirmacion){
+
+function mensaje_confirmacion(div, viewmodal, confirmacion) {
     $.ajax({
         dataType: 'HTML',
-        url: 'View/modal_mensaje_confirmacion/'+viewmodal,
+        url: 'View/modal_mensaje_confirmacion/' + viewmodal,
         success: function(data) {
-            $('#modal'+div).html('');
-            $('#modal'+div).html(data);
-            $('#confirmacion').html('<span class="fa fa-spinner fa-spin"></span>'+ confirmacion);
-            $('#modal'+div).modal({
+            $('#modal' + div).html('');
+            $('#modal' + div).html(data);
+            $('#confirmacion').html('<span class="fa fa-spinner fa-spin"></span>' + confirmacion);
+            $('#modal' + div).modal({
                 keyboard: false,
                 backdrop: 'static',
                 show: true
@@ -487,8 +593,15 @@ function mensaje_confirmacion(div,viewmodal,confirmacion){
         },
     })
 }
+
 function hide_modal(div) {
-        $('#modal'+div).modal('hide');
-        $('#modal'+div).html('');
-    }
+    $('#modal' + div).modal('hide');
+    $('#modal' + div).html('');
+}
 </script>
+
+<style>
+table #lista_pedido {
+    color: #51BCDA;
+}
+</style>

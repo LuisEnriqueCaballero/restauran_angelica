@@ -20,14 +20,40 @@ class MetodoGraficos{
             };
         $sql .=" GROUP BY fecha";
         $query=mysqli_query($cnx,$sql);
-        
         return $query;
     }
 
-    public function Menu_Mas_Pedido(){
+    public function plato_pedido_dia($fecha_inicial,$fecha_final){
         $conexion=new conectar();
         $cnx=$conexion->conexion();
-        $sql="SELECT TPA.descripcion,SUM(td.cantidad) AS CANTIDAD FROM detalle_pedido AS TD INNER JOIN menu AS TPA ON TD.id_producto=TPA.id_menu GROUP BY id_producto ORDER BY `CANTIDAD` DESC LIMIT 10";
+        $sql="SELECT TPA.descripcion,SUM(td.cantidad) AS CANTIDAD, DATE(TP.fecha_hora) FROM detalle_pedido AS TD 
+              INNER JOIN menu AS TPA ON TD.id_producto=TPA.id_menu
+              INNER JOIN pedido AS TP ON TP.id_pedido=TD.id_pedido ";
+        if(isset($fecha_inicial) AND isset($fecha_final)){
+            $sql .=" WHERE TP.fecha_hora BETWEEN '$fecha_inicial' AND '$fecha_final'";
+        }
+        $sql .=" GROUP BY TD.id_producto,DATE(TP.fecha_hora) ORDER BY `CANTIDAD` DESC LIMIT 10";
+        $query=mysqli_query($cnx,$sql);
+        return $query;
+    }
+
+    public function Menu_Mas_Pedido($mes,$anio){
+        $conexion=new conectar();
+        $cnx=$conexion->conexion();
+        $sql="SELECT TPA.descripcion,SUM(td.cantidad) AS CANTIDAD,MONTH(TP.fecha_hora),YEAR(TP.fecha_hora) FROM detalle_pedido AS TD 
+              INNER JOIN menu AS TPA ON TD.id_producto=TPA.id_menu
+              INNER JOIN pedido AS TP ON TP.id_pedido=TD.id_pedido ";
+        if(!empty($mes)){
+            $sql .=" WHERE MONTH(TP.fecha_hora) ='$mes'";
+            if(strpos($sql , 'WHERE')){
+                if(!empty($anio)){
+                    $sql .= " AND YEAR(TP.fecha_hora)='$anio'";
+                }
+            }
+        }else if(!empty($anio)){
+            $sql .=" WHERE YEAR(TP.fecha_hora)='$anio'";
+        }
+        $sql .=" GROUP BY id_producto ORDER BY `CANTIDAD` DESC LIMIT 10";
         $query=mysqli_query($cnx,$sql);
         return $query;
     }

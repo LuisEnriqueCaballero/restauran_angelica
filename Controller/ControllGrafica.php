@@ -39,21 +39,33 @@ switch ($ope) {
     
     case 'maspedido':
         $html='';
-        $listamaspedido=$metodografico->Menu_Mas_Pedido();
+        $comentario='No hay datos';
+        $fecha_ini=isset($_POST['fech_ini'])?$_POST['fech_ini']:'';
+        $fecha_fin=isset($_POST['fech_fin'])?$_POST['fech_fin']:'';
+        $listamaspedio=$metodografico->plato_pedido_dia($fecha_ini,$fecha_fin);
+        $num_fila=mysqli_num_rows($listamaspedio);
         $num=0;
-        foreach ($listamaspedido as $key) {
-            ++$num;
-            $html .='<tr>
-                     <td class="text-center">'.$num.'</td>
-                     <td class="text-center text-capitalize">'.$key["descripcion"].'</td>
-                     <td class="text-center">'.$key["CANTIDAD"].'</td>
-                     </tr>';
-        }
+            if($num_fila >0){
+                while($key=mysqli_fetch_array($listamaspedio)) {
+                    ++$num;
+                    $html .='<tr>
+                             <td class="text-center">'.$num.'</td>
+                             <td class="text-center text-capitalize">'.$key["descripcion"].'</td>
+                             <td class="text-center">'.$key["CANTIDAD"].'</td>
+                             </tr>';
+                }
+            }else{
+                $html .='<tr>
+                             <td class="text-center" colspan=3>'.$comentario.'</td>
+                         </tr>';
+            }
         echo  json_encode(array('html'=>$html));
         break;
     
     case 'grafico_pie':
-        $listamaspedio=$metodografico->Menu_Mas_Pedido();
+        $mes=isset($_POST['meses'])?$_POST['meses']:'';
+        $anio=isset($_POST['anios'])?$_POST['anios']:'';
+        $listamaspedio=$metodografico->Menu_Mas_Pedido($mes,$anio);
         $cantidad=array();
         $producto=array();
         foreach ($listamaspedio as $key) {
@@ -62,6 +74,7 @@ switch ($ope) {
         }
         echo json_encode(array('cantidad'=>$cantidad,'producto'=>$producto));
         break;
+
     default:
         # code...
         break;

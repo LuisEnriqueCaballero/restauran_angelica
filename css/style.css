@@ -251,45 +251,91 @@
   border-radius: 10px;
   margin-top: 20px;
 }
-.contenido_cajas{
-display: flex;
-flex-wrap: wrap;
-grid-template-columns: repeat(5, 1fr);
-gap: 20px;
-justify-content: start;
+.cajas{
+  display: grid;
+  grid-template-areas:'card card card card';
+  justify-content: space-around;
+  column-gap: 5px;
 }
-.contenido_cajas .card{
+.cajas .card{
+  width: 370px;
+  height: 150px;
   border-radius: 5px;
   box-shadow: 0px 0px 2px;
+  background-color: var(--color-letra-suave);
+  color: var(--color-fondo);
 }
-.graficas{
+.cajas .cards{
   display: flex;
-  justify-content: space-between;
-  margin: auto;
-  margin-top: 10px;
-  width: 98%;
-  column-gap: 10px;
-  height: 1800px;
+  justify-content: space-around;
+  align-items: center;
+}
+.cajas .cards figcaption{
+  display: flex;
+  flex-direction: column;
   flex-wrap: wrap;
-  background-color: #FFFFFF;
-  box-shadow: 1px 1px 1px;
-  border-radius: 10px;
-}
-.graficas h1{
-  width: 100%;
-  color: #3A4750;
-}
-.graficas .grafica_dashbord{
-  width: 45%;
-  margin: 0px 5px ; 
-}
-.graficas .grafica_dashbord h2{
-  color: var(--color-letra-suave);
+  justify-content: center;
+  row-gap: 5px;
   text-align: center;
+}
+.cajas .cards .fecha{
+  font-size: 12px;
+  color: #F3F3F3;
+  font-family: sans-serif;
+  font-weight: 800;
+}
+.cajas .cards .montos{
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  row-gap: 5px;
+  text-align:right;
+}
+.cajas .cards .montos .pago{
+  font-size: 10px;
+  font-family: sans-serif;
+  color: #51BCDA;
+}
+.graficos_dasbord{
+  margin-top: 20px;
+  display: grid;
+  grid-template-areas:'card card'
+                      'card card';
+  justify-content: space-around;
+  column-gap: 5px;
+  row-gap: 20px;
+}
+
+.graficos_dasbord .card{
+  display: flex;
+  flex-direction: column;
+  row-gap: 10px;
+  width: 780px;
+  height: 930px;
+  background-color: var(--color-letra-suave);
+  color: var(--color-fondo);
+  font-family: sans-serif;
+}
+.graficos_dasbord .cards .titulo-grafica{
+  text-align: center;
+  font-size: 1.6rem;
+  font-weight: 500;
+  color: var(--color-hover-opcion1);
   text-transform: capitalize;
 }
-.grafica_dashbord select{
-  width: 200px;
+.graficos_dasbord .cards .form-grafica{
+  display: flex;
+  flex-wrap: wrap;
+  text-transform: capitalize;
+  font-family: sans-serif;
+}
+.graficos_dasbord .cards canvas{
+  margin-top: 30px;
+  background-color: var(--color-fondo);
+}
+.graficos_dasbord .cards #graficopie{
+  display: block;
 }
 .contenido_infomacion .adm_contenido .w-ful{
   width: 100%;
