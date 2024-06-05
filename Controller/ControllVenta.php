@@ -52,18 +52,19 @@ switch ($ope) {
         foreach ($lista_venta_mesa as $key) {
             $total=number_format($key['total'],'2',',','.');
             $fecha_actual=date('d/m/Y',strtotime($key['fecha_hora']));
+            $id=intval($key['id_pedido']);
             $html .= "<tr>
                      <td class='text-center text-uppercase'>$num</td>
                      <td class='text-center text-uppercase'>$key[numero]</td>
                      <td class='text-center text-uppercase'>$key[descripcion]</td>
                      <td class='text-center text-uppercase'>$ $total</td>
                      <td class='text-center text-uppercase'> $fecha_actual</td>
-                     <td class='text-center text-uppercase'><button type='button' class='btn btn' onclick='atendido(".$key['id_pedido'].")'>$key[estado]</button></td>
-                     <td class='text-center text-uppercase'> <button type='button' class='btn btn' onclick='cancelado(".$key['id_pedido'].")'>$key[pendiente]</button></td>
+                     <td class='text-center text-uppercase'><button type='button' class='btn btn' onclick='atendido(".$id.")'>$key[estado]</button></td>
+                     <td class='text-center text-uppercase'> <button type='button' class='btn btn' onclick='cancelado(".$id.")'>$key[pendiente]</button></td>
                      <td class='text-center text-uppercase'> 
-                     <button type='button' class='btn btn ml-2' onclick='anulado(".$key['id_pedido'].")'><span title='anular pedido' class='fa fa-ban text-danger' aria-hidden='true'></span></button>
-                     <button type='button' class='btn btn ml-2' onclick='ticke(3,".$key['id_pedido'].")'><span title='enviar detalle pedido' class='fa fa-ticket' aria-hidden='true'></span></button>
-                     <button type='button' class='btn btn ml-2' onclick='ticke(4,".$key['id_pedido'].")'><span title='imprimir recibo' class='fa fa-file-text-o' aria-hidden='true'></span></button>
+                     <button type='button' class='btn btn ml-2' onclick='anulado(".$id.")'><span title='anular pedido' class='fa fa-ban text-danger' aria-hidden='true'></span></button>
+                     <button type='button' class='btn btn ml-2' onclick='ticke(3,".$id.")'><span title='enviar detalle pedido' class='fa fa-ticket' aria-hidden='true'></span></button>
+                     <button type='button' class='btn btn ml-2' onclick='ticke(4,".$id.")'><span title='imprimir recibo' class='fa fa-file-text-o' aria-hidden='true'></span></button>
                      </td>
                      </tr>";
             $num++;

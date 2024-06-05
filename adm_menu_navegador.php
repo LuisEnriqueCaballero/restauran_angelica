@@ -291,7 +291,7 @@ foreach($monto_anio AS $key){
                                     <div class="col-sm-4">
                                         <label for="">Desde</label>
                                         <input type="date" name="fech_inicio" id="fech_inicio" class="form-control"
-                                            value='2024-05-01'>
+                                            value='2024-06-01'>
                                     </div>
                                     <div class="col-sm-4">
                                         <label for="">Hasta</label>

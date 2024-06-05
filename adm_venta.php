@@ -437,11 +437,11 @@ $title_pagina = 'lista de venta';
     }
 
     function atendido(id){
-        let id_pedido=id;
+        let id_pedi=id;
         $.ajax({
             type:'POST',
             data:{
-                id:id_pedido
+                id:id_pedi
             },
             url:'./Controller/ControllVenta.php?ope=atencion',
             success:function(r){
