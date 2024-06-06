@@ -16,4 +16,8 @@ class conectar{
         
     }
 }
+$conectar = new conectar();
+$conexion = $conectar->conexion();
+// Cerrar la conexión
+$conexion->close();
 ?>
