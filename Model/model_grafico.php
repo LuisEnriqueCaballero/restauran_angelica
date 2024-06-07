@@ -26,7 +26,7 @@ class MetodoGraficos{
     public function plato_pedido_dia($fecha_inicial,$fecha_final){
         $conexion=new conectar();
         $cnx=$conexion->conexion();
-        $sql="SELECT TPA.descripcion,SUM(td.cantidad) AS CANTIDAD FROM detalle_pedido AS TD 
+        $sql="SELECT TPA.descripcion,SUM(TD.cantidad) AS CANTIDAD FROM detalle_pedido AS TD 
               INNER JOIN menu AS TPA ON TD.id_producto=TPA.id_menu
               INNER JOIN pedido AS TP ON TP.id_pedido=TD.id_pedido ";
         if(isset($fecha_inicial) AND isset($fecha_final)){
@@ -40,7 +40,7 @@ class MetodoGraficos{
     public function Menu_Mas_Pedido($mes,$anio){
         $conexion=new conectar();
         $cnx=$conexion->conexion();
-        $sql="SELECT TPA.descripcion,SUM(td.cantidad) AS CANTIDAD,MONTH(TP.fecha_hora),YEAR(TP.fecha_hora) FROM detalle_pedido AS TD 
+        $sql="SELECT TPA.descripcion,SUM(TD.cantidad) AS CANTIDAD,MONTH(TP.fecha_hora),YEAR(TP.fecha_hora) FROM detalle_pedido AS TD 
               INNER JOIN menu AS TPA ON TD.id_producto=TPA.id_menu
               INNER JOIN pedido AS TP ON TP.id_pedido=TD.id_pedido ";
         if(!empty($mes)){

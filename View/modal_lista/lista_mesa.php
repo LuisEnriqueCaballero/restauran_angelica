@@ -113,7 +113,7 @@
         // let nombre = $('#plato').val();
         // let categoria = $('#categoria').val();
         $.ajax({
-            type: 'POTS',
+            type: 'POST',
             // data: {
             //     plato: nombre,
             //     catego: categoria

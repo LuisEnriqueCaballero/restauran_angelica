@@ -4,7 +4,7 @@ class MetodoFinanciero{
         $conexion = new conectar();
         $cnx=$conexion->conexion();
         $sql = "SELECT TE.id, TD.descripcion, TE.monto, TE.fecha_registrado,TE.mes,TE.anio FROM egreso AS TE
-                INNER JOIN descripcion AS TD ON td.id=TE.descripcion";
+                INNER JOIN descripcion AS TD ON TD.id=TE.descripcion";
         if (!empty($fech_inic) && !empty($fech_final)) {
             $fech_inic_formatted = date('Y-m-d', strtotime(str_replace('/', '-', $fech_inic)));
             $fech_final_formatted = date('Y-m-d', strtotime(str_replace('/', '-', $fech_final)));
