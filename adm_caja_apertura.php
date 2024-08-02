@@ -108,13 +108,9 @@
     })
 
     function lista_multicaja() {
-        // let nombre = $('#cliente').val();
         $.ajax({
             type: "POST",
             url: './Controller/ControllCaja.php?ope=1',
-            // data: {
-            //     cliente: nombre
-            // },
             dataType: 'JSON',
             beforeSend: function() {
                 $("#consultar").attr("disabled", true);
@@ -196,7 +192,6 @@
     
 // incio exportar pdf y excel
 function expotararchivos(e){
-  
 	var cliente=$('#cliente').val()
     if(e == 1){
         window.open('expexcel.php?exp=reportcliente&cliente='+cliente,'_blank');
