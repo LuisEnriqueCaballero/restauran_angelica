@@ -1,5 +1,5 @@
 <?php
-include_once '../../Config/cnmysql.php';
+include_once '../../Config/util.php';
 include_once '../../Model/modal_producto.php';
 $metodoproducto= new MetodoProducto();
 $lista =$metodoproducto->lista_CategoriaProducto();
@@ -49,7 +49,7 @@ modal-header .modal-title {
             <h5 class="modal-title" style="font-family: sans-serif;
         text-transform: capitalize;
         font-size: 25px; color:#11235A">Nuevo producto</h5>
-            <button type="button" class="close" aria-label="Close" onclick="hide_modal_producto()">
+            <button type="button" class="close" aria-label="Close" onclick="Cerrar_Modal('media')">
                 <span aria-hidden="true">&times;</span>
             </button>
         </div>
@@ -118,7 +118,7 @@ modal-header .modal-title {
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-default" class="cancelar" style="color: red;"
-                onclick="hide_modal_producto()">Cancelar</button>
+                onclick="Cerrar_Modal('media')">Cancelar</button>
             <button type="button" class="btn btn-default" onclick="producto('6')" class="aniadir"
                 style="color:green">agregar</button>
         </div>

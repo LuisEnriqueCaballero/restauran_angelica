@@ -1,5 +1,5 @@
 <?php
-include_once '../../Config/cnmysql.php';
+include_once '../../Config/util.php';
 include_once '../../Model/modal_producto.php';
 
 $metodoCategoria = new MetodoProducto();
@@ -79,7 +79,7 @@ modal-header .modal-title {
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title">lista de productos</h5>
-                <button type="button" class="close" aria-label="Close" onclick="hide_modal_lista()">
+                <button type="button" class="close" aria-label="Close" onclick="Cerrar_Modal('listado')">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
@@ -107,7 +107,7 @@ modal-header .modal-title {
                         </div>
                     </div>
                     <div class="col-3 mt-2">
-                        <button type="button" id="consultar" class="btn btn-success" onclick="list_producto()"><span
+                        <button type="button" id="consultar" class="btn btn-success" onclick="Cerrar_Modal('listado')"><span
                                 class="fa fa-search" aria-hidden="true"></span>
                             Buscar</button>
                     </div>
@@ -131,7 +131,7 @@ modal-header .modal-title {
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" style="color: red;"
-                    onclick="hide_modal_lista()">salir</button>
+                    onclick="Cerrar_Modal('listado')">salir</button>
             </div>
         </div>
 </div>

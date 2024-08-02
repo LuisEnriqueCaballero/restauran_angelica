@@ -1,5 +1,5 @@
 <?php
-include_once '../Config/cnmysql.php';
+include_once '../Config/util.php';
 include_once '../Model/model_caja.php';
 include_once '../Model/model_financiero.php';
 date_default_timezone_set('America/Santiago');

@@ -4,7 +4,7 @@ $title_pagina = 'lista de productos';
 
 <div class="conteniodo_titulio">
     <?php
-    include_once 'Config/cnmysql.php';
+    include_once 'Config/util.php';
     include_once 'Model/modal_producto.php';
     $metodoCategoria =new MetodoProducto();
     $lista=$metodoCategoria->lista_CategoriaProducto();
@@ -154,75 +154,23 @@ $title_pagina = 'lista de productos';
 
     function matenimiento_producto(val) {
         if (!val) {
-            $.ajax({
-                url: 'View/modal_producto/insert_mat_producto.php',
-                type: 'POST',
-                dataType: 'HTML',
-                success: function(data) {
-                    $('#modalmedia').html('');
-                    $('#modalmedia').html(data);
-                    $('#modalmedia').modal({
-                        keyboard: false,
-                        backdrop: 'static',
-                        show: true
-                    });
-                },
-                timeout: 40000
-            })
+            ViewModal('media','View/modal_producto/insert_mat_producto.php','HTML','POST')
         } else {
-            $.ajax({
-                url: 'View/modal_producto/update_mat_producto.php?val=' + val,
-                type: 'POST',
-                dataType: 'HTML',
-                success: function(data) {
-                    $('#modalmedia').html('');
-                    $('#modalmedia').html(data);
-                    $('#modalmedia').modal({
-                        keyboard: false,
-                        backdrop: 'static',
-                        show: true
-                    });
-                },
-                timeout: 40000
-            })
+            ViewModal('media','View/modal_producto/update_mat_producto.php?val=' + val,'HTML','GET')
         }
     }
 
     function producto(ope) {
         // insertar un nuevo categoria
         if (ope == 6) {
-            let formulario = $('#formProducto').serialize();
-            $.ajax({
-                type: 'POST',
-                data: formulario,
-                url: './Controller/ControllProducto.php?ope=' + ope,
-                success: function(data) {
-                    if (data == 1) {
-                        $('#formProducto')[0].reset();
-                        hide_modal_producto();
-                        lista_producto();
-                    }
-                }
-            })
+            InsertarDatos('formProducto','POST','./Controller/ControllProducto.php?ope=' + ope,'media',lista_producto)
         }
         if (ope == 7) {
-            let formulario = $('#formProductoU').serialize();
-            $.ajax({
-                type: 'POST',
-                data: formulario,
-                url: './Controller/ControllProducto.php?ope=' + ope,
-                success: function(data) {
-                    if (data == 1) {
-                        hide_modal_producto();
-                        lista_producto();
-                    }
-                }
-            })
+            ActualizarDatos('formProductoU','POST','./Controller/ControllProducto.php?ope=' + ope,'media',lista_producto)
         }
     }
 // incio exportar pdf y excel
 function expotararchivos(e){
-  
 	var categoria=$('#categoria').val()
     if(e == 1){
         window.open('expexcel.php?exp=reportcategoria&categoria='+categoria,'_blank');

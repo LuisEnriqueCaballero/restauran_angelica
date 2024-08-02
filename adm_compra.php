@@ -139,21 +139,7 @@ $title='Compras';?>
 
     function matenimiento_compra(val) {
         if (!val) {
-            $.ajax({
-                url: 'View/modal_compra/insert_mat_compra.php',
-                type: 'POST',
-                dataType: 'HTML',
-                success: function(data) {
-                    $('#modalmedia').html('');
-                    $('#modalmedia').html(data);
-                    $('#modalmedia').modal({
-                        keyboard: false,
-                        backdrop: 'static',
-                        show: true
-                    });
-                },
-                timeout: 40000
-            })
+            ViewModal('media','View/modal_compra/insert_mat_compra.php','HTML','POST')
         } 
     }
 
@@ -171,6 +157,7 @@ $title='Compras';?>
                         $('#formCompra')[0].reset();
                         $('#carrito_compra').html(data.html);
                         lista_compra();
+                        Cerrar_Modal('media')
                     }
                 }
             })
@@ -180,15 +167,12 @@ $title='Compras';?>
 
 // incio exportar pdf y excel
 function expotararchivos(e){
-  
 	var cliente=$('#cliente').val()
     if(e == 1){
         window.open('expexcel.php?exp=reportcliente&cliente='+cliente,'_blank');
     }else{
         window.open('./Controller/ControllCliente.php?ope=6&cliente='+cliente,'_blank');
     }
-	
-
 }
 // fin exportacion
 
@@ -200,29 +184,10 @@ function expotararchivos(e){
     // lista_venta();
 
     function contenido_selecionado(){
-        $.ajax({
-            type:'POST',
-            dataType:'HTML',
-            url:'View/modal_compra/select_producto.php',
-            success:function(datos){
-                    $('#listado').html('');
-                    $('#listado').html(datos);
-                    $('#listado').modal({
-                        keyboard: false,
-                        backdrop: 'static',
-                        show: true
-                    });
-                },
-                timeout: 40000
-        })
-    }
-    function hide_modal_lista() {
-        $('#listado').modal('hide');
-        $('#listado').html('');
+        ViewModal('listado','View/modal_compra/select_producto.php','HTML','POST')
     }
 // avanzar
     function seleccionar(cont){
-        
         let id_producto = $('#id'+cont).val();
         let nombre = $('#nombre'+cont).val();
         let precio =$('#precio'+cont).val();

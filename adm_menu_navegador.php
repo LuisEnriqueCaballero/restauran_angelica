@@ -60,7 +60,7 @@ foreach($monto_anio AS $key){
 <body>
     <div class="modal fade" id="modalmedia" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     </div>
-    <div class="modal fade" id="listado" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="modallistado" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     </div>
     <div class="modal fade" id="modalmensaje" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     </div>
@@ -639,6 +639,24 @@ function viewsmodal(id, viewmodal, divmodal, title, titulo, pregunta, aviso) {
         },
     })
 }
+/*UTIL JS*/
+function ViewModal(div,urlview,tipodato,tipo){
+    $.ajax({
+            url: urlview,
+            type: tipo,
+            dataType: tipodato,
+            success: function(data) {
+                $('#modal'+div).html('');
+                $('#modal'+div).html(data);
+                $('#modal'+div).modal({
+                    keyboard: false,
+                    backdrop: 'static',
+                    show: true
+                });
+            },
+            timeout: 4000
+        })
+}
 
 function mensaje_confirmacion(div, viewmodal, confirmacion) {
     $.ajax({
@@ -657,10 +675,41 @@ function mensaje_confirmacion(div, viewmodal, confirmacion) {
     })
 }
 
-function hide_modal(div) {
+function Cerrar_Modal(div){
     $('#modal' + div).modal('hide');
     $('#modal' + div).html('');
 }
+
+function InsertarDatos(formulario,tipo,urlmantenimiento,div,refrejartabla){
+    let form = $('#'+formulario).serialize();
+            $.ajax({
+                type: tipo,
+                data: form,
+                url: urlmantenimiento,
+                success: function(data) {
+                    if (data == 1) {
+                        $('#'+formulario)[0].reset();
+                        Cerrar_Modal(div);
+                        refrejartabla();
+                    }
+                }
+            })
+}
+function ActualizarDatos(formulario,tipo,urlmantenimiento,div,refrejartabla){
+    let form = $('#'+formulario).serialize();
+            $.ajax({
+                type: tipo,
+                data: form,
+                url: urlmantenimiento,
+                success: function(data) {
+                    if (data) {
+                        Cerrar_Modal(div);
+                        refrejartabla();
+                    }
+                }
+            })
+}
+/* */
 </script>
 
 <style>

@@ -1,3 +1,17 @@
+<?php
+include_once '../../Config/util.php';
+include_once '../../Model/model_delivery.php';
+$metodoDelivery=new MetodoDelivery();
+$val=isset($_GET['val'])?$_GET['val']:'';;
+$restul=$metodoDelivery->getDelivery($val);
+foreach($restul as $datos){
+    $id=$datos['idDelivery'];
+    $distacia=$datos['distancia'];
+    $precio=$datos['precio'];
+    
+}
+?>
+
 <!-- style modal -->
 <style>
     .modal-body form .form-row{
@@ -11,10 +25,6 @@
         font-size: 18px;
     }
     .modal-body input{
-      height: 60px;
-      text-transform: uppercase;
-    }
-    .modal-body select{
       height: 60px;
       text-transform: uppercase;
     }
@@ -38,29 +48,31 @@
             <div class="modal-header">
                 <h5 class="modal-title" style="font-family: sans-serif;
         text-transform: capitalize;
-        font-size: 25px; color:#11235A">Nuevo Proveedor</h5>
+        font-size: 25px; color:#11235A">Actualizar Datos</h5>
                 <button type="button" class="close"  aria-label="Close" onclick="Cerrar_Modal('media')">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <form id="formMesa">
+                <form id="formDeliveryU">
                     <div class="form-row">
-                        <div class="col-sm-6">
-                            <label for="cliente">capacidad</label>
-                            <input type="text" name="capacidad" id="capacidad" class="form-control" placeholder="capacidad asientos">
-                        </div>
-                        <div class="col-sm-6">
-                            <label for="cliente"># mesa</label>
-                            <input type="text" name="numero" id="numero" class="form-control" placeholder="mesa #">
+                    <input type="text" hidden name="id" id="id" class="form-control" value='<?php echo $id?>'>
+                        <div class="col-sm-12">
+                            <label for="inicio">Entre Distancia</label>
+                            <input type="text" name="inicio" id="inicio" class="form-control" placeholder="ingrese el kilometro" value='<?php echo $distacia?>'>
                         </div>
                     </div>
-                    
+                    <div class="form-row">
+                        <div class="col-sm-12">
+                            <label for="precio">precio</label>
+                            <input type="text" name="precio" id="precio" class="form-control" placeholder="ingrese por kilometro" value='<?php echo $precio?>'>
+                        </div>
+                    </div>
                 </form>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default"  class="cancelar" style="color: red;" onclick="Cerrar_Modal('media')">Cancelar</button>
-                <button type="button" class="btn btn-default" onclick="mesa('2')" class="aniadir" style="color:green">agregar</button>
+                <button type="button" class="btn btn-default" onclick="Delivery('3')" class="aniadir" style="color:green">agregar</button>
             </div>
         </div>
     </div>

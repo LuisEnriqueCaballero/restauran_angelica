@@ -1,7 +1,7 @@
 <?php
 date_default_timezone_set('America/Santiago');
 session_start();
-include_once '../Config/cnmysql.php';
+include_once '../Config/util.php';
 include_once '../Model/model_compra.php';
 include_once '../Model/model_financiero.php';
 include_once '../Model/model_caja.php';

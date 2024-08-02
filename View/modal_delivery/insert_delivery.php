@@ -14,10 +14,6 @@
       height: 60px;
       text-transform: uppercase;
     }
-    .modal-body select{
-      height: 60px;
-      text-transform: uppercase;
-    }
     .modal-footer button{
      border: 1px solid #B6BBC4;
      text-transform: capitalize;
@@ -38,29 +34,31 @@
             <div class="modal-header">
                 <h5 class="modal-title" style="font-family: sans-serif;
         text-transform: capitalize;
-        font-size: 25px; color:#11235A">Nuevo Proveedor</h5>
+        font-size: 25px; color:#11235A">Nuevo Datos</h5>
                 <button type="button" class="close"  aria-label="Close" onclick="Cerrar_Modal('media')">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <form id="formMesa">
+                <form id="formDelivery">
                     <div class="form-row">
-                        <div class="col-sm-6">
-                            <label for="cliente">capacidad</label>
-                            <input type="text" name="capacidad" id="capacidad" class="form-control" placeholder="capacidad asientos">
+                        <div class="col-sm-12">
+                            <label for="inicio">Entre Distancia </label>
+                            <input type="text" name="inicio" id="inicio" class="form-control" placeholder="ingrese el kilometro">
                         </div>
-                        <div class="col-sm-6">
-                            <label for="cliente"># mesa</label>
-                            <input type="text" name="numero" id="numero" class="form-control" placeholder="mesa #">
+                        
+                    </div>
+                    <div class="form-row">
+                        <div class="col-sm-12">
+                            <label for="precio">precio</label>
+                            <input type="text" name="precio" id="precio" class="form-control" placeholder="ingrese por kilometro">
                         </div>
                     </div>
-                    
                 </form>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default"  class="cancelar" style="color: red;" onclick="Cerrar_Modal('media')">Cancelar</button>
-                <button type="button" class="btn btn-default" onclick="mesa('2')" class="aniadir" style="color:green">agregar</button>
+                <button type="button" class="btn btn-default" onclick="Delivery('2')" class="aniadir" style="color:green">agregar</button>
             </div>
         </div>
     </div>

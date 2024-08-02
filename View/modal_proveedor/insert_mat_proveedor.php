@@ -35,7 +35,7 @@
                 <h5 class="modal-title" style="font-family: sans-serif;
         text-transform: capitalize;
         font-size: 25px; color:#11235A">Nuevo Proveedor</h5>
-                <button type="button" class="close"  aria-label="Close" onclick="hide_modal_proveedor()">
+                <button type="button" class="close"  aria-label="Close" onclick="Cerrar_Modal('media')">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
@@ -70,7 +70,7 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default"  class="cancelar" style="color: red;" onclick="hide_modal_proveedor()">Cancelar</button>
+                <button type="button" class="btn btn-default"  class="cancelar" style="color: red;" onclick="Cerrar_Modal('media')">Cancelar</button>
                 <button type="button" class="btn btn-default" onclick="proveedor('2')" class="aniadir" style="color:green">agregar</button>
             </div>
         </div>

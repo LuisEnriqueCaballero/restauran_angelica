@@ -1,5 +1,5 @@
 <?php
-$title_pagina = 'lista trabajadores'
+$title_pagina = 'Delivery Precio por distancia'
 ?>
 <div class="conteniodo_titulio">
     <div class="title_conten">
@@ -26,11 +26,11 @@ $title_pagina = 'lista trabajadores'
                     <li class="nav-item dropdown" style="color: #365a64;">
                         <a class="nav-link btn-block" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
                             <i class="fa fa-chevron-down" aria-hidden="true"></i>
-                            opciones trabajadores
+                            opciones
                         </a>
                         <div class="dropdown-menu" style="color: #365a64;">
-                            <a class="dropdown-item" class="btn" href="#" onclick="matenimiento_empleado()"><i class="fa fa-user" aria-hidden="true"></i> agregar trabajador</a>
-                            <a class="dropdown-item" href="#"><i class="fa fa-users" aria-hidden="true"></i> agregar masivo trabajador</a>
+                            <a class="dropdown-item" class="btn" href="#" onclick="matenimiento_nuevo()"><i class="fa fa-user" aria-hidden="true"></i> agregar</a>
+                            <a class="dropdown-item" href="#"><i class="fa fa-users" aria-hidden="true"></i> agregar masivo</a>
                         </div>
                     </li>
                 </ul>
@@ -41,33 +41,17 @@ $title_pagina = 'lista trabajadores'
 <div class="contenido_infomacion p-1">
     <div class="adm_contenido mt-3 pt-3">
         <div class="row w-ful">
-            <div class="col-sm-10">
-                <div class="row ml-1">
-                    <div class="col-sm-4 col-lg-4">
-                        <label for="">Empleado</label>
-                        <input type="text" name="empleado" id="empleado" class="form-control">
-                    </div>
-                </div>
-            </div>
-            <div class="busqueda col-sm-2 mt-3">
-                <button class="btn btn-default" id="consultar_empleado" onclick="lista_empleado()"><i class="fa fa-search" aria-hidden="true"></i>
-                    consultar</button>
-            </div>
             <div class="table col-sm-12">
-                <table class="table table-bordered" id="datableempleado">
+                <table class="table table-bordered" id="databledelivery">
                     <thead class="">
                         <tr style="height: 70px;">
                             <th scope="col" class="text-center pb-4">#</th>
-                            <th scope="col" class="text-center pb-4">nombre</th>
-                            <th scope="col" class="text-center pb-4">apellido</th>
-                            <th scope="col" class="text-center pb-4">telefono</th>
-                            <th scope="col" class="text-center pb-4">puesto</th>
-                            <th scope="col" class="text-center pb-4">salario</th>
-                            <th scope="col" class="text-center pb-4">fech. contrato</th>
+                            <th scope="col" class="text-center pb-4">Distancias por Kilometro</th>
+                            <th scope="col" class="text-center pb-4">Precio</th>
                             <th scope="col" class="text-center pb-4">opciones</th>
                         </tr>
                     </thead>
-                    <tbody id="lista_empleado">
+                    <tbody id="lista_delivery">
 
                     </tbody>
                 </table>
@@ -78,7 +62,7 @@ $title_pagina = 'lista trabajadores'
 <script>
   
     $(document).ready(function() {
-        $("#datableempleado").DataTable({
+        $("#databledelivery").DataTable({
             searching: false, // Desactivar el buscador
             lengthChange: false, // Desactivar la opción de cambiar el número de filas por página
             paging: true, // Habilitar la paginación
@@ -112,23 +96,16 @@ $title_pagina = 'lista trabajadores'
         });
     })
 
-    function lista_empleado(){
-        let nombre = $('#empleado').val();
+    function lista_delivery(){
         $.ajax({
             type:'POST',
-            url:'./Controller/ControllEmpleado.php?ope=1',
-            data:{empleado:nombre},
+            url:'./Controller/ControllDelivery.php?ope=1',
             dataType:'JSON',
-
             beforeSend:function(){
-                $("#consultar_empleado").attr("disabled", true);
-                $("#consultar_empleado").html('<i class="fa fa-spinner fa-spin"></i> Cargando');
-                $('#lista_empleado').html('<td colspan="8" align="center"></i> Cargando Entidades ... </td>');
+                $('#lista_delivery').html('<td colspan="8" align="center"></i> Cargando Entidades ... </td>');
             },
             success:function(result){
-                $("#consultar_empleado").attr("disabled", false);
-                $("#consultar_empleado").html('<i class="fa fa-search" aria-hidden="true"></i> Consultar');
-                $('#lista_empleado').html(result.html);
+                $('#lista_delivery').html(result.html);
             },
             error: function(xhr, status, error) {
             console.error(xhr.responseText); // Muestra los errores en la consola
@@ -137,68 +114,24 @@ $title_pagina = 'lista trabajadores'
         })
     }
 
-    function matenimiento_empleado(val) {
+    function matenimiento_nuevo(val) {
         if (!val) {
-            ViewModal('media','View/modal_empleado/insert_mat_empleado.php','HTML','POST')
+            ViewModal('media','View/modal_delivery/insert_delivery.php','HTML','POST')
         } else {
-            ViewModal('media','View/modal_empleado/update_mat_empleado.php?val=' + val,'HTML','GET')
+            ViewModal('media','View/modal_delivery/update_delivery.php?val=' + val,'HTML','GET')
         }
     }
 
-    function empleado(e){
+    function Delivery(e){
         if(e=='2'){
-            InsertarDatos('formEmpleado','POST','./Controller/ControllEmpleado.php?ope=2','media',lista_empleado);
+            InsertarDatos('formDelivery','POST','./Controller/ControllDelivery.php?ope=2','media',lista_delivery);
         }else{
-            ActualizarDatos('formEmpleadoU','POST','./Controller/ControllEmpleado.php?ope=3','media',lista_empleado)
+            ActualizarDatos('formDeliveryU','POST','./Controller/ControllDelivery.php?ope=3','media',lista_delivery)
         }
     }
 
-    function hide_modal_empleado() {
-        $('#modalmedia').modal('hide');
-        $('#modalmedia').html('');
-    }
-
-    function mensaje_eliminar(id){
-        let modaltiutlo='mensajelabel'
-        let titulo='Eliminar dato';
-        let viemodal='modal_empleado/delete_mat_empleado.php';
-        let mensaje='¿Desea eliminar este dato?';
-        let aviso='Si elimina este dato ya no se podra recuperarlo';
-        viewsmodal(id,viemodal,'eliminar',modaltiutlo,titulo,mensaje,aviso);
-    }
-    function mensaje_confir(){
-        let div='mensaje';
-        let viewmodal='modal_confirmacion.php';
-        let confirmacion=' esta procesando';
-        mensaje_confirmacion(div,viewmodal,confirmacion);
-    }
-
-    function elimar_datos(ope,option){
-        let id=$('#empleado').val();
-        if(option == 1){
-            $.ajax({
-                type:'POST',
-                datatype:'JSON',
-                data:{
-                    idempleado:id
-                },
-                url:'./Controller/ControllEmpleado.php?ope='+ope,
-                success:function(resulta){
-                    if(resulta){
-                        hide_modal('eliminar');
-                        mensaje_confir();
-                        setTimeout(function() {
-                            hide_modal('mensaje');
-                        }, 5000);
-                        lista_empleado();
-                    }
-                }
-            })
-        }else{
-            hide_modal('eliminar');
-        }
-    }
-    lista_empleado();
+   
+    lista_delivery();
 </script>
 <!-- style -->
 <style>

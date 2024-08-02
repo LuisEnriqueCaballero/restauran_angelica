@@ -103,13 +103,9 @@
     })
 
     function lista_categoriaproducto() {
-        // let nombre = $('#descripcion').val();
         $.ajax({
             type: "POST",
             url: './Controller/ControllProducto.php?ope=1',
-            // data: {
-            //     categoria: nombre
-            // },
             dataType: 'JSON',
             beforeSend: function() {
                 $("#consultar").attr("disabled", true);
@@ -127,70 +123,19 @@
 
     function matenimiento_categoria(val) {
         if (!val) {
-            $.ajax({
-                url: 'View/modal_categoria_producto/insert_mat_catproducto.php',
-                type: 'POST',
-                dataType: 'HTML',
-                success: function(data) {
-                    $('#modalmedia').html('');
-                    $('#modalmedia').html(data);
-                    $('#modalmedia').modal({
-                        keyboard: false,
-                        backdrop: 'static',
-                        show: true
-                    });
-                },
-                timeout: 40000
-            })
+            ViewModal('media','View/modal_categoria_producto/insert_mat_catproducto.php','HTML','POST')
         } else {
-            $.ajax({
-                url: 'View/modal_categoria_producto/update_mat_catproducto.php?cod=' + val,
-                type: 'POS',
-                dataType: 'HTML',
-                success: function(data) {
-                    $('#modalmedia').html('');
-                    $('#modalmedia').html(data);
-                    $('#modalmedia').modal({
-                        keyboard: false,
-                        backdrop: 'static',
-                        show: true
-                    });
-                },
-                timeout: 40000
-            })
+            ViewModal('media','View/modal_categoria_producto/update_mat_catproducto.php?cod=' + val,'HTML','GET')
         }
     }
 
     function categoria(ope) {
         // insertar un nuevo categoria
         if (ope == 2) {
-            let formulario = $('#formCategoria').serialize();
-            $.ajax({
-                type: 'POST',
-                data: formulario,
-                url: './Controller/ControllProducto.php?ope=' + ope,
-                success: function(data) {
-                    if (data == 1) {
-                        $('#formCategoria')[0].reset();
-                        hide_modal_categoria();
-                        lista_categoriaproducto();
-                    }
-                }
-            })
+            InsertarDatos('formCategoria','POST','./Controller/ControllProducto.php?ope=' + ope,'media',lista_categoriaproducto);
         }
         if (ope == 3) {
-            let formulario = $('#formCategoriaU').serialize();
-            $.ajax({
-                type: 'POST',
-                data: formulario,
-                url: './Controller/ControllProducto.php?ope=' + ope,
-                success: function(data) {
-                    if (data == 1) {
-                        hide_modal_categoria()
-                        lista_categoriaproducto();
-                    }
-                }
-            })
+            ActualizarDatos('formCategoriaU','POST','./Controller/ControllProducto.php?ope=' + ope,'media',lista_categoriaproducto)
         }
     }
 
@@ -211,7 +156,6 @@
     }
 // incio exportar pdf y excel
 function expotararchivos(e){
-  
 	var categoria=$('#categoria').val()
     if(e == 1){
         window.open('expexcel.php?exp=reportcategoria&categoria='+categoria,'_blank');

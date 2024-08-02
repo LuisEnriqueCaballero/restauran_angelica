@@ -1,5 +1,5 @@
 <?php
-include_once '../Config/cnmysql.php';
+include_once '../Config/util.php';
 include_once '../Model/modal_proveedor.php';
 
 $metodoProveedor = new MetodoProveedor();

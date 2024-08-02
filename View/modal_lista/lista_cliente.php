@@ -83,7 +83,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title">LISTA Cliente</h5>
-                <button type="button" class="close" aria-label="Close" onclick="hide_modal_lista()">
+                <button type="button" class="close" aria-label="Close" onclick="Cerrar_Modal('listado')">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
@@ -105,21 +105,15 @@
                 </table>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" style="color: red;" onclick="hide_modal_lista()">salir</button>
+                <button type="button" class="btn btn-default" style="color: red;" onclick="Cerrar_Modal('listado')">salir</button>
             </div>
         </div>
     </div>
 
 <script>
     function lista_mesa() {
-        // let nombre = $('#plato').val();
-        // let categoria = $('#categoria').val();
         $.ajax({
             type: 'POST',
-            // data: {
-            //     plato: nombre,
-            //     catego: categoria
-            // },
             dataType: 'JSON',
             url: './Controller/ControllCliente.php?ope=listacliente',
             beforeSend: function() {

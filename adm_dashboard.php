@@ -1,6 +1,3 @@
-
-
-
 </body>
 <script src="lib/jquery/code.jquery.com_jquery-3.6.0.min.js"></script>
 <script src="lib/jquery/popper.min.js"></script>

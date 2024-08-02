@@ -198,21 +198,7 @@ $title_pagina = 'lista de venta';
 
     function matenimiento_venta(val) {
         if (!val) {
-            $.ajax({
-                url: 'View/modal_venta/insert_mat_venta.php',
-                type: 'POST',
-                dataType: 'HTML',
-                success: function(data) {
-                    $('#modalmedia').html('');
-                    $('#modalmedia').html(data);
-                    $('#modalmedia').modal({
-                        keyboard: false,
-                        backdrop: 'static',
-                        show: true
-                    });
-                },
-                timeout: 40000
-            })
+            ViewModal('media','View/modal_venta/insert_mat_venta.php','HTML','POST');
         }
     }
 
@@ -268,21 +254,7 @@ $title_pagina = 'lista de venta';
     }
 
     function contenido_selecionado() {
-        $.ajax({
-            type: 'POST',
-            dataType: 'HTML',
-            url: 'View/modal_venta/lista_producto.php',
-            success: function(datos) {
-                $('#listado').html('');
-                $('#listado').html(datos);
-                $('#listado').modal({
-                    keyboard: false,
-                    backdrop: 'static',
-                    show: true
-                });
-            },
-            timeout: 40000
-        })
+        ViewModal('listado','./View/modal_venta/lista_producto.php','HTML','POST')
     }
 
     function hide_modal_lista() {
@@ -352,35 +324,9 @@ $title_pagina = 'lista de venta';
 
     function viewsmodal(val) {
         if(val == 1){
-            $.ajax({
-                    dataType: 'HTML',
-                    url: 'View/modal_lista/lista_mesa.php',
-                    success: function(resulta) {
-                        $('#listado').html('');
-                        $('#listado').html(resulta);
-                        $('#listado').modal({
-                            keyboard: false,
-                            backdrop: 'static',
-                            show: true
-                        });
-                    },
-                  
-                })
+            ViewModal('listado','View/modal_lista/lista_mesa.php','HTML','POST');
         }else{
-            $.ajax({
-                    dataType: 'HTML',
-                    url: 'View/modal_lista/lista_cliente.php',
-                    success: function(resultado) {
-                        $('#listado').html('');
-                        $('#listado').html(resultado);
-                        $('#listado').modal({
-                            keyboard: false,
-                            backdrop: 'static',
-                            show: true
-                        });
-                    },
-                    
-                })
+            ViewModal('listado','View/modal_lista/lista_cliente.php','HTML','POST');
         }
        
     }
@@ -398,7 +344,7 @@ $title_pagina = 'lista de venta';
                 if (result.mensaje) {
                     $('#id_mesa').val(result.id_mesa),
                     $('#numero').val(result.mesa);
-                    hide_modal_lista();
+                    Cerrar_Modal('listado');
                 }
             }
         })
@@ -418,7 +364,7 @@ $title_pagina = 'lista de venta';
                     $('#cliente').val(result.dato);
                     $('#telefono').val(result.telefono),
                     $('#direccion').val(result.direccion);
-                    hide_modal_lista();
+                    Cerrar_Modal('listado');
                 }
             }
         })

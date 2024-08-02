@@ -134,70 +134,19 @@
 
     function matenimiento_caja(val) {
         if (!val) {
-            $.ajax({
-                url: 'View/modal_caja/insert_mant_caja.php',
-                type: 'POST',
-                dataType: 'HTML',
-                success: function(data) {
-                    $('#modalmedia').html('');
-                    $('#modalmedia').html(data);
-                    $('#modalmedia').modal({
-                        keyboard: false,
-                        backdrop: 'static',
-                        show: true
-                    });
-                },
-                timeout: 40000
-            })
+            ViewModal('media','View/modal_caja/insert_mant_caja.php','HTML','POST');
         } else {
-            $.ajax({
-                url: 'View/modal_caja/upd_mant_caja.php?val=' + val,
-                type: 'GET',
-                dataType: 'HTML',
-                success: function(data) {
-                    $('#modalmedia').html('');
-                    $('#modalmedia').html(data);
-                    $('#modalmedia').modal({
-                        keyboard: false,
-                        backdrop: 'static',
-                        show: true
-                    });
-                },
-                timeout: 40000
-            })
+            ViewModal('media','View/modal_caja/upd_mant_caja.php?val=' + val,'HTML','GET')
         }
     }
 
     function caja(ope) {
         // insertar un nuevo caja
         if (ope == 2) {
-            let formulario = $('#formCaja').serialize();
-            $.ajax({
-                type: 'POST',
-                data: formulario,
-                url: './Controller/ControllCaja.php?ope=crearcaja',
-                success: function(data) {
-                    if (data) {
-                        $('#formCaja')[0].reset();
-                        hide_modal_caja();
-                        lista_caja();
-                    }
-                }
-            })
+            InsertarDatos('formCaja','POST','./Controller/ControllCaja.php?ope=crearcaja','media',lista_caja)
         }
         if (ope == 3) {
-            let formulario = $('#formCajaU').serialize();
-            $.ajax({
-                type: 'POST',
-                data: formulario,
-                url: './Controller/ControllCaja.php?ope=updatecaja',
-                success: function(data) {
-                    if (data) {
-                        hide_modal_caja()
-                        lista_caja();
-                    }
-                }
-            })
+            ActualizarDatos('formCajaU','POST','./Controller/ControllCaja.php?ope=updatecaja','media',lista_caja)
         }
     }
 
@@ -221,15 +170,12 @@
     
 // incio exportar pdf y excel
 function expotararchivos(e){
-  
 	var cliente=$('#cliente').val()
     if(e == 1){
         window.open('expexcel.php?exp=reportcliente&cliente='+cliente,'_blank');
     }else{
         window.open('./Controller/ControllCliente.php?ope=6&cliente='+cliente,'_blank');
     }
-	
-
 }
 // fin exportacion
 

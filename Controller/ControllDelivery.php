@@ -1,12 +1,12 @@
 <?php
 include_once '../Config/util.php';
-include_once '../Model/modal_mesa.php';
-$metodoMesa = new MetodoMesa();
+include_once '../Model/model_delivery.php';
+$metodoDelivery=new MetodoDelivery();
 $ope = isset($_GET['ope']) ? $_GET['ope'] : '';
 switch ($ope) {
     case '1':
         $html = '';
-        $lista = $metodoMesa->lista_mesa();
+        $lista = $metodoDelivery->lista_delivery();
         $numero = 1;
         $num_fila = mysqli_num_rows($lista);
         $comentario = 'No Hay Datos Registrado';
@@ -15,12 +15,10 @@ switch ($ope) {
                 $class=($numero % 2 ===0)?'even':'odd';
                 $html .= "<tr class='$class'>
                          <td class='text-center'>$numero</td>
-                         <td class='text-center text-uppercase'>$key[numero]</td>
-                         <td class='text-center'>$key[capacidad]</td>
-                         <td class='text-center'>$key[estado]</td>
+                         <td class='text-center'>$key[distancia]</td>
+                         <td class='text-center'>$key[precio]</td>
                          <td class='text-center'>
-                        
-                         <button class='btn  btn-btn-outline-success' onclick='matenimiento_mesa(" . $key['id_mesa'] . ")'><i class='fa fa-pencil' aria-hidden='true'></i></button>
+                         <button class='btn  btn-btn-outline-success' onclick='matenimiento_nuevo(" . $key['idDelivery'] . ")'><i class='fa fa-pencil' aria-hidden='true'></i></button>
                          </td>
                          </tr>";
                 $numero++;
@@ -34,25 +32,17 @@ switch ($ope) {
         break;
 
     case '2':
-        $capacidad = isset($_POST['capacidad']) ? $_POST['capacidad'] : '';
-        $estado = 8;
-        $numero = isset($_POST['numero']) ? $_POST['numero'] : '';
-        $resulta = $metodoMesa->insertMesa($capacidad, $estado, $numero);
+        $distancia = isset($_POST['inicio']) ? $_POST['inicio'] : '';
+        $precio = isset($_POST['precio']) ? $_POST['precio'] : '';
+        $resulta = $metodoDelivery->insertDelivery($distancia, $precio);
         echo $resulta;
         break;
 
     case '3':
-        $id_mesa = isset($_POST['id']) ? $_POST['id'] : '';
-        $capacidad = isset($_POST['capacidad']) ? $_POST['capacidad'] : '';
-        
-        $numero = isset($_POST['numero']) ? $_POST['numero'] : '';
-        $resulta = $metodoMesa->updateMesa($id_mesa, $capacidad, $numero);
-        echo $resulta;
-        break;
-
-    case '4':
-        $id_mesa = isset($_POST['id']) ? $_POST['id'] : '';
-        $resulta = $metodoMesa->deleteMesa($id_mesa);
+        $id = isset($_POST['id']) ? $_POST['id'] : '';
+        $distancia = isset($_POST['inicio']) ? $_POST['inicio'] : '';
+        $precio = isset($_POST['precio']) ? $_POST['precio'] : '';
+        $resulta = $metodoDelivery->updateDelivery($id, $distancia, $precio);
         echo $resulta;
         break;
 
@@ -79,16 +69,17 @@ switch ($ope) {
         exit;
         break;
     
-    case 'getdatomesa':
-        $id=isset($_POST['id_mesa'])?$_POST['id_mesa']:'';
-        $getMesa=$metodoMesa->getMesa($id);
+    case '4':
+        $id=isset($_POST['id'])?$_POST['id']:'';
+        $getDelivery=$metodoDelivery->getDelivery($id);
         $mensaje=true;
-        foreach ($getMesa as $key) {
-            $id_mesa=$key['id_mesa'];
-            $mesa=$key['numero'];
+        foreach ($getDelivery as $key) {
+            $id=$key['idDelivery'];
+            $distancia=$key['distancia'];
+            $precio=$key['precio'];
         }
 
-        echo json_encode(array('id_mesa'=>$id_mesa,'mesa'=>$mesa,'mensaje'=>$mensaje));
+        echo json_encode(array('id_mesa'=>$id,'mesa'=>$distancia,$precio=>'precio','mensaje'=>$mensaje));
         break;
     default:
         # code...

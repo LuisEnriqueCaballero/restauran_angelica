@@ -142,70 +142,19 @@ $title_pagina = 'lista de proveedores';
 
     function matenimiento_proveedor(val) {
         if (!val) {
-            $.ajax({
-                url: 'View/modal_proveedor/insert_mat_proveedor.php',
-                type: 'POST',
-                dataType: 'HTML',
-                success: function(data) {
-                    $('#modalmedia').html('');
-                    $('#modalmedia').html(data);
-                    $('#modalmedia').modal({
-                        keyboard: false,
-                        backdrop: 'static',
-                        show: true
-                    });
-                },
-                timeout: 40000
-            })
+            ViewModal('media','View/modal_proveedor/insert_mat_proveedor.php','HTML','POST')
         } else {
-            $.ajax({
-                url: 'View/modal_proveedor/update_mat_proveedor.php?val=' + val,
-                type: 'GET',
-                dataType: 'HTML',
-                success: function(data) {
-                    $('#modalmedia').html('');
-                    $('#modalmedia').html(data);
-                    $('#modalmedia').modal({
-                        keyboard: false,
-                        backdrop: 'static',
-                        show: true
-                    });
-                },
-                timeout: 40000
-            })
+            ViewModal('media','View/modal_proveedor/update_mat_proveedor.php?val=' + val,'HTML','GET')
         }
     }
 
     function proveedor(ope) {
         // insertar un nuevo cliente
         if (ope == 2) {
-            let formulario = $('#formProveedor').serialize();
-            $.ajax({
-                type: 'POST',
-                data: formulario,
-                url: './Controller/ControllProveedor.php?ope=' + ope,
-                success: function(data) {
-                    if (data == 1) {
-                        $('#formProveedor')[0].reset();
-                        hide_modal_proveedor();
-                        lista_proveedor();
-                    }
-                }
-            })
+            InsertarDatos('formProveedor','POST','./Controller/ControllProveedor.php?ope=' + ope,'media',lista_proveedor)
         }
         if (ope == 3) {
-            let formulario = $('#formProveedorU').serialize();
-            $.ajax({
-                type: 'POST',
-                data: formulario,
-                url: './Controller/ControllProveedor.php?ope=' + ope,
-                success: function(data) {
-                    if (data == 1) {
-                        hide_modal_proveedor();
-                        lista_proveedor();
-                    }
-                }
-            })
+            ActualizarDatos('formProveedorU','POST','./Controller/ControllProveedor.php?ope=' + ope,'media',lista_proveedor)
         }
     }
 // incio exportar pdf y excel

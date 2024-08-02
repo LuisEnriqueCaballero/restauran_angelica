@@ -109,13 +109,9 @@ $title_pagina = 'lista de mesa';
     })
 
     function lista_mesa() {
-        // let nombre = $('#mesa').val();
         $.ajax({
             type: "POST",
             url: './Controller/ControllMesa.php?ope=1',
-            // data: {
-            //     Mesa: nombre
-            // },
             dataType: 'JSON',
             beforeSend: function() {
                 $("#consultar").attr("disabled", true);
@@ -133,70 +129,19 @@ $title_pagina = 'lista de mesa';
 
     function matenimiento_mesa(val) {
         if (!val) {
-            $.ajax({
-                url: 'View/modal_mesas/insert_mat_mesa.php',
-                type: 'POST',
-                dataType: 'HTML',
-                success: function(data) {
-                    $('#modalmedia').html('');
-                    $('#modalmedia').html(data);
-                    $('#modalmedia').modal({
-                        keyboard: false,
-                        backdrop: 'static',
-                        show: true
-                    });
-                },
-                timeout: 40000
-            })
+            ViewModal('media','View/modal_mesas/insert_mat_mesa.php','HTML','POST')
         } else {
-            $.ajax({
-                url: 'View/modal_mesas/update_mat_mesa.php?val=' + val,
-                type: 'GET',
-                dataType: 'HTML',
-                success: function(data) {
-                    $('#modalmedia').html('');
-                    $('#modalmedia').html(data);
-                    $('#modalmedia').modal({
-                        keyboard: false,
-                        backdrop: 'static',
-                        show: true
-                    });
-                },
-                timeout: 40000
-            })
+            ViewModal('media','View/modal_mesas/update_mat_mesa.php?val=' + val,'HTML','GET')
         }
     }
 
     function mesa(ope) {
         // insertar un nuevo Mesa
         if (ope == 2) {
-            let formulario = $('#formMesa').serialize();
-            $.ajax({
-                type: 'POST',
-                data: formulario,
-                url: './Controller/ControllMesa.php?ope=' + ope,
-                success: function(data) {
-                    if (data == 1) {
-                        $('#formMesa')[0].reset();
-                        hide_modal_mesa();
-                        lista_mesa();
-                    }
-                }
-            })
+            InsertarDatos('formMesa','POST','./Controller/ControllMesa.php?ope='+ope,'media',lista_mesa)
         }
         if (ope == 3) {
-            let formulario = $('#formMesaU').serialize();
-            $.ajax({
-                type: 'POST',
-                data: formulario,
-                url: './Controller/ControllMesa.php?ope=' + ope,
-                success: function(data) {
-                    if (data == 1) {
-                        hide_modal_mesa();
-                        lista_mesa();
-                    }
-                }
-            })
+            ActualizarDatos('formMesaU','POST','./Controller/ControllMesa.php?ope=' + ope,'media',lista_mesa)
         }
     }
 

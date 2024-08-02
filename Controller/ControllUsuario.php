@@ -2,7 +2,7 @@
 session_start();
 require_once '../Config/cnmysql.php';
 require_once '../Model/modal_usuario.php';
-require_once '../util/util.php';
+require_once '../Config/util.php';
 $MetodoUsuario=new MetodoUsuario();
 $util=new Util();
 $ope=isset($_GET['ope'])?$_GET['ope']:'';

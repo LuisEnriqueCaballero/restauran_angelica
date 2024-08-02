@@ -1,5 +1,5 @@
 <?php
-include_once '../../Config/cnmysql.php';
+include_once '../../Config/util.php';
 include_once '../../Model/model_cliente.php';
 $metodocliente=new MetodoCliente();
 $val= isset($_GET['val'])?$_GET['val']:'';

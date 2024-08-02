@@ -1,4 +1,5 @@
 <?php
+include_once 'cnmysql.php';
 class Util{
     public function seguridad($data){
         $data=trim($data);
@@ -15,6 +16,12 @@ class Util{
     public function fecha_hora($date){
         $date =date('d/m/Y H:i:s');
         return $date;
+    }
+    public function Consulta($sql){
+        $conexion = new conectar();
+        $cnx=$conexion->conexion();
+        $query=mysqli_query($cnx,$sql);
+        return $query;
     }
 }
 ?>

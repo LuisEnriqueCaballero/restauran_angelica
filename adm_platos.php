@@ -3,7 +3,7 @@ $title_pagina = 'lista de plato';
 ?>
 <div class="conteniodo_titulio">
     <?php
-    include_once 'Config/cnmysql.php';
+    include_once 'Config/util.php';
     include_once 'Model/modal_categoria.php';
 
     $metodoCategoria = new MetodoCategoria();
@@ -155,70 +155,19 @@ $title_pagina = 'lista de plato';
 
     function mantenimientoplato(val) {
         if (!val) {
-            $.ajax({
-                url: 'View/modal_menu/insert_mat_menu.php',
-                type: 'POST',
-                dataType: 'HTML',
-                success: function(data) {
-                    $('#modalmedia').html('');
-                    $('#modalmedia').html(data);
-                    $('#modalmedia').modal({
-                        keyboard: false,
-                        backdrop: 'static',
-                        show: true
-                    });
-                },
-                timeout: 40000
-            })
+            ViewModal('media','View/modal_menu/insert_mat_menu.php','HTML','POST')
         } else {
-            $.ajax({
-                url: 'View/modal_menu/update_mat_menu.php?val=' + val,
-                type: 'GET',
-                dataType: 'HTML',
-                success: function(data) {
-                    $('#modalmedia').html('');
-                    $('#modalmedia').html(data);
-                    $('#modalmedia').modal({
-                        keyboard: false,
-                        backdrop: 'static',
-                        show: true
-                    });
-                },
-                timeout: 40000
-            })
+            ViewModal('media','View/modal_menu/update_mat_menu.php?val=' + val,'HTML','GET')
         }
     }
 
     function plato(ope) {
         // insertar un nuevo Menú
         if (ope == 2) {
-            let formulario = $('#formMenu').serialize();
-            $.ajax({
-                type: 'POST',
-                data: formulario,
-                url: './Controller/ControllMenu.php?ope=' + ope,
-                success: function(data) {
-                    if (data == 1) {
-                        $('#formMenu')[0].reset();
-                        hideModalplato();
-                        listaplato();
-                    }
-                }
-            })
+            InsertarDatos('formMenu','POST','./Controller/ControllMenu.php?ope=' + ope,'media',listaplato)
         }
         if (ope == 3) {
-            let formulario = $('#formMenuU').serialize();
-            $.ajax({
-                type: 'POST',
-                data: formulario,
-                url: './Controller/ControllMenu.php?ope=' + ope,
-                success: function(data) {
-                    if (data == 1) {
-                        hideModalplato();
-                        listaplato();
-                    }
-                }
-            })
+            ActualizarDatos('formMenuU','POST','./Controller/ControllMenu.php?ope=' + ope,'media',listaplato)
         }
     }
 

@@ -132,69 +132,19 @@
     lista_multicaja();
     function matenimiento_multicaja(val) {
         if (!val) {
-            $.ajax({
-                url: 'View/modal_caja/insert_mant_apertcaja.php',
-                type: 'POST',
-                dataType: 'HTML',
-                success: function(data) {
-                    $('#modalmedia').html('');
-                    $('#modalmedia').html(data);
-                    $('#modalmedia').modal({
-                        keyboard: false,
-                        backdrop: 'static',
-                        show: true
-                    });
-                },
-                timeout: 40000
-            })
+            ViewModal('media','View/modal_caja/insert_mant_apertcaja.php','HTML','POST')
         } else {
-            $.ajax({
-                url: 'View/modal_caja/update_mant_apertcaja.php?val=' + val,
-                type: 'GET',
-                dataType: 'HTML',
-                success: function(data) {
-                    $('#modalmedia').html('');
-                    $('#modalmedia').html(data);
-                    $('#modalmedia').modal({
-                        keyboard: false,
-                        backdrop: 'static',
-                        show: true
-                    });
-                },
-                timeout: 40000
-            })
+            ViewModal('media','View/modal_caja/update_mant_apertcaja.php?val=' + val,'HTML','GET')
         }
     }
 
     function apertura_caja(ope) {
         // insertar un nuevo cliente
         if (ope == 2) {
-            let formulario = $('#formCaja').serialize();
-            $.ajax({
-                type: 'POST',
-                data: formulario,
-                url: './Controller/ControllCaja.php?ope=' + ope,
-                success: function(data) {
-                    if (data) {
-                        hide_modal_caja();
-                        lista_multicaja();
-                    }
-                }
-            })
+            InsertarDatos('formCaja','POST','./Controller/ControllCaja.php?ope=' + ope,'media',lista_multicaja)
         }
         if (ope == 3) {
-            let formulario = $('#formCajaU').serialize();
-            $.ajax({
-                type: 'POST',
-                data: formulario,
-                url: './Controller/ControllCaja.php?ope=' + ope,
-                success: function(data) {
-                    if (data) {
-                        hide_modal_caja();
-                        lista_multicaja();
-                    }
-                }
-            })
+            ActualizarDatos('formCajaU','POST','./Controller/ControllCaja.php?ope=' + ope,'media',lista_multicaja)
         }
     }
 

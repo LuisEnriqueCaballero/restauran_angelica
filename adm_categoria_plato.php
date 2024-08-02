@@ -127,70 +127,19 @@
 
     function matenimiento_categoria(val) {
         if (!val) {
-            $.ajax({
-                url: 'View/modal_categoria/insert_mat_categoria.php',
-                type: 'POST',
-                dataType: 'HTML',
-                success: function(data) {
-                    $('#modalmedia').html('');
-                    $('#modalmedia').html(data);
-                    $('#modalmedia').modal({
-                        keyboard: false,
-                        backdrop: 'static',
-                        show: true
-                    });
-                },
-                timeout: 40000
-            })
+            ViewModal('media','View/modal_categoria/insert_mat_categoria.php','HTML','POST');
         } else {
-            $.ajax({
-                url: 'View/modal_categoria/update_mat_categoria.php?val=' + val,
-                type: 'GET',
-                dataType: 'HTML',
-                success: function(data) {
-                    $('#modalmedia').html('');
-                    $('#modalmedia').html(data);
-                    $('#modalmedia').modal({
-                        keyboard: false,
-                        backdrop: 'static',
-                        show: true
-                    });
-                },
-                timeout: 40000
-            })
+            ViewModal('media','View/modal_categoria/update_mat_categoria.php?val=' + val,'HTML','GET');
         }
     }
 
     function categoria(ope) {
         // insertar un nuevo categoria
         if (ope == 2) {
-            let formulario = $('#formCategoria').serialize();
-            $.ajax({
-                type: 'POST',
-                data: formulario,
-                url: './Controller/ControllCategoria.php?ope=' + ope,
-                success: function(data) {
-                    if (data == 1) {
-                        $('#formCategoria')[0].reset();
-                        hide_modal_categoria();
-                        lista_categoria();
-                    }
-                }
-            })
+            InsertarDatos('formCategoria','POST','./Controller/ControllCategoria.php?ope=' + ope,'media',lista_categoria)
         }
         if (ope == 3) {
-            let formulario = $('#formCategoriaU').serialize();
-            $.ajax({
-                type: 'POST',
-                data: formulario,
-                url: './Controller/ControllCategoria.php?ope=' + ope,
-                success: function(data) {
-                    if (data == 1) {
-                        hide_modal_categoria();
-                        lista_categoria();
-                    }
-                }
-            })
+            ActualizarDatos('formCategoriaU','POST','./Controller/ControllCategoria.php?ope=' + ope,'media',lista_categoria)
         }
     }
 
@@ -211,15 +160,12 @@
     }
 // incio exportar pdf y excel
 function expotararchivos(e){
-  
 	var categoria=$('#categoria').val()
     if(e == 1){
         window.open('expexcel.php?exp=reportcategoria&categoria='+categoria,'_blank');
     }else{
         window.open('./Controller/Controllcategoria.php?ope=6&categoria='+categoria,'_blank');
     }
-	
-
 }
 // fin exportacion
 

@@ -1,5 +1,5 @@
 <?php
-include_once '../../Config/cnmysql.php';
+include_once '../../Config/util.php';
 include_once '../../Model/modal_categoria.php';
 $metodocategoria= new MetodoCategoria();
 $lista =$metodocategoria->lista_categoria();
@@ -48,7 +48,7 @@ $lista =$metodocategoria->lista_categoria();
                 <h5 class="modal-title" style="font-family: sans-serif;
         text-transform: capitalize;
         font-size: 25px; color:#11235A">Nuevo menu</h5>
-                <button type="button" class="close" aria-label="Close" onclick="hideModalplato()">
+                <button type="button" class="close" aria-label="Close" onclick="Cerrar_Modal('media')">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
@@ -84,7 +84,7 @@ $lista =$metodocategoria->lista_categoria();
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" class="cancelar" style="color: red;" onclick="hideModalplato()">Cancelar</button>
+                <button type="button" class="btn btn-default" class="cancelar" style="color: red;" onclick="Cerrar_Modal('media')">Cancelar</button>
                 <button type="button" class="btn btn-default" onclick="plato('2')" class="aniadir" style="color:green">agregar</button>
             </div>
         </div>
