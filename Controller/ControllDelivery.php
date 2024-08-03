@@ -49,19 +49,16 @@ switch ($ope) {
 
     case 'seleccionar':
         $html = '';
-        $plato = isset($_POST['plato']) ? $_POST['plato'] : '';
-        // $categoria = isset($_POST['catego']) ? $_POST['catego'] : '';
-        $lista = $metodoMesa->lista_mesa();
+        $lista = $metodoDelivery->lista_delivery();
         $num = 0;
         while ($key = mysqli_fetch_array($lista)) {
             $num++;
 
             $html .= "<tr>
                     <td class='text-center'>$num</td>
-                    <td class='text-center text-uppercase'>$key[numero]</td>
-                    <td class='text-center'>$key[capacidad]</td>
-                    <td class='text-center'>$key[estado]</td>
-                    <td class='text-center control-boton'><button class='btn btn-default' onclick='seleccionarMesa(" . $key['id_mesa'] . ")'><i class='fa fa-hand-pointer-o' aria-hidden='true'></i>seleccione</button>
+                    <td class='text-center text-uppercase'>$key[distancia]</td>
+                    <td class='text-center'>$key[precio]</td>
+                    <td class='text-center control-boton'><button class='btn btn-default' onclick='seleccionarPrecio(" . $key['idDelivery'] . ")'><i class='fa fa-hand-pointer-o' aria-hidden='true'></i>seleccione</button>
                     </td class='text-center'>
                     </tr>";
         }
@@ -70,16 +67,15 @@ switch ($ope) {
         break;
     
     case '4':
-        $id=isset($_POST['id'])?$_POST['id']:'';
-        $getDelivery=$metodoDelivery->getDelivery($id);
         $mensaje=true;
+        $id=isset($_POST['id_Delivery'])?$_POST['id_Delivery']:'';
+        $getDelivery=$metodoDelivery->getDelivery($id);
         foreach ($getDelivery as $key) {
             $id=$key['idDelivery'];
-            $distancia=$key['distancia'];
             $precio=$key['precio'];
         }
-
-        echo json_encode(array('id_mesa'=>$id,'mesa'=>$distancia,$precio=>'precio','mensaje'=>$mensaje));
+        echo json_encode(array('mensaje'=>$mensaje,'idDelivery'=>$id,'precioDelivery'=>$precio));
+        exit;
         break;
     default:
         # code...

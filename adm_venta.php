@@ -325,8 +325,10 @@ $title_pagina = 'lista de venta';
     function viewsmodal(val) {
         if(val == 1){
             ViewModal('listado','View/modal_lista/lista_mesa.php','HTML','POST');
-        }else{
+        }if(val == 2){
             ViewModal('listado','View/modal_lista/lista_cliente.php','HTML','POST');
+        }if(val == 3){
+            ViewModal('listado','View/modal_lista/lista_delivery.php','HTML','POST');
         }
        
     }
@@ -369,6 +371,25 @@ $title_pagina = 'lista de venta';
             }
         })
     }
+    function seleccionarPrecio(idDelivery){
+        const id = idDelivery;
+        $.ajax({
+            type: 'POST',
+            data: {
+                id_Delivery: id
+            },
+            dataType: 'JSON',
+            url: './Controller/ControllDelivery.php?ope=4',
+            success: function(result) {
+                if (result.mensaje) {
+                    $('#id_delivery').val(result.idDelivery),
+                    $('#Pdelivery').val(result.precioDelivery);
+                    Cerrar_Modal('listado');
+                }
+            }
+        })
+    }
+
     function ver_pedido(val){
         if(val == 1){
             $('.pedido_mesa').hide();

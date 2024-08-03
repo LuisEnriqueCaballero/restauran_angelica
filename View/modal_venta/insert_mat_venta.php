@@ -97,6 +97,14 @@
                         </div>
                     </div>
                     <div class="form-row">
+                        <div class="col-sm-6 atencion-delivery" hidden>
+                            <label for="id_delivery">id delivery</label>
+                            <input type="text" name="id_delivery" id="id_delivery" class="form-control" readonly>
+                        </div>
+                        <div class="col-sm-6 atencion-delivery" style="display: none;" >
+                            <label for="delivery">selec. precio delivery</label>
+                            <input type="text" name="Pdelivery" id="Pdelivery" class="form-control" placeholder="$/. 0.00" readonly onclick="viewsmodal('3')">
+                        </div>
                         <div class="col-sm-6">
                             <label for="cliente">$/ monto pagar</label>
                             <input type="text" name="monto" id="monto" class="form-control" placeholder="$/. 0.00" readonly oninput="calcular_vuelto()">
@@ -141,9 +149,15 @@
             $('.atencion_cliente').hide(2000);
             $('.atencion_mesa').show(2000);
         }
-        if (val == 'cliente' || val == 'delivery') {
+        if (val == 'cliente') {
             $('.atencion_mesa').hide(2000);
             $('.atencion_cliente').show(2000);
+            $('.atencion-delivery').hide(2000);
+        }
+        if (val == 'delivery') {
+            $('.atencion_mesa').hide(2000);
+            $('.atencion_cliente').show(2000);
+            $('.atencion-delivery').show(2000);
         }
     }
 </script>
