@@ -5,13 +5,11 @@ include_once '../Config/util.php';
 include_once '../Model/model_venta.php';
 include_once '../Model/model_financiero.php';
 include_once '../Model/model_caja.php';
-
-
+$util=new Util();
 $metodoVenta = new MetodoVenta();
 $metodofinanciero = new MetodoFinanciero();
 $metodocaja=new Metodocaja();
 $ope = isset($_GET['ope']) ? $_GET['ope'] : '';
-
 switch ($ope) {
     case 'lista_venta':
         $mesa="";
@@ -20,7 +18,7 @@ switch ($ope) {
         $num = 1;
         $lista_venta = $metodoVenta->lista_venta($cliente,$mesa);
         foreach ($lista_venta as $key) {
-            $total=number_format($key['total'],'2',',','.');
+            $total=$util->Number($key['total']);
             $fecha_actual=date('d/m/Y',strtotime($key['fecha_hora']));
             $html .= "<tr>
                      <td class='text-center text-uppercase'>$num</td>
@@ -50,7 +48,7 @@ switch ($ope) {
         $num = 1;
         $lista_venta_mesa = $metodoVenta->lista_venta_mesa($cliente,$mesa);
         foreach ($lista_venta_mesa as $key) {
-            $total=number_format($key['total'],'2',',','.');
+            $total=$util->Number($key['total']);
             $fecha_actual=date('d/m/Y',strtotime($key['fecha_hora']));
             $id=intval($key['id_pedido']);
             $html .= "<tr>
@@ -122,8 +120,8 @@ switch ($ope) {
         $informacion='No hay datos registrado';
         if($num_venta>0){
             foreach ($lista_venta as $key) {
-                $subtotal=number_format($key['sub_total'],'2',',','.');
-                $preciounitario=number_format($key['precio_unitario'],'2',',','.');
+                $subtotal=$util->Number($key['sub_total']);
+                $preciounitario=$util->Number($key['precio_unitario']);
                 $html .= "<tr>
                          <td class='text-center text-uppercase'>$num</td>
                          <td class='text-center text-uppercase'>$key[id_pedido]</td>
@@ -175,8 +173,8 @@ switch ($ope) {
         }
         $_SESSION['carrito_vent'] = $lista;
         foreach ($lista as $key){
-            $precioventa=number_format($key['precioventa'],'2',',','.');
-            $subtotal=number_format($key['subtotal'],'2',',','.');
+            $precioventa=$util->Number($key['precioventa']);
+            $subtotal=$util->Number($key['subtotal']);
             $html .= "<tr>
                       <td class='text-center text-capitalize'>".$key['nombreproducto']."</td>
                       <td class='text-center'>".$key['cantidad']."</td>;

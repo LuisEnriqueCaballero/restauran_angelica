@@ -23,5 +23,10 @@ class Util{
         $query=mysqli_query($cnx,$sql);
         return $query;
     }
+
+    public function Number($num){
+        $num=number_format($num,'0',',','.');
+        return $num;
+    }
 }
 ?>

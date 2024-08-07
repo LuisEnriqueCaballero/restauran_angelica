@@ -1,7 +1,7 @@
 <?php
 require_once '../Config/util.php';
 require_once '../Model/model_financiero.php';
-
+$util=new Util();
 $metodofinanciero = new MetodoFinanciero();
 $ope = isset($_GET['ope']) ? $_GET['ope'] : '';
 
@@ -16,7 +16,7 @@ switch ($ope) {
         $informacion='no hay datos';
         if($num_fila>0){
             foreach ($lista_egreso as $key) {
-                $monto=number_format($key['monto'],'2',',','.');
+                $monto=$util->Number($key['monto']);
                 $fecha=date('d/m/Y',strtotime($key['fecha_registrado']));
                 $html .= "<tr>
                           <td class='text-center text-text-uppercase'>$num</td>
@@ -44,7 +44,8 @@ switch ($ope) {
         $informacion='no hay datos';
         if($num_fila>0){
             foreach ($lista_ingreso as $key) {
-                $monto=number_format($key['monto'],'2',',','.');
+
+                $monto=$util->Number($key['monto']);
                 $fecha=date('d-m-Y',strtotime($key['fecha']));
                 $html .= "<tr>
                           <td class='text-center text-text-uppercase'>$num</td>
@@ -74,18 +75,18 @@ switch ($ope) {
         if($num_fila>0){
             foreach ($lista_kardex as $key) {
                 $fecha_modificada=date('d/m/Y',strtotime($key['fecha']));
-                $saldo=number_format($key['saldo'],'2',',','.');
+                $saldo=$util->Number($key['saldo']);
                 if($saldo<0){
                     $class .='text-danger text-center';
                 }
-                $monto_ingreso=number_format($key['monto_ingreso'],'2',',','.');
-                $monto_egreso=number_format($key['monto_egreso'],'2',',','.');
+                $monto_ingreso=$util->Number($key['monto_ingreso']);
+                $monto_egreso=$util->Number($key['monto_egreso']);
                 $html .= "<tr>
                           <td class='text-center'>$num</td>
                           <td class='text-center text-uppercase'>$key[descripcion]</td>
                           <td class='text-center text-danger'>- $ $monto_egreso</td>
                           <td class='text-center text-success'>+ $ $monto_ingreso</td>
-                          <td class='".$class." text-center text-success' >$ $saldo </td>
+                          <td class='".$class." text-center text-primary' >$ $saldo </td>
                           <td class='text-center'>$fecha_modificada</td>
                           </tr>";
                 $num++;

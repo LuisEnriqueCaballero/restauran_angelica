@@ -2,6 +2,7 @@
 include_once '../Config/util.php';
 include_once '../Model/model_caja.php';
 include_once '../Model/model_financiero.php';
+$util=new Util();
 date_default_timezone_set('America/Santiago');
 $metodocaja = new Metodocaja();
 $metodoFinanciero= new MetodoFinanciero();
@@ -49,7 +50,7 @@ switch ($ope) {
         $informa='no se encontro datos';
         if($num_fila>0){
             foreach ($lista as $key ) {
-                $monto_incial=number_format($key['monto_inicial'],2,',','.');
+                $monto_incial=$util->Number($key['monto_inicial']);
                 $fecha =date('d-m-Y g:i a', strtotime($key['fecha_cierre']));
                 $id_caja=intval($key['id_caja_apert']);
                 $html .= "<tr>
@@ -106,7 +107,7 @@ switch ($ope) {
         $informa='no se encontro datos';
         if($num_fila>0){
             foreach ($lista as $key ) {
-                $monto_incial=number_format($key['monto_inicial'],2,',','.');
+                $monto_incial=$util->Number($key['monto_inicial']);
                 $valorint=intval($key['id_caja_apert']);
                 $fecha =date('d-m-Y H:i:s', strtotime($key['fecha_apertura']));
                 $mes=$meses[$key['mes']];

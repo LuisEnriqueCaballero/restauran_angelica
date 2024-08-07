@@ -1,7 +1,7 @@
 <?php
 include_once '../Config/util.php';
 include_once '../Model/modal_menu.php';
-
+$util=new Util();
 $metodomenu = new MetodoMenu();
 $ope = isset($_GET['ope']) ? $_GET['ope'] : '';
 
@@ -17,7 +17,7 @@ switch ($ope) {
 
         if($num_fila>0){
             while ($key = mysqli_fetch_array($listado)) {
-                $precio=number_format($key['precio'],'2',',','.');
+                $precio=$util->Number($key['precio']);
                 $num++;
                 $class = ($num % 2 == 0) ? 'even' : 'odd';
                 $html .= "<tr class=" . $class . ">
@@ -49,7 +49,7 @@ switch ($ope) {
         $num = 0;
         while ($key = mysqli_fetch_array($listado)) {
             $num++;
-            $precio=number_format($key['precio'],'2',',','.');
+            $precio=$util->Number($key['precio']);
             $html .= "<tr>
                     <td class='text-center'>$num <input type='text' hidden name='id".$num."' id='id".$num."' value='".$key['id_menu']."'></td>
                     <td class='text-center text-uppercase'>$key[categoria_menu]</td>

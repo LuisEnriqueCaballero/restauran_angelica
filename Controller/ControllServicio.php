@@ -7,8 +7,8 @@ $meses=[0=>'MES',1=>'ENERO',2=>'FEBRERO',3=>'MARZO',4=>'ABRIL',5=>'MAYO',6=>'JUN
 $metodoservicio=new MetodoServicio();
 $metodofinanza=new MetodoFinanciero();
 $metodocaja=new Metodocaja();
+$util=new Util();
 $ope=isset($_GET['ope'])?$_GET['ope']:'';
-
 switch ($ope) {
     case 'lista_pago':
         $html='';
@@ -22,14 +22,14 @@ switch ($ope) {
         $num_fila=mysqli_num_rows($listapago);
         if($num_fila>0){
             foreach ($listapago as $key) {
-                $monto=number_format($key['monto_pago'],2,'.',',');
+                $monto=$util->Number($key['monto_pago']);
                 $nueva_fecha = date('d-m-Y', strtotime($key['fecha_pago']));
                 $html .='<tr>
                          <td class="text-center text-capitalize">'.$key['empresa'].'</td>
                          <td class="text-center text-capitalize">'.$key['ruc'].'</td>
                          <td class="text-center text-capitalize">'.$key['descripcion'].'</td>
                          <td class="text-center text-capitalize">'.$key['numero_recibo'].'</td>
-                         <td class="text-center text-capitalize">$ '.$key['monto_pago'].'</td>
+                         <td class="text-center text-capitalize">$ '.$monto.'</td>
                          <td class="text-center text-capitalize">'.$nueva_fecha.'</td>
                          <td class="text-center text-capitalize">'.$meses[$key['mes']].'</td>
                          <td class="text-center text-capitalize">'.$key['anio'].'</td>
@@ -43,7 +43,6 @@ switch ($ope) {
         }
         echo json_encode(array('html'=>$html));
         break;
-    
     case 'insertat_pago':
         $mensaje=true;
         $cancelar='pago';
@@ -65,7 +64,6 @@ switch ($ope) {
         $nuevo_saldo=$monto_actual-$monto;
         $updatecaha=$metodocaja->updatemontocaja($id_caja,$nuevo_saldo);
         $insertkardex=$metodofinanza->insertKardexfinanciero( $servicio,$monto,0,$nuevo_saldo,$fecha,$mes,$anio,$id_caja);
-        
         echo json_encode(array('mensaje'=>$mensaje));
         break;
     

@@ -5,7 +5,7 @@ include_once '../Config/util.php';
 include_once '../Model/model_compra.php';
 include_once '../Model/model_financiero.php';
 include_once '../Model/model_caja.php';
-
+$util=new Util();
 $metodoCompra = new MetodoCompra();
 $metodofinanciero = new MetodoFinanciero();
 $metodoCaja= new Metodocaja();
@@ -20,7 +20,7 @@ switch ($ope) {
         $numfila=mysqli_num_rows($lista_compra);
         if($numfila>0){
             foreach ($lista_compra as $key) {
-                $total=number_format($key['total'],'2',',','.');
+                $total=$util->Number($key['total']);
                 $fecha_actual=date('d/m/Y',strtotime($key['fecha_compra']));
                 $html .= "<tr>
                          <td>$num</td>
@@ -96,8 +96,8 @@ switch ($ope) {
         $informacion='No hay datos registrado';
         if($num_fila>0){
             foreach ($lista_compra as $key) {
-                $subtotal=number_format($key['sub_total'],'2',',','.');
-                $precio=number_format($key['precio'],'2',',','.');
+                $subtotal=$util->Number($key['sub_total']);
+                $precio=$util->Number($key['precio']);
                 $html .= "<tr>
                          <td class='text-center text-uppercase'>$num</td>
                          <td class='text-center text-uppercase'>$key[id_compra]</td>
@@ -148,8 +148,8 @@ switch ($ope) {
         }
         $_SESSION['carrito_compra'] = $lista;
         foreach ($lista as $key){
-            $subtotal=number_format($key['subtotal'],'2',',','.');
-            $precio=number_format($key['precio'],'2',',','.');
+            $subtotal=$util->Number($key['subtotal']);
+            $precio=$util->Number($key['precio']);
             $html .= "<tr>
                       <td class='text-center text-capitalize'>".$key['producto']."</td>
                       <td class='text-center'>".$key['cantidad']."</td>;
@@ -185,8 +185,8 @@ switch ($ope) {
         $_SESSION['carrito_compra'] = $lista;
 
         foreach ($lista as $key) {
-            $subtotal=number_format($key['subtotal'],'2',',','.');
-            $precio=number_format($key['precio'],'2',',','.');
+            $subtotal=$util->Number($key['subtotal']);
+            $precio=$util->Number($key['precio']);
             $html .= "<tr>
                          <td class='text-center'>$key[producto]</td>
                          <td class='text-center'>$key[cantidad]</td>
