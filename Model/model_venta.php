@@ -17,9 +17,9 @@ class MetodoVenta{
         return $query;
     }
     
-    public function insertVenta($id_cliente,$estado,$fecha_hora,$total,$id_mesa,$tipo_pago,$tipo_atencion,$atencion,$mes,$anio,$efectivo_total){
+    public function insertVenta($id_cliente,$estado,$fecha_hora,$total,$id_mesa,$tipo_pago,$tipo_atencion,$atencion,$mes,$anio,$efectivo_total,$PrecioDelivery,$SubTotal){
         $util=new Util();
-        $sql="INSERT INTO pedido(id_cliente,estado,fecha_hora,total,id_mesa,tipo_pago,tipo_atencion,atencion,mes,anio,efectivo_total) VALUE ('$id_cliente','$estado','$fecha_hora','$total','$id_mesa','$tipo_pago','$tipo_atencion','$atencion','$mes','$anio','$efectivo_total')";
+        $sql="INSERT INTO pedido(id_cliente,estado,fecha_hora,total,id_mesa,tipo_pago,tipo_atencion,atencion,mes,anio,efectivo_total,PrecioDelivery,SubTotal) VALUE ('$id_cliente','$estado','$fecha_hora','$total','$id_mesa','$tipo_pago','$tipo_atencion','$atencion','$mes','$anio','$efectivo_total','$PrecioDelivery','$SubTotal')";
         $query=$util->Consulta($sql);
         return $query;
     }
@@ -62,57 +62,50 @@ class MetodoVenta{
     }
 
     public function getVenta($id){
-      $conectar= new conectar();
-      $cnx = $conectar->conexion();
+      $util=new Util();
       $sql = "SELECT id_pedido,tipo_pago,total FROM pedido WHERE id_pedido='$id'";
       $query=$util->Consulta($sql);
       return $query;
     }
 
     public function atendido_pedido($id){
-      $conectar= new conectar();
-      $cnx = $conectar->conexion();
+      $util=new Util();
       $sql = "UPDATE pedido SET atencion='1' WHERE id_pedido='$id'";
       $query=$util->Consulta($sql);
       return $query;
     }
 
     public function atendido_pagado($id,$tipo,$monto_efect){
-      $conectar= new conectar();
-      $cnx = $conectar->conexion();
+      $util=new Util();
       $sql = "UPDATE pedido SET estado='3',tipo_pago='$tipo',efectivo_total='$monto_efect' WHERE id_pedido='$id'";
       $query=$util->Consulta($sql);
       return $query;
     }
 
     public function anulado($id){
-      $conectar= new conectar();
-      $cnx = $conectar->conexion();
+      $util=new Util();
       $sql = "UPDATE pedido SET estado='4',atencion='3' WHERE id_pedido='$id'";
       $query=$util->Consulta($sql);
       return $query;
     }
     public function ticke($id){
-      $conectar= new conectar();
-      $cnx = $conectar->conexion();
-      $sql="SELECT TP.id_pedido,TMP.numero,TP.total,TP.fecha_hora FROM pedido AS TP 
-            INNER JOIN mesa AS TMP ON TMP.id_mesa=TP.id_mesa
+      $util=new Util();
+      $sql="SELECT TP.id_pedido,TMP.numero,TP.total,TP.fecha_hora FROM pedido AS TP INNER JOIN mesa AS TMP ON TMP.id_mesa=TP.id_mesa
             WHERE TP.id_pedido='$id';";
       $query=$util->Consulta($sql);
       return $query;
     }
     public function ticket($id){
-      $conectar= new conectar();
-      $cnx = $conectar->conexion();
-      $sql="SELECT TP.id_pedido,TP.total,TP.fecha_hora,TCL.dato_cliente,TCL.telefono,TCL.Direccion FROM pedido AS TP 
+      $util=new Util();
+      $sql="SELECT TP.id_pedido,TP.total,TP.fecha_hora,TCL.dato_cliente,TCL.telefono,TCL.Direccion,TP.PrecioDelivery,TP.SubTotal,
+            TP.tipo_atencion FROM pedido AS TP 
             INNER JOIN clientes AS TCL ON TCL.id_cliente=TP.id_cliente
             WHERE TP.id_pedido='$id';";
       $query=$util->Consulta($sql);
       return $query;
     }
     public function detalle_ticke($id){
-      $conectar= new conectar();
-      $cnx = $conectar->conexion();
+      $util=new Util();
       $sql="SELECT TM.descripcion,TPD.cantidad,TPD.precio_unitario,TPD.sub_total FROM detalle_pedido AS TPD
       INNER JOIN menu AS TM ON TM.id_menu=TPD.id_producto
       WHERE TPD.id_pedido='$id';";
@@ -123,8 +116,7 @@ class MetodoVenta{
     /*tipo pago */
 
     public function tipo_pago(){
-      $conectar= new conectar();
-      $cnx = $conectar->conexion();
+      $util=new Util();
       $sql="SELECT id,descripcion FROM medio_pago";
       $query=$util->Consulta($sql);
       return $query;

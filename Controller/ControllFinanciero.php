@@ -1,5 +1,5 @@
 <?php
-require_once '../Config/cnmysql.php';
+require_once '../Config/util.php';
 require_once '../Model/model_financiero.php';
 
 $metodofinanciero = new MetodoFinanciero();

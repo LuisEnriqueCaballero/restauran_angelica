@@ -13,8 +13,8 @@ foreach($restul as $datos){
     <div class="modal-content" id="modalmensajeconten">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="modalmensajelabel"></h5>
-                <button type="button" class="close" aria-label="Close" onclick="hide_modal('eliminar')">
+                <h5 class="modal-title" id="modalmensajelabel">Eliminar Datos</h5>
+                <button type="button" class="close" aria-label="Close" onclick="Cerrar_Modal('media')">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
@@ -25,7 +25,7 @@ foreach($restul as $datos){
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger anular"
-                    onclick="hide_modal('eliminar')">no</button>
+                    onclick="Cerrar_Modal('media')">no</button>
                 <button type="button" class="btn btn-success aceptar" onclick="elimar_datos(4,1)">si</button>
             </div>
         </div>
@@ -33,20 +33,6 @@ foreach($restul as $datos){
 </div>
 
 <style>
-    .modal-dialog{
-        border-radius: 5px;
-        background-color:#000;
-    }
-    .modal-content{
-        background-color:#E0E0E0;
-    }
-    .modal-title{
-        font-family:'sans-serif';
-        font-size:20px;
-        font-weight:500;
-        color:#000;
-        text-transform: uppercase;
-    }
     #pregunta{
         font-family:'sans-serif';
         font-size:18px;

@@ -1,34 +1,13 @@
+<?php
+$title_pagina='historial de cierre de caja';
+?>
 <div class="conteniodo_titulio">
     <div class="title_conten">
+    <h4><?php echo $title_pagina ?></h4>
     </div>
     <div class="opciones_contenido">
         <nav class="navbar navbar-expand-lg">
             <div class="collapse navbar-collapse" id="navbarNavDropdown">
-                <ul class="navbar-nav">
-                    <li class="nav-item dropdown">
-                        <a class="nav-link" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
-                            <i class="fa fa-chevron-down" aria-hidden="true"></i>
-                            exportar
-                        </a>
-                        <div class="dropdown-menu">
-                            <a class="dropdown-item" href="javascript:void(0)" onclick="expotararchivos('1')"><i class="fa fa-file-excel-o" aria-hidden="true"></i>
-                                excel</a>
-                            <a class="dropdown-item"  href="javascript:void(0)" onclick="expotararchivos('2')"><i class="fa fa-file-pdf-o" aria-hidden="true"></i>
-                                pdf</a>
-                        </div>
-                    </li>
-                </ul>
-                <ul class="navbar-nav">
-                    <li class="nav-item dropdown" style="color: #365a64;">
-                        <a class="nav-link btn-block" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
-                            <i class="fa fa-chevron-down" aria-hidden="true"></i>
-                            opciones caja
-                        </a>
-                        <div class="dropdown-menu" style="color: #365a64;">
-                            <a class="dropdown-item" class="btn" href="#" onclick="matenimiento_caja()"><i class="fa fa-user" aria-hidden="true"></i> agregar cajas</a>
-                        </div>
-                    </li>
-                </ul>
             </div>
         </nav>
     </div>
@@ -52,12 +31,10 @@
                 <table class="table table-bordered" id="datable">
                     <thead class="">
                         <tr style="height: 70px;">
-                            <th scope="col" class="text-center pb-4">#</th>
-                            <th scope="col" class="text-center pb-4">caja</th>
+                            <th scope="col" class="text-center pb-4">#caja - N°</th>
                             <th scope="col" class="text-center pb-4">saldo</th>
                             <th scope="col" class="text-center pb-4">fecha</th>
-                            <th scope="col" class="text-center pb-4">mes</th>
-                            <th scope="col" class="text-center pb-4">anio</th>
+                            <th scope="col" class="text-center pb-4">Imprimir</th>
                         </tr>
                     </thead>
                     <tbody id="lista_cierremulticaja">
@@ -127,13 +104,11 @@
     }
  
 // incio exportar pdf y excel
-function expotararchivos(e){
-  
-	var cliente=$('#cliente').val()
+function expotararchivos(e,idcaja){
     if(e == 1){
         window.open('expexcel.php?exp=reportcliente&cliente='+cliente,'_blank');
     }else{
-        window.open('./Controller/ControllCliente.php?ope=6&cliente='+cliente,'_blank');
+        window.open('exppdf.php?exp=Historial_caja&idcaja='+idcaja,'_blank');
     }
 	
 

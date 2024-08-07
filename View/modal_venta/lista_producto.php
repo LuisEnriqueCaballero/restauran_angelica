@@ -122,8 +122,14 @@ modal-header .modal-title {
                         </div>
                     </div>
                     <div class="col-3 mt-2">
-                        <button type="button" id="consultar" class="btn btn-success" onclick="Cerrar_Modal('listado')"><span class="fa fa-search" aria-hidden="true"></span>
-                            Buscar</button>
+                        <button type="button" id="consultar" class="btn btn-success" onclick="lista_plato()"><span class="fa fa-search" aria-hidden="true"></span>
+                            Buscar
+                        </button>
+                    </div>
+                    <div class="col-3 mt-2">
+                        <button type="button" class="btn btn-success" onclick="nuevo()"><span class="fa fa-plus" aria-hidden="true"></span>
+                            Nuevo Menu
+                        </button>
                     </div>
                 </div>
                 <br>
@@ -174,6 +180,9 @@ function lista_plato() {
         }
 
     })
+}
+function nuevo(){
+    ViewModal('plato','View/modal_menu/insert_mat_menu.php','HTML','POST')
 }
 
 lista_plato();

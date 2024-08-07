@@ -136,7 +136,9 @@ $title_pagina='Lista Cliente';
             ViewModal('media','View/modal_cliente/update_mat_cliente.php?val='+val,'HTML','GET')
         }
     }
-
+    function EliminarDatos(val){
+        ViewEliminar('View/modal_cliente/delete_mat_cliente.php?val='+val,'GET','HTML','media','¿Desea Eliminar este cliente?')
+    }
     function cliente(ope) {
         // insertar un nuevo cliente
         if (ope == 2) {
@@ -160,20 +162,6 @@ function expotararchivos(e){
 // fin exportacion
 lista_cliente();
 
-    function mensaje_eliminar(id){
-        let modaltiutlo='mensajelabel'
-        let titulo='Eliminar dato';
-        let viemodal='modal_cliente/delete_mat_cliente.php';
-        let mensaje='¿Desea eliminar este dato?';
-        let aviso='Si elimina este dato ya no se podra recuperarlo';
-        viewsmodal(id,viemodal,'eliminar',modaltiutlo,titulo,mensaje,aviso);
-    }
-    function mensaje_confir(){
-        let div='mensaje';
-        let viewmodal='modal_confirmacion.php';
-        let confirmacion=' esta procesando';
-        mensaje_confirmacion(div,viewmodal,confirmacion);
-    }
     function elimar_datos(ope,option){
         let id=$('#cliente').val();
         if(option == 1){
@@ -186,17 +174,17 @@ lista_cliente();
                 url:'./Controller/ControllCliente.php?ope='+ope,
                 success:function(resulta){
                     if(resulta){
-                        hide_modal('eliminar');
-                        mensaje_confir();
+                        Cerrar_Modal('media');
+                        procesando('media','modal_confirmacion.php','Mensaje Procesando');
                         setTimeout(function() {
-                            hide_modal('mensaje');
-                        }, 3000);
+                            Cerrar_Modal('media');
+                        }, 5000);
                         lista_cliente();
                     }
                 }
             })
         }else{
-            hide_modal('eliminar');
+            Cerrar_Modal('media');
         }
     }
 </script>

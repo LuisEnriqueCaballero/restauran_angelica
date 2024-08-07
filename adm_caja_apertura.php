@@ -1,5 +1,9 @@
+<?php
+$title_pagina='Lista de caja Aperturadas';
+?>
 <div class="conteniodo_titulio">
     <div class="title_conten">
+    <h4><?php echo $title_pagina ?></h4>
     </div>
     <div class="opciones_contenido">
         <nav class="navbar navbar-expand-lg">
@@ -143,18 +147,19 @@
             ActualizarDatos('formCajaU','POST','./Controller/ControllCaja.php?ope=' + ope,'media',lista_multicaja)
         }
     }
-
-    function cierre_caja(id) {
-        let id_caja = id;
+    function CierreDia(id){
+        ViewEliminar('View/modal_caja/CierreDia.php?val='+id,'POST','HTML','media','¿Desea Cerrar esta caja?');
+    }
+    function cierre_caja() {
+        let form=$('#formcierre').serialize();
         $.ajax({
             type: 'POST',
-            data: {
-                id: id_caja
-            },
+            data: form,
             url: './Controller/ControllCaja.php?ope=4',
             success: function(data) {
                 if (data == 1) {
                     lista_multicaja();
+                    Cerrar_Modal('media');
                 }
             }
         })

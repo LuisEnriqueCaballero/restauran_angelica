@@ -1,7 +1,9 @@
-
+<?php
+$title_pagina='cajas';
+?>
 <div class="conteniodo_titulio">
     <div class="title_conten">
-        <h4></h4>
+    <h4><?php echo $title_pagina ?></h4>
     </div>
     <div class="opciones_contenido">
         <nav class="navbar navbar-expand-lg">

@@ -50,15 +50,16 @@ switch ($ope) {
         if($num_fila>0){
             foreach ($lista as $key ) {
                 $monto_incial=number_format($key['monto_inicial'],2,',','.');
-                $fecha =date('d-m-Y H:i:s', strtotime($key['fecha_cierre']));
-                $mes=$meses[$key['mes']];
+                $fecha =date('d-m-Y g:i a', strtotime($key['fecha_cierre']));
+                $id_caja=intval($key['id_caja_apert']);
                 $html .= "<tr>
-                         <td class='text-center text-uppercase'>$num</td>
-                         <td class='text-center text-uppercase'>$key[descripcion]</td>
+                         <td class='text-center text-uppercase'>$key[descripcion]-$key[id_caja_apert]</td>
                          <td class='text-center text-uppercase'>$ $monto_incial</td>
                          <td class='text-center text-uppercase'>$fecha</td>
-                         <td class='text-center text-uppercase'>$mes</td>
-                         <td class='text-center text-uppercase'>$key[anio]</td>
+                         <td class='text-center text-uppercase'>
+                         <button type='button' class='btn  btn-btn-outline-success' onclick='expotararchivos(2,".$id_caja.")'>
+                         <i class='fa fa-print' aria-hidden='true'>imprimir historial</i>
+                         </button></td>
                          </tr>";
                 $num++;         
             }
@@ -106,6 +107,7 @@ switch ($ope) {
         if($num_fila>0){
             foreach ($lista as $key ) {
                 $monto_incial=number_format($key['monto_inicial'],2,',','.');
+                $valorint=intval($key['id_caja_apert']);
                 $fecha =date('d-m-Y H:i:s', strtotime($key['fecha_apertura']));
                 $mes=$meses[$key['mes']];
                 $html .= "<tr>
@@ -116,12 +118,12 @@ switch ($ope) {
                          <td class='text-center text-uppercase'>$mes</td>
                          <td class='text-center text-uppercase'>$key[anio]</td>
                          <td class='text-center text-uppercase'>
-                         <button type='button' onclick='cierre_caja(".$key['id_caja_apert'].")'>$key[estado]</button>
+                         <button type='button' onclick='CierreDia(".$valorint.")'>$key[estado]</button>
                          </td>
                          <td class='text-center text-uppercase'>
-                         <button type='button' class='btn btn-success' onclick='aumentar(".$key['id_caja_apert'].")'><span class='fa fa-plus' aria-hidden='true'></span></button>
+                         <button type='button' class='btn btn-success' onclick='aumentar(".$valorint.")'><span class='fa fa-plus' aria-hidden='true'></span></button>
                          </td>
-                         <td class='text-center'><button class='btn  btn-btn-outline-success' onclick='matenimiento_multicaja(" . $key['id_caja_apert'] . ")'><i class='fa fa-pencil' aria-hidden='true'></i></button>
+                         <td class='text-center'><button class='btn  btn-btn-outline-success' onclick='matenimiento_multicaja(" .$valorint. ")'><i class='fa fa-pencil' aria-hidden='true'></i></button>
                          </td>
                          </tr>";
                 $num++;         
@@ -133,6 +135,7 @@ switch ($ope) {
         }
         echo json_encode(array('html'=>$html));
         break;
+        exit;
 
     case '2':
         $caja=isset($_POST['caja'])?$_POST['caja']:'';
@@ -150,21 +153,23 @@ switch ($ope) {
         $insertkardex=$metodoFinanciero->insertKardexfinanciero($concepto,'0.00','0.00',$monto,$fecha,$mes,$anio,$id_caja);
         echo $insertkardex;
         break;
+        exit;
 
     case '3':
         $id=isset($_POST['id'])?$_POST['id']:'';
         $id_caja=isset($_POST['caja'])?$_POST['caja']:'';
         $update=$metodocaja->updatemulticaja($id,$id_caja);
         echo $update;
-        
         break;
+        exit;
 
     case '4':
         $id_caja=isset($_POST['id'])?$_POST['id']:'';
         $fecha=date('Y-m-d H:i:s');
-        $delete=$metodocaja->cierrecaja($id_caja,$fecha);
-        echo $delete;
+        $cierredia=$metodocaja->cierrecaja($id_caja,$fecha);
+        echo $cierredia;
         break;
+        exit;
 
     
     case 'aumentadinero':
@@ -177,10 +182,9 @@ switch ($ope) {
         $anio=date('Y');
         $concepto='6';
         $updatemonto=$metodocaja->aumentadinero($id,$nuevo_monto);
-        $insertingreso=$metodoFinanciero->insertIngreso($concepto,$ingreso,$fecha,$mes,$anio);
-        $insertkardex=$metodoFinanciero->insertKardexfinanciero($concepto,'0.00',$ingreso, $nuevo_monto,$fecha,$mes,$anio);
+        $insertingreso=$metodoFinanciero->insertIngreso($concepto,$ingreso,$fecha,$mes,$anio,$id);
+        $insertkardex=$metodoFinanciero->insertKardexfinanciero($concepto,'0.00',$ingreso, $nuevo_monto,$fecha,$mes,$anio,$id);
         echo $insertkardex;
         break;
-   
-       
+        exit;
 }

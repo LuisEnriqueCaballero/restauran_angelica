@@ -25,7 +25,7 @@ switch ($ope) {
                        <td class='text-center'>$row[puesto]</td>
                        <td class='text-center'>$ $salario</td>
                        <td class='text-center'>$fecha_modificada</td>
-                       <td class='text-center'><button class='btn btn-default' onclick='mensaje_eliminar(" . $row['id_empleado'] . ")'><i class='fa fa-trash-o' aria-hidden='true'></i></button>
+                       <td class='text-center'><button class='btn btn-default' onclick='EliminarDatos(" . $row['id_empleado'] . ")'><i class='fa fa-trash-o' aria-hidden='true'></i></button>
                        <button class='btn  btn-btn-outline-success' onclick='matenimiento_empleado(" . $row['id_empleado'] . ")'><i class='fa fa-pencil' aria-hidden='true'></i></button>
                        </td>
                        </tr>";

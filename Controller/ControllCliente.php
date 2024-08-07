@@ -21,7 +21,7 @@ switch ($ope) {
                        <td class='text-center'>$key[dato_cliente]</td>
                        <td class='text-center'>$key[telefono]</td>
                        <td class='text-center'>$key[Direccion]</td>
-                       <td class='text-center'><button class='btn btn-default' onclick='mensaje_eliminar(" . $key['id_cliente'] . ")'><i class='fa fa-trash-o' aria-hidden='true'></i></button>
+                       <td class='text-center'><button class='btn btn-default' onclick='EliminarDatos(" . $key['id_cliente'] . ")'><i class='fa fa-trash-o' aria-hidden='true'></i></button>
                        <button class='btn  btn-btn-outline-success' onclick='matenimiento_cliente(" . $key['id_cliente'] . ")'><i class='fa fa-pencil' aria-hidden='true'></i></button>
                        </td>
                        </tr>";

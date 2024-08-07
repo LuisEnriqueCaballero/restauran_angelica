@@ -1,14 +1,6 @@
 <?php
 include_once "../../Config/util.php";
-include_once "../../Model/model_caja.php";
 $val=isset($_GET['val'])?$_GET['val']:'';
-$metodocaja=new Metodocaja();
-$listacaja=$metodocaja->montoactual($val);
-foreach ($listacaja as $key) {
-    $id=$key['id_caja_apert'];
-    $monto=$key['monto_inicial'];
-}
-
 ?>
 <!-- style modal -->
 <style>
@@ -49,26 +41,22 @@ foreach ($listacaja as $key) {
             <div class="modal-header">
                 <h5 class="modal-title" style="font-family: sans-serif;
         text-transform: capitalize;
-        font-size: 25px; color:#11235A">ingresa dinero</h5>
+        font-size: 25px; color:#11235A">Cerrar Caja del dia</h5>
                 <button type="button" class="close"  aria-label="Close" onclick="Cerrar_Modal('media')">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <form id="formingreso">
+                <form id="formcierre">
                     <div class="form-row">
-                        <input type="text" hidden name="id" id="id" class="form-control" value="<?php echo $id?>">
-                        <input type="text" hidden name="monto" id="monto" class="form-control" value="<?php echo $monto?>">
-                        <div class="col-sm-12">
-                            <label for="cliente">ingrese dinero</label>
-                            <input type="text" name="dinero" id="dinero" class="form-control" placeholder="$ 0.00">
-                        </div>
+                        <input type="text" hidden name="id" id="id" class="form-control" value="<?php echo $val?>">
+                        <h4 id='pregunta'></h4>
                     </div>
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default"  class="cancelar" style="color: red;" onclick="Cerrar_Modal('media')">Cancelar</button>
-                <button type="button" class="btn btn-default" onclick="ingresadinero()" class="aniadir" style="color:green">agregar</button>
+                <button type="button" class="btn btn-default"  class="cancelar" style="color: red;" onclick="Cerrar_Modal('media')">No</button>
+                <button type="button" class="btn btn-default" onclick="cierre_caja()" class="aniadir" style="color:green">Si</button>
             </div>
         </div>
     </div>

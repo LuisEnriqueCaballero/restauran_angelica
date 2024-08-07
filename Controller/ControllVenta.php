@@ -71,7 +71,7 @@ switch ($ope) {
         }
         echo json_encode(array('html' => $html));
         break;
-    
+        
     
     case 'insertVenta':
         $html='';
@@ -88,10 +88,17 @@ switch ($ope) {
         $fecha_hora = date('Y-m-d H:i:s');
         $mes=date('m');
         $anio=date('Y');
-        $total = isset($_POST['monto']) ? $_POST['monto'] : '';
+        $Subtotal = isset($_POST['monto']) ? $_POST['monto'] : 0.00;
+        if(!empty($_POST['Pdelivery']) || $_POST['Pdelivery'] ===null){
+            $Pdelivery=$_POST['Pdelivery'];
+            $total= $Pdelivery+$Subtotal;
+        }else if($_POST['Pdelivery']===''){
+            $Pdelivery=0;
+            $total=$Subtotal;
+        }
         $lista = $_SESSION['carrito_vent'];
         // insertar pedido
-        $insert = $metodoVenta->insertVenta($id_cliente, $estado, $fecha_hora, $total,$id_mesa,$forma_pago,$tipo_atencion,$atencion,$mes,$anio,$efectivo_total);
+        $insert = $metodoVenta->insertVenta($id_cliente, $estado, $fecha_hora, $total,$id_mesa,$forma_pago,$tipo_atencion,$atencion,$mes,$anio,$efectivo_total,$Pdelivery,$Subtotal);
         // obtener mi id del ultimo pedido
         $consulta = $metodoVenta->ultimoPedido();
         $idpedido=mysqli_fetch_array($consulta)['id_pedido'];

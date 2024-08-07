@@ -421,20 +421,7 @@ $title_pagina = 'lista de venta';
     }
 
     function cancelado(val){
-        $.ajax({
-            type:'GET',
-            dataType:'HTML',
-            url:'./View/modal_venta/cancelar_pedido.php?val='+val,
-            success:function(resultado){
-                $('#cancelar').html('');
-                $('#cancelar').html(resultado);
-                $('#cancelar').modal({
-                    keyboard: false,
-                    backdrop: 'static',
-                    show: true
-                });
-            }
-        })
+        ViewModal('media','./View/modal_venta/cancelar_pedido.php?val='+val,'HTML','GET')
     }
     function cancelar_servicio(){
         let formulario=$('#formVentaU').serialize();
@@ -452,23 +439,7 @@ $title_pagina = 'lista de venta';
         })
     }
     function anulado(id){
-        $.ajax({
-            type:'GET',
-            dataType:'HTML',
-            url:'./View/modal_venta/anular_pedido.php?val='+id,
-            success:function(data){
-                $('#modalpedido').html('');
-                $('#modalpedido').html(data);
-                $('#modalmensajelabel').html('Anular Pedido');
-                $('#pregunta').html('¿Deseas anular este pedido?');
-                $('#aviso').html('Al anular este pedido ya no podra recurarlo');
-                $('#modalpedido').modal({
-                keyboard: false,
-                backdrop: 'static',
-                show: true
-            });
-            }
-        })
+        mensaje(id,'media','¿Deseas Anular el pedido?')
     }
     function anular_pedido(ope){
         let id=$('#pedido').val();
@@ -481,14 +452,14 @@ $title_pagina = 'lista de venta';
             url:'./Controller/ControllVenta.php?ope=anulado',
             success:function(resultado){
                 if(resultado){
-                    hide_modal('pedido');
+                    Cerrar_Modal('media');
                     lista_venta();
                     lista_venta_mesa();
                 }
             }
         })
         }else{
-         hide_modal('pedido');
+            Cerrar_Modal('media');
         }
     }
     lista_venta()

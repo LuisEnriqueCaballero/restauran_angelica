@@ -1,5 +1,5 @@
 <?php
-include_once '../Config/cnmysql.php';
+include_once '../Config/util.php';
 include_once '../Model/model_servicio.php';
 include_once '../Model/model_financiero.php';
 include_once '../Model/model_caja.php';
@@ -56,15 +56,15 @@ switch ($ope) {
         $anio=date('Y');
         $servicio='3';
         $insert=$metodoservicio->insertPagoServicio($empresa,$ruc,$servicio,$recibo,$monto,$fecha,$mes,$anio);
-        $insertegreso=$metodofinanza->insertEgreso($servicio,$monto,$fecha,$mes,$anio);
         $caja=$metodocaja->ultimocaja();
         foreach ($caja as $key) {
             $id_caja=$key['id_caja_apert'];
             $monto_actual=$key['monto_inicial'];
         }
+        $insertegreso=$metodofinanza->insertEgreso($servicio,$monto,$fecha,$mes,$anio,$id_caja);
         $nuevo_saldo=$monto_actual-$monto;
         $updatecaha=$metodocaja->updatemontocaja($id_caja,$nuevo_saldo);
-        $insertkardex=$metodofinanza->insertKardexfinanciero( $servicio,$monto,0,$nuevo_saldo,$fecha,$mes,$anio);
+        $insertkardex=$metodofinanza->insertKardexfinanciero( $servicio,$monto,0,$nuevo_saldo,$fecha,$mes,$anio,$id_caja);
         
         echo json_encode(array('mensaje'=>$mensaje));
         break;

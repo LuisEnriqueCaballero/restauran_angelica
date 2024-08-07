@@ -155,19 +155,15 @@ $title_pagina = 'lista de plato';
 
     function mantenimientoplato(val) {
         if (!val) {
-            ViewModal('media','View/modal_menu/insert_mat_menu.php','HTML','POST')
+            ViewModal('plato','View/modal_menu/insert_mat_menu.php','HTML','POST')
         } else {
-            ViewModal('media','View/modal_menu/update_mat_menu.php?val=' + val,'HTML','GET')
+            ViewModal('plato','View/modal_menu/update_mat_menu.php?val=' + val,'HTML','GET')
         }
     }
 
     function plato(ope) {
-        // insertar un nuevo Menú
-        if (ope == 2) {
-            InsertarDatos('formMenu','POST','./Controller/ControllMenu.php?ope=' + ope,'media',listaplato)
-        }
         if (ope == 3) {
-            ActualizarDatos('formMenuU','POST','./Controller/ControllMenu.php?ope=' + ope,'media',listaplato)
+            ActualizarDatos('formMenuU','POST','./Controller/ControllMenu.php?ope=' + ope,'plato',listaplato)
         }
     }
 
@@ -197,11 +193,6 @@ $title_pagina = 'lista de plato';
         }
     }
     // fin exportacion
-
-    function hideModalplato() {
-        $('#modalmedia').modal('hide');
-        $('#modalmedia').html('');
-    }
     listaplato();
 </script>
 

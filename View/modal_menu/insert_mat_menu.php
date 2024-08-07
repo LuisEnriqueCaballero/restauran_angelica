@@ -48,7 +48,7 @@ $lista =$metodocategoria->lista_categoria();
                 <h5 class="modal-title" style="font-family: sans-serif;
         text-transform: capitalize;
         font-size: 25px; color:#11235A">Nuevo menu</h5>
-                <button type="button" class="close" aria-label="Close" onclick="Cerrar_Modal('media')">
+                <button type="button" class="close" aria-label="Close" onclick="Cerrar_Modal('plato')">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
@@ -84,8 +84,26 @@ $lista =$metodocategoria->lista_categoria();
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" class="cancelar" style="color: red;" onclick="Cerrar_Modal('media')">Cancelar</button>
+                <button type="button" class="btn btn-default" class="cancelar" style="color: red;" onclick="Cerrar_Modal('plato')">Cancelar</button>
                 <button type="button" class="btn btn-default" onclick="plato('2')" class="aniadir" style="color:green">agregar</button>
             </div>
         </div>
     </div>
+
+<script>
+    function plato(ope){
+    let form = $('#formMenu').serialize();
+            $.ajax({
+                type: 'POST',
+                data: form,
+                url: './Controller/ControllMenu.php?ope=' + ope,
+                success: function(data) {
+                    if (data == 1) {
+                        $('#formMenu')[0].reset();
+                        Cerrar_Modal('plato');
+                        listaplato();
+                    }
+                }
+            })
+}
+</script>

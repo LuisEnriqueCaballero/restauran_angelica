@@ -147,7 +147,9 @@ $title_pagina = 'lista de proveedores';
             ViewModal('media','View/modal_proveedor/update_mat_proveedor.php?val=' + val,'HTML','GET')
         }
     }
-
+    function EliminarDatos(val){
+        ViewEliminar('View/modal_proveedor/delete_mat_proveedor.php?val='+val,'GET','HTML','media','¿Desea Eliminar este Proveedor?')
+    }
     function proveedor(ope) {
         // insertar un nuevo cliente
         if (ope == 2) {
@@ -170,27 +172,6 @@ function expotararchivos(e){
 
 }
 // fin exportacion
-
-    function hide_modal_proveedor() {
-        $('#modalmedia').modal('hide');
-        $('#modalmedia').html('');
-    }
-
-    function mensaje_eliminar(id){
-        let modaltiutlo='mensajelabel'
-        let titulo='Eliminar dato';
-        let viemodal='modal_proveedor/delete_mat_proveedor.php';
-        let mensaje='¿Desea eliminar este dato?';
-        let aviso='Si elimina este dato ya no se podra recuperarlo';
-        viewsmodal(id,viemodal,'eliminar',modaltiutlo,titulo,mensaje,aviso);
-    }
-    function mensaje_confir(){
-        let div='mensaje';
-        let viewmodal='modal_confirmacion.php';
-        let confirmacion=' esta procesando';
-        mensaje_confirmacion(div,viewmodal,confirmacion);
-    }
-
     function elimar_datos(ope,option){
         let id=$('#proveedor').val();
         if(option == 1){
@@ -203,8 +184,8 @@ function expotararchivos(e){
                 url:'./Controller/ControllProveedor.php?ope='+ope,
                 success:function(resulta){
                     if(resulta){
-                        hide_modal('eliminar');
-                        mensaje_confir();
+                        Cerrar_Modal('media');
+                        procesando('media','modal_confirmacion.php','Mensaje Procesando');
                         setTimeout(function() {
                             hide_modal('mensaje');
                         }, 5000);
@@ -213,7 +194,7 @@ function expotararchivos(e){
                 }
             })
         }else{
-            hide_modal('eliminar');
+            Cerrar_Modal('media');
         }
     }
     lista_proveedor();

@@ -1,5 +1,5 @@
 <?php
-require_once './Config/cnmysql.php';
+require_once './Config/util.php';
 require_once './Model/model_cliente.php';
 require_once 'lib/excel/vendor/autoload.php';
 

@@ -1,5 +1,5 @@
 <?php
-include_once '../../Config/cnmysql.php';
+include_once '../../Config/util.php';
 include_once '../../Model/model_venta.php';
 $metodoventa=new MetodoVenta();
 $val =isset($_GET['val'])?$_GET['val']:'';
@@ -69,7 +69,7 @@ foreach($venta as $key){
                 <h5 class="modal-title" style="font-family: sans-serif;
         text-transform: capitalize;
         font-size: 25px; color:#11235A">Pago servicio</h5>
-                <button type="button" class="close" aria-label="Close" onclick="hide_modal_cancelar()">
+                <button type="button" class="close" aria-label="Close" onclick="Cerrar_Modal('media')">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
@@ -110,7 +110,7 @@ foreach($venta as $key){
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" class="cancelar" style="color: red;" onclick="hide_modal_cancelar()">Cancelar</button>
+                <button type="button" class="btn btn-default" class="cancelar" style="color: red;" onclick="Cerrar_Modal('media')">Cancelar</button>
                 <button type="button" class="btn btn-default" onclick="cancelar_servicio()" class="aniadir" style="color:green">agregar</button>
             </div>
         </div>

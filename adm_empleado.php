@@ -152,25 +152,8 @@ $title_pagina = 'lista trabajadores'
             ActualizarDatos('formEmpleadoU','POST','./Controller/ControllEmpleado.php?ope=3','media',lista_empleado)
         }
     }
-
-    function hide_modal_empleado() {
-        $('#modalmedia').modal('hide');
-        $('#modalmedia').html('');
-    }
-
-    function mensaje_eliminar(id){
-        let modaltiutlo='mensajelabel'
-        let titulo='Eliminar dato';
-        let viemodal='modal_empleado/delete_mat_empleado.php';
-        let mensaje='¿Desea eliminar este dato?';
-        let aviso='Si elimina este dato ya no se podra recuperarlo';
-        viewsmodal(id,viemodal,'eliminar',modaltiutlo,titulo,mensaje,aviso);
-    }
-    function mensaje_confir(){
-        let div='mensaje';
-        let viewmodal='modal_confirmacion.php';
-        let confirmacion=' esta procesando';
-        mensaje_confirmacion(div,viewmodal,confirmacion);
+    function EliminarDatos(val){
+        ViewEliminar('View/modal_empleado/delete_mat_empleado.php?val='+val,'GET','HTML','media','¿Desea Eliminar este Empleado?')
     }
 
     function elimar_datos(ope,option){
@@ -185,17 +168,17 @@ $title_pagina = 'lista trabajadores'
                 url:'./Controller/ControllEmpleado.php?ope='+ope,
                 success:function(resulta){
                     if(resulta){
-                        hide_modal('eliminar');
-                        mensaje_confir();
+                        Cerrar_Modal('media');
+                        procesando('media','modal_confirmacion.php','Mensaje Procesando');
                         setTimeout(function() {
-                            hide_modal('mensaje');
+                            Cerrar_Modal('media');
                         }, 5000);
                         lista_empleado();
                     }
                 }
             })
         }else{
-            hide_modal('eliminar');
+            Cerrar_Modal('media');
         }
     }
     lista_empleado();

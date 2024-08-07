@@ -57,21 +57,6 @@ modal-header .modal-title {
             <form id="formProducto">
                 <div class="form-row">
                     <div class="col-sm-6">
-                        <p>Seleccione tipo</p>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1"
-                                value="insumo" onclick="revender1('insumo')">
-                            <label class="form-check-label" for="inlineRadio1">Insumo</label>
-                        </div>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2"
-                                value="vender" onclick="revender1('vender')">
-                            <label class="form-check-label" for="inlineRadio2">Vender</label>
-                        </div>
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="col-sm-6">
                         <label for="cliente">categoria producto</label>
                         <select name="categoria" id="categoria" class="form-control">
                             <option value="0">seleccione categoria</option>

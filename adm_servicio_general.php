@@ -1,5 +1,5 @@
 <?php
-require_once 'Config/cnmysql.php';
+require_once 'Config/util.php';
 require_once 'Model/model_servicio.php';
 
 $metodoservicio=new MetodoServicio();
@@ -190,41 +190,14 @@ $maximo_anio=$anio + 10;
    
 
     function matenimiento_servicio(val) {
+
         if (!val) {
-            $.ajax({
-                url: 'View/modal_servicio/insert_mant_servicio_pago.php',
-                type: 'POST',
-                dataType: 'HTML',
-                success: function(data) {
-                    $('#modalmedia').html('');
-                    $('#modalmedia').html(data);
-                    $('#modalmedia').modal({
-                        keyboard: false,
-                        backdrop: 'static',
-                        show: true
-                    });
-                },
-                timeout: 40000
-            })
+            ViewModal('media','View/modal_servicio/insert_mant_servicio_pago.php','HTML','POST')
         }
     }
 
     function pago_servicio() {
-        let formu = $('#formservicio').serialize();
-        $.ajax({
-            type: 'POST',
-            data: formu,
-            dataType: 'JSON',
-            url: "./Controller/ControllServicio.php?ope=insertat_pago",
-            success: function(resul) {
-                if (resul) {
-                    $('#formservicio')[0].reset();
-                    hide_modal_servicio();
-                    lista_pago_servicio_general();
-                }
-            }
-        })
-
+        InsertarDatos('formservicio','POST',"./Controller/ControllServicio.php?ope=insertat_pago",'media',lista_pago_servicio_general)
     }
 
     // incio exportar pdf y excel

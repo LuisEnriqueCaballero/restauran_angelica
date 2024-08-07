@@ -103,7 +103,7 @@
                         </div>
                         <div class="col-sm-6 atencion-delivery" style="display: none;" >
                             <label for="delivery">selec. precio delivery</label>
-                            <input type="text" name="Pdelivery" id="Pdelivery" class="form-control" placeholder="$/. 0.00" readonly onclick="viewsmodal('3')">
+                            <input type="text" name="Pdelivery" id="Pdelivery" class="form-control" placeholder="$/. 0.00" readonly onclick="viewsmodal('3')" >
                         </div>
                         <div class="col-sm-6">
                             <label for="cliente">$/ monto pagar</label>

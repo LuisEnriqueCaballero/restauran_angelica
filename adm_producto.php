@@ -179,27 +179,6 @@ function expotararchivos(e){
     }
 }
 // fin exportacion
-
-    function hide_modal_producto() {
-        $('#modalmedia').modal('hide');
-        $('#modalmedia').html('');
-    }
-
-    function mensaje_eliminar(id){
-        let modaltiutlo='mensajelabel'
-        let titulo='Eliminar dato';
-        let viemodal='modal_producto/delete_mat_producto.php';
-        let mensaje='¿Desea eliminar este dato?';
-        let aviso='Si elimina este dato ya no se podra recuperarlo';
-        viewsmodal(id,viemodal,'eliminar',modaltiutlo,titulo,mensaje,aviso);
-    }
-    function mensaje_confir(){
-        let div='mensaje';
-        let viewmodal='modal_confirmacion.php';
-        let confirmacion=' esta procesando';
-        mensaje_confirmacion(div,viewmodal,confirmacion);
-    }
-
     function elimar_datos(ope,option){
         let id=$('#producto').val();
         if(option == 1){

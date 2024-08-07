@@ -62,13 +62,9 @@ foreach($monto_anio AS $key){
     </div>
     <div class="modal fade" id="modallistado" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     </div>
-    <div class="modal fade" id="modalmensaje" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    </div>
-    <div class="modal fade" id="modaleliminar" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="modalplato" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     </div>
     <div class="modal fade" id="modalpedido" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    </div>
-    <div class="modal fade" id="cancelar" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     </div>
     <section class="slider">
         <nav class="menu">
@@ -640,6 +636,23 @@ function viewsmodal(id, viewmodal, divmodal, title, titulo, pregunta, aviso) {
     })
 }
 /*UTIL JS*/
+function mensaje(id,div,mensaje){
+    $.ajax({
+            type:'GET',
+            dataType:'HTML',
+            url:'./View/modal_venta/anular_pedido.php?val='+id,
+            success:function(data){
+                $('#modal'+div).html('');
+                $('#modal'+div).html(data);
+                $('#pregunta').text(mensaje)
+                $('#modal'+div).modal({
+                keyboard: false,
+                backdrop: 'static',
+                show: true
+            });
+            }
+        })
+}
 function ViewModal(div,urlview,tipodato,tipo){
     $.ajax({
             url: urlview,
@@ -658,14 +671,14 @@ function ViewModal(div,urlview,tipodato,tipo){
         })
 }
 
-function mensaje_confirmacion(div, viewmodal, confirmacion) {
+function procesando(div, viewmodal, confirmacion) {
     $.ajax({
         dataType: 'HTML',
         url: 'View/modal_mensaje_confirmacion/' + viewmodal,
         success: function(data) {
             $('#modal' + div).html('');
             $('#modal' + div).html(data);
-            $('#confirmacion').html('<span class="fa fa-spinner fa-spin"></span>' + confirmacion);
+            $('#confirmacion').html(confirmacion + ' <span class="fa fa-spinner fa-spin"></span>');
             $('#modal' + div).modal({
                 keyboard: false,
                 backdrop: 'static',
@@ -708,6 +721,24 @@ function ActualizarDatos(formulario,tipo,urlmantenimiento,div,refrejartabla){
                     }
                 }
             })
+}
+function ViewEliminar(urlview,tipo,tipodato,div,mensaje){
+    $.ajax({
+            url: urlview,
+            type: tipo,
+            dataType: tipodato,
+            success: function(data) {
+                $('#modal'+div).html('');
+                $('#modal'+div).html(data);
+                $('#pregunta').text(mensaje)
+                $('#modal'+div).modal({
+                    keyboard: false,
+                    backdrop: 'static',
+                    show: true
+                });
+            },
+            timeout: 4000
+        })
 }
 /* */
 </script>
