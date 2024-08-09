@@ -30,7 +30,7 @@ $title_pagina = 'lista trabajadores'
                         </a>
                         <div class="dropdown-menu" style="color: #365a64;">
                             <a class="dropdown-item" class="btn" href="#" onclick="matenimiento_empleado()"><i class="fa fa-user" aria-hidden="true"></i> agregar trabajador</a>
-                            <a class="dropdown-item" href="#"><i class="fa fa-users" aria-hidden="true"></i> agregar masivo trabajador</a>
+                            <a class="dropdown-item" href="#" class="btn" onclick="ingresomaxivo()"><i class="fa fa-users" aria-hidden="true"></i> agregar masivo trabajador</a>
                         </div>
                     </li>
                 </ul>
@@ -189,6 +189,50 @@ $title_pagina = 'lista trabajadores'
         window.open('exppdf.php?exp=lista_empleado&empleado='+empleado,'_blank');
     }
 }
+function ingresomaxivo(){
+        $.ajax({
+            url: 'View/modal_empleado/carga_masiva_empleado.php',
+            type: 'POST',
+            dataType: 'HTML',
+            success: function(data) {
+                $('#modalmedia').html('');
+                $('#modalmedia').html(data);
+                $('#modalmedia').modal({
+                    keyboard: false,
+                    backdrop: 'static',
+                    show: true
+                });
+            },
+            timeout: 4000
+    })
+    }
+
+    function ImportarEmpleado(){
+        let rowlista=$('#datagridEmpleado').handsontable("getData");
+        let resultado=[];
+        $.each(rowlista,function(key,value){
+            resultado.push([value[0],value[1],value[2],value[3],value[4],value[5]]);
+        })
+        if(resultado.length){
+            $.ajax({
+                type:'POST',
+                dataType: 'JSON',
+                data:{
+                    dato:resultado,
+                },
+                url:'./Controller/ControllEmpleado.php?ope=5',
+                success:function(result){
+                    if(result.mensaje){
+                        Cerrar_Modal('media');
+                        lista_empleado();
+                    }
+                }
+            })
+        }else{
+            console.log('no ingreso datos');
+            return;
+        }
+    }
     lista_empleado();
 </script>
 <!-- style -->

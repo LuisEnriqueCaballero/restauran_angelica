@@ -71,6 +71,21 @@ switch ($ope) {
         echo $resulta;
         break;
 
+    case '5':
+        $mensaje=false;
+        foreach($_REQUEST['dato'] as $value){
+            if(!empty($value[0])){
+            $empresa=$value[0];
+            $ruc=$value[1];
+            $nombre=$value[2];
+            $telefono=$value[3];
+            $direccion =$value[4];
+            $resulta = $metodoProveedor->insertProveedor($empresa,$ruc,$nombre,$telefono,$direccion);
+            }
+        }
+        $mensaje=true;
+        echo json_encode(array('mensaje'=>$mensaje));
+        break;
     default:
         # code...
         break;

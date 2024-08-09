@@ -30,7 +30,7 @@ $title_pagina = 'lista de mesa';
                         </a>
                         <div class="dropdown-menu" style="color: #365a64;">
                             <a class="dropdown-item" class="btn" href="#" onclick="matenimiento_mesa()"><i class="fa fa-user" aria-hidden="true"></i> agregar mesa</a>
-                            <a class="dropdown-item" href="#"><i class="fa fa-users" aria-hidden="true"></i> agregar masivo mesa</a>
+                            <a class="dropdown-item" href="#" class="btn" onclick="ingresomaxivo()"><i class="fa fa-users" aria-hidden="true"></i> agregar masivo mesa</a>
                         </div>
                     </li>
                 </ul>
@@ -172,6 +172,49 @@ function expotararchivos(e){
 	
 
 }
+function ingresomaxivo(){
+        $.ajax({
+            url: 'View/modal_mesas/carga_masiva.php',
+            type: 'POST',
+            dataType: 'HTML',
+            success: function(data) {
+                $('#modalmedia').html('');
+                $('#modalmedia').html(data);
+                $('#modalmedia').modal({
+                    keyboard: false,
+                    backdrop: 'static',
+                    show: true
+                });
+            },
+            timeout: 4000
+    })
+    }
+    function ImportarMesa(){
+        let rowlista=$('#datagridMesa').handsontable("getData");
+        let resultado=[];
+        $.each(rowlista,function(key,value){
+            resultado.push([value[0],value[1],value[2]]);
+        })
+        if(resultado.length){
+            $.ajax({
+                type:'POST',
+                dataType: 'JSON',
+                data:{
+                    dato:resultado,
+                },
+                url:'./Controller/ControllMesa.php?ope=5',
+                success:function(result){
+                    if(result.mensaje){
+                        Cerrar_Modal('media');
+                        lista_mesa();
+                    }
+                }
+            })
+        }else{
+            console.log('no ingreso datos');
+            return;
+        }
+    }
 // fin exportacion
 
     function hide_modal_mesa() {

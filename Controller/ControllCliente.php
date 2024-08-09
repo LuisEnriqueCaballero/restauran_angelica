@@ -64,7 +64,20 @@ switch ($ope) {
         $delete = $metodocliente->deleteCiente($id_cliente);
         echo $delete;
         break;
-    
+    case '5':
+        $mensaje=false;
+        foreach($_REQUEST['dato'] as $value){
+            if(!empty($value[0])){
+            $datocliente=$value[0];
+            $telefono=$value[1];
+            $direccion =$value[2];
+            $email='';
+            $insertar = $metodocliente->insertcliente($datocliente, $telefono, $email, $direccion);
+            }
+        }
+        $mensaje=true;
+        echo json_encode(array('mensaje'=>$mensaje));
+        break;
     case 'listacliente':
         $html = '';
         $cliente = isset($_POST['id_cliente']) ? $_POST['id_cliente'] : '';

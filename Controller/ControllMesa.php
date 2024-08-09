@@ -56,7 +56,27 @@ switch ($ope) {
         echo $resulta;
         break;
 
-
+     case '5':
+        $mensaje=false;
+        foreach($_REQUEST['dato'] as $value){
+            if(!empty($value[0])){
+            $mesa=$value[0];
+            $cantidad=$value[1];
+            switch ($value[2]){
+                case 'libre':
+                    $disponible=8;
+                    break;
+                case 'ocupado':
+                    $disponible=7;
+                    break;
+            }
+            $insertar = $metodoMesa->insertMesa( $cantidad, $disponible,$mesa);
+            }
+        }
+        $mensaje=true;
+        echo json_encode(array('mensaje'=>$mensaje));
+        break;
+        exit;
     case 'seleccionar':
         $html = '';
         $plato = isset($_POST['plato']) ? $_POST['plato'] : '';

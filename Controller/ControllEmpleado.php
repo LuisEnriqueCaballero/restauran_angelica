@@ -73,6 +73,22 @@ switch ($ope) {
         echo $result;
         break;
 
+    case '5':
+        $mensaje=false;
+        foreach($_REQUEST['dato'] as $value){
+            if(!empty($value[0])){
+            $nombre=$value[0];
+            $apellido=$value[1];
+            $telefono =$value[2];
+            $puesto=$value[3];
+            $salario=$value[4];
+            $fecha =date('Y-m-d',strtotime($value[5]));
+            $result = $metodo_empleado->insertEmpleado($nombre, $apellido, $telefono, $puesto, $salario, $fecha);
+            }
+        }
+        $mensaje=true;
+        echo json_encode(array('mensaje'=>$mensaje));
+        break;
     default:
         # code...
         break;
