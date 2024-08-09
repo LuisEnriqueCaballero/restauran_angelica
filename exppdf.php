@@ -3,6 +3,8 @@ require_once './Config/util.php';
 require_once './Model/modal_menu.php';
 require_once './Model/model_financiero.php';
 require_once './Model/model_venta.php';
+require_once './Model/model_cliente.php';
+require_once './Model/model_trabajadore.php';
 require_once 'lib/fpdf.php';
 date_default_timezone_set('America/Santiago');
 $util=new Util();
@@ -251,7 +253,7 @@ switch ($exp) {
             $total=$key['total'];
         }
         $listapedido=$metodoventa->detalle_ticke($id_pedido);
-        $objetoticke= new FPDF('p','mm',array(80,297));
+        $objetoticke= new FPDF('p','mm',array(58,210));
         $objetoticke->AddPage();
         $objetoticke->SetFont('ARIAL','B',11);
         $objetoticke->Cell(0,10,'Restaurante Pepito',0,0,'C');
@@ -321,12 +323,12 @@ switch ($exp) {
             $total=$key['total'];
         }
         $listapedido=$metodoventa->detalle_ticke($id_pedido);
-        $objetoticke= new FPDF('p', 'mm', array(80,297));
+        $objetoticke= new FPDF('p', 'mm', array(58,297));
         $objetoticke->AddPage();
         $objetoticke->SetFont('ARIAL','B',11);
         $objetoticke->Cell(0,10,'Restaurante Pepito',0,0,'C');
         $objetoticke->Ln(10);
-        $objetoticke->SetFont('ARIAL','',9);
+        $objetoticke->SetFont('ARIAL','',7);
         $objetoticke->SetX(1);
         $objetoticke->Cell(0,4,iconv('UTF-8','ISO-8859-1',$dia.' de '. strtolower($meses[$mes]).' del '.$anio.' '.$hora),0,0,'L');
         $objetoticke->Ln();
@@ -339,16 +341,16 @@ switch ($exp) {
         $objetoticke->SetX(1);
         $objetoticke->Cell(0,4,'Pedido Numero:'.$id_pedido,0,0,'L');
         $objetoticke->Ln();
-        $objetoticke->SetFont('ARIAL','B',8);
+        $objetoticke->SetFont('ARIAL','B',7);
         $objetoticke->SetX(1);
-        $objetoticke->Cell(65,7,iconv('UTF-8','ISO-8859-1','Producto'),0,0,'L');
+        $objetoticke->Cell(40,7,iconv('UTF-8','ISO-8859-1','Producto'),0,0,'L');
         $objetoticke->Cell(10,7,iconv('UTF-8','ISO-8859-1','Cant'),0,0,'C');
         $objetoticke->Ln();
         $objetoticke->SetX(1);
-        $objetoticke->Cell(75,0,'----------------------------------------------------------------------------',0,0,);
+        $objetoticke->Cell(45,0,'---------------------------------------------------------',0,0,);
         $objetoticke->Ln();
         foreach ($listapedido as $value) {   
-            $cellancho = 65;
+            $cellancho = 40;
             $cellaltura = 5;
             // Lógica para manejar descripciones de varias líneas
             $lineas = ceil($objetoticke->GetStringWidth($value['descripcion']) / $cellancho);
@@ -361,7 +363,7 @@ switch ($exp) {
             $ypos = $objetoticke->GetY();
             // Ejemplo: Escribir celdas subsiguientes   
             $objetoticke->SetXY($xpos + $cellancho, $ypos);
-            $objetoticke->SetX(67);
+            $objetoticke->SetX(40);
             $objetoticke->Cell(10,  -5, $value['cantidad'], 0, 0,'C'); 
         }  
         $objetoticke->Output();
@@ -387,7 +389,7 @@ switch ($exp) {
             $total=$key['total'];
         }
         $listapedido=$metodoventa->detalle_ticke($id_pedido);
-        $objetoticke= new FPDF('p', 'mm', array(80,297));
+        $objetoticke= new FPDF('p', 'mm', array(58,210));
     
         $objetoticke->AddPage();
         $objetoticke->SetFont('ARIAL','B',11);
@@ -395,7 +397,7 @@ switch ($exp) {
         $objetoticke->Ln(10);
     
        
-        $objetoticke->SetFont('ARIAL','',9);
+        $objetoticke->SetFont('ARIAL','',7);
         $objetoticke->SetX(1);
         $objetoticke->Cell(0,4,iconv('UTF-8','ISO-8859-1',$dia.' de '. strtolower($meses[$mes]).' del '.$anio.' '.$hora),0,0,'L');
         $objetoticke->Ln();
@@ -409,19 +411,19 @@ switch ($exp) {
         $objetoticke->Cell(0,4,'Pedido Numero:'.$id_pedido,0,0,'L');
         $objetoticke->Ln();
     
-        $objetoticke->SetFont('ARIAL','',9);
+        $objetoticke->SetFont('ARIAL','B',7);
         $objetoticke->SetX(1);
-        $objetoticke->Cell(30,7,iconv('UTF-8','ISO-8859-1','Producto'),0,0,'L');
+        $objetoticke->Cell(20,7,iconv('UTF-8','ISO-8859-1','Producto'),0,0,'L');
         $objetoticke->Cell(15,7,iconv('UTF-8','ISO-8859-1','Pre. unit'),0,0,'L');
-        $objetoticke->Cell(10,7,iconv('UTF-8','ISO-8859-1','Cant'),0,0,'L');
-        $objetoticke->Cell(20,7,iconv('UTF-8','ISO-8859-1','Sub Total'),0,0,'L');
+        $objetoticke->Cell(8,7,iconv('UTF-8','ISO-8859-1','Cant'),0,0,'L');
+        $objetoticke->Cell(15,7,iconv('UTF-8','ISO-8859-1','Sub Total'),0,0,'L');
         $objetoticke->Ln();
         $objetoticke->SetX(1);
         $objetoticke->Cell(75,0,'-----------------------------------------------------------------------',0,0,);
         $objetoticke->Ln();
         foreach ($listapedido as $value) {
                 
-            $cellancho = 30;
+            $cellancho = 20;
             $cellaltura = 5;
              
                 
@@ -440,43 +442,40 @@ switch ($exp) {
             // Ejemplo: Escribir celdas subsiguientes
                 
             $objetoticke->SetXY($xpos + $cellancho, $ypos);
-            $objetoticke->SetX(31);
+            $objetoticke->SetX(20);
                 
             $objetoticke->Cell(15, -5 * $lineas , '$ '.$value['precio_unitario'], 0, 0,'L');
-            $objetoticke->Cell(10, -5 * $lineas, $value['cantidad'], 0, 0,'C');
-            $objetoticke->Cell(20, -5 * $lineas, '$ '.$value['sub_total'], 0, 0,'R');
+            $objetoticke->Cell(8, -5 * $lineas, $value['cantidad'], 0, 0,'C');
+            $objetoticke->Cell(15, -5 * $lineas, '$ '.$value['sub_total'], 0, 0,'L');
                 
         }
         // subtotal
         $objetoticke->Ln(1);
         $objetoticke->SetX(1);
-        $objetoticke->Cell(70, 0, '------------------------------------------------------------------------------------------', 0, 0,'L');
+        $objetoticke->Cell(40, 0, '-----------------------------------------------------------------', 0, 0,'L');
         $objetoticke->Ln();
-        $objetoticke->Cell(52, 5, 'Sub Total         :', 0, 0,'R');
-        $objetoticke->Cell(20, 5, '$ '.$subtotal, 0, 0,'L');
+        $objetoticke->Cell(32, 5, 'Sub Total :', 0, 0,'R');
+        $objetoticke->Cell(15, 5, '$ '.$subtotal, 0, 0,'L');
         // precio delivery
         if($tipoAtencion=='delivery'){
             $objetoticke->Ln(1);
             $objetoticke->SetX(1);
             $objetoticke->Ln();
-            $objetoticke->Cell(52, 5, 'Precio Delivery        :', 0, 0,'R');
-            $objetoticke->Cell(20, 5, '$ '. $PreciDeli, 0, 0,'L');
+            $objetoticke->Cell(32, 5, 'Precio Delivery :', 0, 0,'R');
+            $objetoticke->Cell(15, 5, '$ '. $PreciDeli, 0, 0,'R');
         }
         // total
         $objetoticke->Ln(5);
         $objetoticke->SetX(1);
-        $objetoticke->Cell(70, 0, '------------------------------------------------------------------------------------------', 0, 0,'L');
+        $objetoticke->Cell(40, 0, '------------------------------------------------------------------', 0, 0,'L');
         $objetoticke->Ln();
-        $objetoticke->Cell(52, 5, 'Total         :', 0, 0,'R');
-        $objetoticke->Cell(20, 5, '$ '.$total, 0, 0,'L');
+        $objetoticke->Cell(32, 5, 'Total :', 0, 0,'R');
+        $objetoticke->Cell(15, 5, '$ '.$total, 0, 0,'L');
         $objetoticke->Output();
         ob_end_flush();
         break;
-                                 
     default:
-        # code...
         break;
-    
     case 'Historial_caja':
         $id=isset($_REQUEST['idcaja'])?$_REQUEST['idcaja']:''; 
         $fecha=date('d/m/Y H:m:s');
@@ -515,8 +514,81 @@ switch ($exp) {
         }
         $objetoPDF->Output();
         ob_end_flush();
-
         break;
-        exit;    
+        exit;
+    case 'ListaCliente':
+        $fecha_hoy = date('d-m-Y');
+        $cliente = isset($_REQUEST['cliente']) ? $_REQUEST['cliente'] : '';
+        $metodocliente=new MetodoCliente();
+        $listado = $metodocliente->list_cliente($cliente);
+        $pdf = new FPDF('P','mm','A4');
+        $pdf->AddPage();
+        $pdf->SetFont('Arial', 'B', 12);
+        $pdf->SetTextColor(0, 0, 255); // Color del texto azul
+        $pdf->Cell(0, 4, "Lista de Clientes", 0, 0, 'C');
+        $pdf->Ln();
+        $pdf->Ln(6);
+        $pdf->SetFont('Arial', '', 9);
+        $pdf->Cell(0, 4, iconv('UTF-8', 'ISO-8859-1', 'F. Reporte: ') . $fecha_hoy, 0, 0, 'R');
+        $pdf->Ln(8);
+        $pdf->SetFont('Arial', 'B', 10);
+        $pdf->SetTextColor(0, 0, 0); // Color del texto azul
+        $pdf->Cell(20, 8, iconv('UTF-8', 'ISO-8859-1', '#Orden'), 1, 0, 'C', 0);
+        $pdf->Cell(40, 8, iconv('UTF-8', 'ISO-8859-1', 'Dato de Cliente'), 1, 0, 'C', 0);
+        $pdf->Cell(30, 8, iconv('UTF-8', 'ISO-8859-1', '#Telefono'), 1, 0, 'C', 0);
+        $pdf->Cell(100, 8, iconv('UTF-8', 'ISO-8859-1', 'Direccion'), 1, 0, 'C', 0);
+        $pdf->Ln();
+        $pdf->SetFont('Helvetica', '', 9);
+         foreach ($listado as $key => $cliente) {
+             $pdf->Cell(20, 10, iconv('UTF-8', 'ISO-8859-1', $key + 1), 1, 0, 'C');
+             $pdf->Cell(40, 10, iconv('UTF-8', 'ISO-8859-1', $cliente['dato_cliente']), 1, 0, 'C');
+             $pdf->Cell(30, 10, iconv('UTF-8', 'ISO-8859-1', $cliente['telefono']), 1, 0, 'C');
+             $pdf->Cell(100, 10, iconv('UTF-8', 'ISO-8859-1', $cliente['Direccion']), 1, 0, 'L');
+             $pdf->Ln();
+        }
+        $pdf->Output();
+        ob_end_flush();
+        exit;
+        break;
+    case 'lista_empleado':
+        $fecha_hoy = date('d-m-Y');
+        $metodoempleado=new MetodoEmpleado();
+        $empleado=isset($_REQUEST['empleado']) ? $_REQUEST['empleado'] : '';
+        $listaEmpleado=$metodoempleado->lista_empleado($empleado);
+        $pdf = new FPDF('P','mm','A4');
+        $pdf->AddPage();
+        $pdf->SetFont('Arial', 'B', 12);
+        $pdf->SetTextColor(0, 0, 255); // Color del texto azul
+        $pdf->Cell(0, 4, "Lista de Empleados", 0, 0, 'C');
+        $pdf->Ln();
+        $pdf->Ln(6);
+        $pdf->SetFont('Arial', '', 9);
+        $pdf->Cell(0, 4, iconv('UTF-8', 'ISO-8859-1', 'F. Reporte: ') . $fecha_hoy, 0, 0, 'R');
+        $pdf->Ln(8);
+        $pdf->SetFont('Arial', 'B', 10);
+        $pdf->SetTextColor(0, 0, 0); // Color del texto azul
+        $pdf->Cell(20, 8, iconv('UTF-8', 'ISO-8859-1', '#Orden'), 1, 0, 'C', 0);
+        $pdf->Cell(40, 8, iconv('UTF-8', 'ISO-8859-1', 'Dato de empleado'), 1, 0, 'C', 0);
+        $pdf->Cell(30, 8, iconv('UTF-8', 'ISO-8859-1', '#Telefono'), 1, 0, 'C', 0);
+        $pdf->Cell(30, 8, iconv('UTF-8', 'ISO-8859-1', 'Puesto'), 1, 0, 'C', 0);
+        $pdf->Cell(30, 8, iconv('UTF-8', 'ISO-8859-1', 'Salario'), 1, 0, 'C', 0);
+        $pdf->Cell(30, 8, iconv('UTF-8', 'ISO-8859-1', 'F.Contrato'), 1, 0, 'C', 0);
+        $pdf->Ln();
+        $pdf->SetFont('Helvetica', '', 9);
+         foreach ($listaEmpleado as $key => $empleado) {
+             $salario=$util->Number($empleado['salario']);
+             $fechaC=$util->fecha($empleado['fech_contrato']);
+             $pdf->Cell(20, 10, iconv('UTF-8', 'ISO-8859-1', $key + 1), 1, 0, 'C');
+             $pdf->Cell(40, 10, iconv('UTF-8', 'ISO-8859-1', $empleado['nombre_empleado'].' '.$empleado['apellido_empleado']), 1, 0, 'C');
+             $pdf->Cell(30, 10, iconv('UTF-8', 'ISO-8859-1', $empleado['telefono']), 1, 0, 'C');
+             $pdf->Cell(30, 10, iconv('UTF-8', 'ISO-8859-1', $empleado['puesto']), 1, 0, 'C');
+             $pdf->Cell(30, 10, iconv('UTF-8', 'ISO-8859-1', '$ '.$salario), 1, 0, 'C');
+             $pdf->Cell(30, 10, iconv('UTF-8', 'ISO-8859-1', $fechaC), 1, 0, 'C');
+             $pdf->Ln();
+        }
+        $pdf->Output();
+        ob_end_flush();
+        exit;
+        break;
 }
 ?>

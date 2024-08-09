@@ -22,7 +22,7 @@ $lista =$metodocategoria->lista_categoria();
                 <h5 class="modal-title" style="font-family: sans-serif;
         text-transform: capitalize;
         font-size: 25px; color:#11235A">actualizar datos</h5>
-                <button type="button" class="close"  aria-label="Close" onclick="Cerrar_Modal('media')">
+                <button type="button" class="close"  aria-label="Close" onclick="Cerrar_Modal('plato')">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
@@ -60,7 +60,7 @@ $lista =$metodocategoria->lista_categoria();
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default"  class="cancelar" style="color: red;" onclick="Cerrar_Modal('media')">Cancelar</button>
+                <button type="button" class="btn btn-default"  class="cancelar" style="color: red;" onclick="Cerrar_Modal('plato')">Cancelar</button>
                 <button type="button" class="btn btn-default" onclick="plato('3')" class="aniadir" style="color:green">actualizar</button>
             </div>
         </div>

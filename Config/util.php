@@ -28,5 +28,9 @@ class Util{
         $num=number_format($num,'0',',','.');
         return $num;
     }
+    public function fecha($fecha){
+        $fecha=date('d/m/Y',strtotime($fecha));
+        return $fecha;
+    }
 }
 ?>

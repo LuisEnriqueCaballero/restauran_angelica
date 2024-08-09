@@ -181,6 +181,14 @@ $title_pagina = 'lista trabajadores'
             Cerrar_Modal('media');
         }
     }
+    function expotararchivos(e){
+	var empleado=$('#empleado').val()
+    if(e == 1){
+        window.open('expexcel.php?exp=reportcliente&cliente='+cliente,'_blank');
+    }else{
+        window.open('exppdf.php?exp=lista_empleado&empleado='+empleado,'_blank');
+    }
+}
     lista_empleado();
 </script>
 <!-- style -->

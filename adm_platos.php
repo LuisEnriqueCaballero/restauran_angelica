@@ -37,7 +37,7 @@ $title_pagina = 'lista de plato';
                         </a>
                         <div class="dropdown-menu" style="color: #365a64;">
                             <a class="dropdown-item" class="btn" href="#" onclick="mantenimientoplato()"><i class="fa fa-user" aria-hidden="true"></i> Agregar platos</a>
-                            <a class="dropdown-item" href="#"><i class="fa fa-users" aria-hidden="true"></i> Agregar Masivo platos</a>
+                            <a class="dropdown-item" href="#" class="btn" onclick="ingresomaxivo()"><i class="fa fa-users" aria-hidden="true"></i> Agregar Masivo platos</a>
                         </div>
                     </li>
                 </ul>
@@ -193,7 +193,55 @@ $title_pagina = 'lista de plato';
         }
     }
     // fin exportacion
+
+    //Handsontable
     listaplato();
+    function ingresomaxivo(){
+        $.ajax({
+            url: 'View/modal_menu/handsontablePlato.php',
+            type: 'POST',
+            dataType: 'HTML',
+            success: function(data) {
+                $('#modalmedia').html('');
+                $('#modalmedia').html(data);
+                $('#modalmedia').modal({
+                    keyboard: false,
+                    backdrop: 'static',
+                    show: true
+                });
+            },
+            timeout: 4000
+    })
+    }
+
+    function ImportarMenu(){
+        let rowlista=$('#datagridProveedores').handsontable("getData");
+        let resultado=[];
+        $.each(rowlista,function(key,value){
+            resultado.push([value[0],value[1],value[2]]);
+        })
+
+        if(resultado.length){
+            $.ajax({
+                type:'POST',
+                dataType: 'JSON',
+                data:{
+                    dato:resultado,
+                },
+                url:'./Controller/ControllMenu.php?ope=5',
+                success:function(result){
+                    if(result.mensaje){
+                        Cerrar_Modal('media');
+                        listaplato();
+                    }
+                }
+            })
+        }else{
+            console.log('no ingreso datos');
+            return;
+        }
+    }
+    /*fin handsontable */
 </script>
 
 <!-- style -->

@@ -1,8 +1,10 @@
 <?php
 include_once '../Config/util.php';
 include_once '../Model/modal_menu.php';
+include_once '../Model/modal_categoria.php';
 $util=new Util();
 $metodomenu = new MetodoMenu();
+$metodocategoria= new MetodoCategoria();
 $ope = isset($_GET['ope']) ? $_GET['ope'] : '';
 
 switch ($ope) {
@@ -91,6 +93,27 @@ switch ($ope) {
         $delete = $metodomenu->deleteMenu($id_menu);
         echo $delete;
         exit;
+        break;
+
+    case '5':
+        $mensaje=false;
+        $array_categoria=[];
+        $lista_categoria=$metodocategoria->lista_categoria();
+        foreach($lista_categoria as $values){
+            $idCategoria=$values['id_categoria'];
+            $descripcion=$values['descripcion'];
+            $array_categoria[$idCategoria] = $descripcion;
+        }
+            foreach($_REQUEST['dato'] as $value){
+                if(!empty($value[0])){
+                $id_categoria=array_search($value[0],$array_categoria);
+                $descripcion=$value[1];
+                $precio=$value[2];
+                $insertar = $metodomenu->insertMenu($id_categoria,$descripcion,$precio);
+            }
+        }
+        $mensaje=true;
+        echo json_encode(array('mensaje'=>$mensaje));
         break;
 
     case '6':

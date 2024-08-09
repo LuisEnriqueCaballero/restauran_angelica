@@ -51,6 +51,18 @@ switch ($ope) {
         echo $resulta;
         break;
 
+    case '5':
+        $mensaje=false;
+        foreach($_REQUEST['dato'] as $value){
+            if(!empty($value[0])){
+            $descripcion=$value[0];
+            $insertar = $metodoCategoria->insertCategoria($descripcion);
+            }
+        }
+        $mensaje=true;
+        echo json_encode(array('mensaje'=>$mensaje));
+        break;
+        exit;
     default:
         
         break;

@@ -47,15 +47,14 @@
                 <form id="formMesa">
                     <div class="form-row">
                         <div class="col-sm-6">
-                            <label for="cliente">capacidad</label>
-                            <input type="text" name="capacidad" id="capacidad" class="form-control" placeholder="capacidad asientos">
-                        </div>
-                        <div class="col-sm-6">
                             <label for="cliente"># mesa</label>
                             <input type="text" name="numero" id="numero" class="form-control" placeholder="mesa #">
                         </div>
+                        <div class="col-sm-6">
+                            <label for="cliente">capacidad</label>
+                            <input type="text" name="capacidad" id="capacidad" class="form-control" placeholder="capacidad asientos">
+                        </div>
                     </div>
-                    
                 </form>
             </div>
             <div class="modal-footer">

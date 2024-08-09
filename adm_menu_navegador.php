@@ -54,6 +54,7 @@ foreach($monto_anio AS $key){
     <link rel="stylesheet" href="lib/bootstrap/bootstrap.min.css">
     <link rel="stylesheet" href="lib/bootstrap//jquery.dataTables.min.css">
     <link rel="stylesheet" href="lib/font-awesome-4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/handsontable/dist/handsontable.full.min.css" />
     <link rel="stylesheet" href="css/style.css">
 </head>
 
@@ -419,6 +420,7 @@ foreach($monto_anio AS $key){
 <script src="lib/jquery/bootstrap.min.js"></script>
 <script src="lib/jquery/cdn.datatables.net_1.13.5_js_jquery.dataTables.min.js"></script>
 <script src="lib/chartjs/chart.umd.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/handsontable/dist/handsontable.full.min.js"></script>
 <script src="js/main.js"></script>
 
 </html>
@@ -668,7 +670,7 @@ function ViewModal(div,urlview,tipodato,tipo){
                 });
             },
             timeout: 4000
-        })
+    })
 }
 
 function procesando(div, viewmodal, confirmacion) {

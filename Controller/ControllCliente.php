@@ -104,47 +104,6 @@ switch ($ope) {
         }
         echo json_encode(array('mensaje'=>$mensaje,'id'=>$id_client,'dato'=>$datocliente,'telefono'=>$telefon,'direccion'=>$direccion));
         break;
-        
-    case '6':
-        include_once '../lib/fpdf.php';
-
-        $fecha_hoy = date('d-m-Y');
-        $cliente = isset($_REQUEST['cliente']) ? $_REQUEST['cliente'] : '';
-        $listado = $metodocliente->list_cliente($cliente);
-
-        $pdf = new FPDF('L');
-
-        $pdf->AddPage();
-        $pdf->SetFont('Arial', 'B', 9);
-        $pdf->Cell(0, 4, "Lista de Clientes", 0, 0, 'C');
-        $pdf->Ln();
-
-        $pdf->Ln(6);
-        $pdf->SetFont('Arial', '', 8);
-        $pdf->Cell(0, 4, iconv('UTF-8', 'ISO-8859-1', 'F. Creación: ') . $fecha_hoy, 0, 0, 'R');
-        $pdf->Ln(8);
-
-        $pdf->SetFont('Arial', 'B', 14);
-        $pdf->Cell(20, 8, iconv('UTF-8', 'ISO-8859-1', '#'), 1, 0, 'C', 0);
-        $pdf->Cell(40, 8, iconv('UTF-8', 'ISO-8859-1', 'Dato de Cliente'), 1, 0, 'C', 0);
-        $pdf->Cell(30, 8, iconv('UTF-8', 'ISO-8859-1', '#Telefono'), 1, 0, 'C', 0);
-        $pdf->Cell(80, 8, iconv('UTF-8', 'ISO-8859-1', 'Correo'), 1, 0, 'C', 0);
-        $pdf->Cell(100, 8, iconv('UTF-8', 'ISO-8859-1', 'Direccion'), 1, 0, 'C', 0);
-        $pdf->Ln();
-        $pdf->SetFont('Arial', 'B', 12);
-
-        foreach ($listado as $key => $cliente) {
-            $pdf->Cell(20, 10, iconv('UTF-8', 'ISO-8859-1', $key + 1), 1, 0, 'C');
-            $pdf->Cell(40, 10, iconv('UTF-8', 'ISO-8859-1', $cliente['dato_cliente']), 1, 0, 'L');
-            $pdf->Cell(30, 10, iconv('UTF-8', 'ISO-8859-1', $cliente['telefono']), 1, 0, 'L');
-            $pdf->Cell(80, 10, iconv('UTF-8', 'ISO-8859-1', $cliente['email']), 1, 0, 'L');
-            $pdf->Cell(100, 10, iconv('UTF-8', 'ISO-8859-1', $cliente['Direccion']), 1, 0, 'L');
-            $pdf->Ln();
-        }
-        $pdf->Output();
-        ob_end_flush();
-        exit;
-        break;
     default:
         # code...
         break;

@@ -155,7 +155,7 @@ function expotararchivos(e){
     if(e == 1){
         window.open('expexcel.php?exp=reportcliente&cliente='+cliente,'_blank');
     }else{
-        window.open('./Controller/ControllCliente.php?ope=6&cliente='+cliente,'_blank');
+        window.open('exppdf.php?exp=ListaCliente&cliente='+cliente,'_blank');
     }
 	
 }

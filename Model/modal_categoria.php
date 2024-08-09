@@ -29,7 +29,7 @@ class MetodoCategoria{
 
     public function deleteCategoria($id){
         $util=new Util();
-        $sql = "    DELETE FROM  categoriamenu WHERE id_categoria='$id';";
+        $sql = "DELETE FROM  categoriamenu WHERE id_categoria='$id';";
         $query = $util->Consulta($sql);
         return $query;
     }
