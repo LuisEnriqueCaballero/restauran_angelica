@@ -64,10 +64,10 @@ switch ($ope) {
             $cantidad=$value[1];
             switch ($value[2]){
                 case 'libre':
-                    $disponible=8;
+                    $disponible=3;
                     break;
                 case 'ocupado':
-                    $disponible=7;
+                    $disponible=4;
                     break;
             }
             $insertar = $metodoMesa->insertMesa( $cantidad, $disponible,$mesa);

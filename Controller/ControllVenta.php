@@ -25,7 +25,7 @@ switch ($ope) {
                      <td class='text-center text-uppercase'>$key[dato_cliente]</td>
                      <td class='text-center text-uppercase'>$key[Direccion]</td>
                      <td class='text-center text-uppercase'>$key[telefono]</td>
-                     <td class='text-center text-uppercase'>$key[tipo_pago]</td>
+                     <td class='text-center text-uppercase'>$key[descripcion]</td>
                      <td class='text-center text-uppercase'>$ $total</td>
                      <td class='text-center text-uppercase'> $fecha_actual</td>
                      <td class='text-center text-uppercase'><button type='button' class='btn btn' onclick='atendido(".$key['id_pedido'].")'>$key[PENDIENTE]</button></td>
@@ -81,7 +81,7 @@ switch ($ope) {
         $tipo_atencion = isset($_POST['atencion'])?$_POST['atencion'] : '';
         $atencion='2';
         $forma_pago = 4;
-        $estado = 2;
+        $estado = 5;
         $efectivo_total=0.00;
         $fecha_hora = date('Y-m-d H:i:s');
         $mes=date('m');

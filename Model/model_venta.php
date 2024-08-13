@@ -2,10 +2,11 @@
 class MetodoVenta{
     public function lista_venta($cliente,$mesa){
         $util=new Util();
-        $sql="SELECT TBPED.id_pedido,TBC.dato_cliente,TBC.Direccion,TBC.telefono,TBPED.tipo_pago,TAT.estado AS PENDIENTE,TES.estado,TBPED.fecha_hora,TBPED.total FROM pedido AS TBPED 
+        $sql="SELECT TBPED.id_pedido,TBC.dato_cliente,TBC.Direccion,TBC.telefono,MP.descripcion,TAT.estado AS PENDIENTE,TES.estado,TBPED.fecha_hora,TBPED.total FROM pedido AS TBPED 
                INNER JOIN clientes AS TBC ON TBC.id_cliente=TBPED.id_cliente
                INNER JOIN estado AS TES ON TES.id=TBPED.estado
-               INNER JOIN atendido AS TAT ON TAT.id=TBPED.atencion";
+               INNER JOIN medio_pago AS MP ON MP.id=TBPED.tipo_pago
+               INNER JOIN atendido AS TAT ON TAT.id=TBPED.atencion AND TAT.id <>3";
               if(!empty($cliente)){
                 $sql .=" WHERE TBC.dato_cliente={$cliente}";
               }
@@ -77,14 +78,14 @@ class MetodoVenta{
 
     public function atendido_pagado($id,$tipo,$monto_efect){
       $util=new Util();
-      $sql = "UPDATE pedido SET estado='3',tipo_pago='$tipo',efectivo_total='$monto_efect' WHERE id_pedido='$id'";
+      $sql = "UPDATE pedido SET estado='6',tipo_pago='$tipo',efectivo_total='$monto_efect' WHERE id_pedido='$id'";
       $query=$util->Consulta($sql);
       return $query;
     }
 
     public function anulado($id){
       $util=new Util();
-      $sql = "UPDATE pedido SET estado='4',atencion='3' WHERE id_pedido='$id'";
+      $sql = "UPDATE pedido SET estado='2',atencion='3' WHERE id_pedido='$id'";
       $query=$util->Consulta($sql);
       return $query;
     }

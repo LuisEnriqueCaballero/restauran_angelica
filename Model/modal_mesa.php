@@ -4,7 +4,7 @@ class MetodoMesa{
         $util=new Util();
         $sql="SELECT TM.id_mesa, TM.capacidad, TES.estado, TM.numero FROM mesa AS TM
               INNER JOIN estado AS TES ON TES.id=TM.estado 
-              WHERE TM.estado <> 7";
+              WHERE TM.estado <> 4";
         $query = $util->Consulta($sql);
         return $query;
     }

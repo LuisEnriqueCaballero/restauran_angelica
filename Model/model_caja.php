@@ -5,7 +5,7 @@ class Metodocaja{
         $sql="SELECT TMC.id_caja_apert,TC.descripcion,TMC.monto_inicial,TMC.fecha_apertura,TMC.mes,TMC.anio,TES.estado FROM multicajas AS TMC 
               INNER JOIN caja AS TC ON TC.id_caja=TMC.id_caja AND TC.estado<>'5'
               INNER JOIN estado AS TES ON TMC.estado=TES.id 
-              WHERE TMC.estado <>'9'";
+              WHERE TMC.estado <>'7'";
         $query=$util->Consulta($sql);
         return $query;
     }
@@ -15,7 +15,7 @@ class Metodocaja{
         $sql="SELECT TMC.id_caja_apert,TC.descripcion,TMC.monto_inicial,TMC.fecha_cierre,TMC.mes,TMC.anio FROM multicajas AS TMC
               INNER JOIN caja AS TC ON TC.id_caja=TMC.id_caja
               INNER JOIN estado as TES ON TMC.estado=TES.id
-              WHERE TMC.estado <> '10'";
+              WHERE TMC.estado <> '8'";
         $query=$util->Consulta($sql);
         return $query;
     }
@@ -45,7 +45,7 @@ class Metodocaja{
 
     public function cierrecaja($id,$fecha){
         $util=new Util();
-        $sql="UPDATE multicajas SET estado='9',fecha_cierre='$fecha' WHERE id_caja_apert='$id'";
+        $sql="UPDATE multicajas SET estado='7',fecha_cierre='$fecha' WHERE id_caja_apert='$id'";
         $query=$util->Consulta($sql);
         return $query;
     }

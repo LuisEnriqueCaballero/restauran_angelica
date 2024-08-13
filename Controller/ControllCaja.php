@@ -55,7 +55,7 @@ switch ($ope) {
                 $id_caja=intval($key['id_caja_apert']);
                 $html .= "<tr>
                          <td class='text-center text-uppercase'>$key[descripcion]-$key[id_caja_apert]</td>
-                         <td class='text-center text-uppercase'>$ $monto_incial</td>
+                         <td class='text-center text-uppercase'>$ $monto_incial'</td>
                          <td class='text-center text-uppercase'>$fecha</td>
                          <td class='text-center text-uppercase'>
                          <button type='button' class='btn  btn-btn-outline-success' onclick='expotararchivos(2,".$id_caja.")'>
@@ -144,7 +144,7 @@ switch ($ope) {
         $fecha=date('Y-m-d H:i:s');
         $mes=date('m');
         $anio=date('Y');
-        $estado=10;
+        $estado=8;
         $concepto=4;
         $insert=$metodocaja->insertmulticaja($caja,$monto,$estado,$fecha,$mes,$anio);
         $ultimalista=$metodocaja->ultimocaja();
