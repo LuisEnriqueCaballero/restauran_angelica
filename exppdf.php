@@ -196,45 +196,44 @@ switch ($exp) {
             $total=$key['total'];
         }
         $listapedido=$metodoventa->detalle_ticke($id_pedido);
-        $objetoticke= new FPDF('p','mm',array(80,297));
+        $objetoticke= new FPDF('p','mm',array(48,297));
         $objetoticke->AddPage();
-        $objetoticke->SetFont('ARIAL','B',11);
-        $objetoticke->Cell(0,10,'Restaurante Pepito',0,0,'C');
-        $objetoticke->Ln(10);
-        $objetoticke->SetFont('ARIAL','',9);
-        $objetoticke->SetX(1);
-        $objetoticke->Cell(0,4,iconv('UTF-8','ISO-8859-1',$dia.' de '. strtolower($meses[$mes]).' del '.$anio.' '.$hora),0,0,'L');
-        $objetoticke->Ln();
-        $objetoticke->SetX(1);
-        $objetoticke->Cell(0,4,'Pedido mesa:'.$mesa,0,0,'L');
-        $objetoticke->Ln();
-        $objetoticke->SetX(1);
-        $objetoticke->Cell(0,4,'Pedido Numero:'.$id_pedido,0,0,'L');
-        $objetoticke->Ln();
+        $objetoticke->SetMargins(1,1,1,1);
+        $objetoticke->SetFont('ARIAL','B',9);
+        $objetoticke->MultiCell(28,4,'Restauran Catita',0,'C');
+        $objetoticke->Ln(2);
+        $objetoticke->SetFont('ARIAL','',7);
+        $objetoticke->Cell(38,4,'Fecha:'.$dia.' de '.strtolower($meses[$mes]).' del '.$anio,0,0,'L');
+        $objetoticke->Ln(5);
+        $objetoticke->Cell(18,4,'Hora:'.$hora,0,0,'L');
+        $objetoticke->Ln(5);
+        $objetoticke->Cell(18,4,'Num.Pedido:'.$id_pedido,0,0,'L');
+        $objetoticke->Ln(5);
+        /*Datos del Mesa */
         $objetoticke->SetFont('ARIAL','B',8);
-        $objetoticke->SetX(1);
-        $objetoticke->Cell(65,7,iconv('UTF-8','ISO-8859-1','Producto'),0,0,'L');
-        $objetoticke->Cell(10,7,iconv('UTF-8','ISO-8859-1','Cant'),0,0,'C');
+        $objetoticke->Cell(48,4,'Atencion a Mesa',0,0,'C');
+        $objetoticke->Ln(2);
+        $objetoticke->Cell(38,4,'-----------------------------------------------------',0,0,'L');
+        $objetoticke->Ln(2);
+        $objetoticke->Cell(0,4,'Atencio a la: '.$mesa,0,0,'L');
+        $objetoticke->Ln(2);
+        $objetoticke->Cell(38,4,'-----------------------------------------------------',0,0,'L');
+        $objetoticke->Ln(4);
+
+        $objetoticke->SetFont('ARIAL','B',7);
+        $objetoticke->SetTextColor(0, 0, 0); // Color del texto negro
+        $objetoticke->Cell(8,4,iconv('UTF-8','ISO-8859-1','Cant.'),0,0,'C');
+        $objetoticke->Cell(34,4,iconv('UTF-8','ISO-8859-1','Descripcion'),0,0,'L');
         $objetoticke->Ln();
-        $objetoticke->SetX(1);
-        $objetoticke->Cell(75,0,'----------------------------------------------------------------------------',0,0,);
+        $objetoticke->Cell(48,4,'-------------------------------------------------------------',0,0,'L');
         $objetoticke->Ln();
         foreach ($listapedido as $value) {
-            $cellancho = 65;
-            $cellaltura = 5;
-            // Lógica para manejar descripciones de varias líneas
-            $lineas = ceil($objetoticke->GetStringWidth($value['descripcion']) / $cellancho);
-            // MultiCell para la descripción
-            $objetoticke->SetFont('ARIAL','',6.5);
-            $objetoticke->SetX(2);
-            $objetoticke->MultiCell($cellancho, $cellaltura, strtoupper($value['descripcion']), 0);
-            // Establecer posición XY para celdas subsiguientes
-            $xpos = $objetoticke->GetX();
-            $ypos = $objetoticke->GetY();
-            // Ejemplo: Escribir celdas subsiguientes
-            $objetoticke->SetXY($xpos + $cellancho, $ypos);
-            $objetoticke->SetX(67);
-            $objetoticke->Cell(10,  -5, $value['cantidad'], 0, 0,'C'); 
+            $objetoticke->SetFont('ARIAL','',6);
+            $objetoticke->Cell(8,4,$value['cantidad'],0,0,'C');
+            $yinicio=$objetoticke->GetY();
+            $objetoticke->MultiCell(34,4,iconv('UTF-8','ISO-8859-1',$value['descripcion']),0,'L');
+            $yfin=$objetoticke->GetY();
+            $objetoticke->Ln();
         }
         $objetoticke->Output();
         ob_end_flush();
@@ -253,57 +252,58 @@ switch ($exp) {
             $total=$key['total'];
         }
         $listapedido=$metodoventa->detalle_ticke($id_pedido);
-        $objetoticke= new FPDF('p','mm',array(58,210));
+        $objetoticke= new FPDF('p','mm',array(48,210));
         $objetoticke->AddPage();
-        $objetoticke->SetFont('ARIAL','B',11);
-        $objetoticke->Cell(0,10,'Restaurante Pepito',0,0,'C');
-        $objetoticke->Ln(10);
-        $objetoticke->SetFont('ARIAL','',9);
-        $objetoticke->SetX(1);
-        $objetoticke->Cell(0,4,iconv('UTF-8','ISO-8859-1',$dia.' de '. strtolower($meses[$mes]).' del '.$anio.' '.$hora),0,0,'L');
+        $objetoticke->SetMargins(1,1,1,1);
+        $objetoticke->SetFont('ARIAL','B',9);
+        $objetoticke->MultiCell(28,4,'Restauran Catita',0,'C');
+        $objetoticke->Ln(2);
+        $objetoticke->SetFont('ARIAL','',7);
+        $objetoticke->Cell(38,4,'Fecha:'.$dia.' de '.strtolower($meses[$mes]).' del '.$anio,0,0,'L');
+        $objetoticke->Ln(5);
+        $objetoticke->Cell(18,4,'Hora:'.$hora,0,0,'L');
+        $objetoticke->Ln(5);
+        $objetoticke->Cell(18,4,'Num.Pedido:'.$id_pedido,0,0,'L');
+        $objetoticke->Ln(5);
+
+        /*Datos del Mesa */
+        $objetoticke->SetFont('ARIAL','B',8);
+        $objetoticke->Cell(48,4,'Atencion a mesa',0,0,'L');
+        $objetoticke->Ln(2);
+        $objetoticke->Cell(38,4,'-----------------------------------------------------',0,0,'L');
+        $objetoticke->Ln(2);
+        $objetoticke->Cell(0,4,'Atencio a la: '.$mesa,0,0,'L');
+        $objetoticke->Ln(2);
+        $objetoticke->Cell(38,4,'-----------------------------------------------------',0,0,'L');
+        $objetoticke->Ln(4);
+
+
+        $objetoticke->SetFont('ARIAL','B',6);
+        $objetoticke->SetTextColor(0, 0, 0); // Color del texto negro
+        $objetoticke->Cell(6,4,iconv('UTF-8','ISO-8859-1','Cant.'),0,0,'C');
+        $objetoticke->Cell(16,4,iconv('UTF-8','ISO-8859-1','Descripcion'),0,0,'L');
+        $objetoticke->Cell(12,4,iconv('UTF-8','ISO-8859-1','Precio'),0,0,'R');
+        $objetoticke->Cell(12,4,iconv('UTF-8','ISO-8859-1','Importe'),0,0,'R');
         $objetoticke->Ln();
-        $objetoticke->SetX(1);
-        $objetoticke->Cell(0,4,'Pedido mesa:'.$mesa,0,0,'L');
-        $objetoticke->Ln();
-        $objetoticke->SetX(1);
-        $objetoticke->Cell(0,4,'Pedido Numero:'.$id_pedido,0,0,'L');
-        $objetoticke->Ln();
-        $objetoticke->SetFont('ARIAL','',9);
-        $objetoticke->SetX(1);
-        $objetoticke->Cell(30,7,iconv('UTF-8','ISO-8859-1','Producto'),0,0,'L');
-        $objetoticke->Cell(15,7,iconv('UTF-8','ISO-8859-1','Pre. unit'),0,0,'L');
-        $objetoticke->Cell(10,7,iconv('UTF-8','ISO-8859-1','Cant'),0,0,'L');
-        $objetoticke->Cell(20,7,iconv('UTF-8','ISO-8859-1','Sub Total'),0,0,'L');
-        $objetoticke->Ln();
-        $objetoticke->SetX(1);
-        $objetoticke->Cell(75,0,'-----------------------------------------------------------------------',0,0,);
-        $objetoticke->Ln();
+        $objetoticke->Cell(48,4,'-------------------------------------------------------------',0,0,'L');
+
         foreach ($listapedido as $value) {
-            $cellancho = 30;
-            $cellaltura = 5;
-            // Lógica para manejar descripciones de varias líneas
-            $lineas = ceil($objetoticke->GetStringWidth($value['descripcion']) / $cellancho);
-            // MultiCell para la descripción
-            $objetoticke->SetFont('ARIAL','',7);
-            $objetoticke->SetX(1);
-            $objetoticke->MultiCell($cellancho, $cellaltura, strtoupper($value['descripcion']), 0);
-            // Establecer posición XY para celdas subsiguientes
-            $xpos = $objetoticke->GetX();
-            $ypos = $objetoticke->GetY();
-            // Ejemplo: Escribir celdas subsiguientes
-            $objetoticke->SetXY($xpos + $cellancho, $ypos);
-            $objetoticke->SetX(31);
-            $objetoticke->Cell(15, -5 * $lineas , '$ '.$util->Number($value['precio_unitario']), 0, 0,'L');
-            $objetoticke->Cell(10, -5 * $lineas, $value['cantidad'], 0, 0,'C');
-            $objetoticke->Cell(20, -5 * $lineas, '$ '.$util->Number($value['sub_total']), 0, 0,'R');
-            
+            $objetoticke->Ln();
+            $objetoticke->SetFont('ARIAL','',6);
+            $objetoticke->Cell(6,4,$value['cantidad'],0,0,'C');
+
+            $yinicio=$objetoticke->GetY();
+            $objetoticke->MultiCell(16,4,iconv('UTF-8','ISO-8859-1',$value['descripcion']),0,'L');
+            $yfin=$objetoticke->GetY();
+            $objetoticke->SetXY(23,$yinicio);
+            $objetoticke->Cell(12,4,'$ '.$util->Number($value['precio_unitario']),0,0,'R');
+            $objetoticke->Cell(12,4,'$ '.$util->Number($value['sub_total']),0,0,'R');
+            $objetoticke->SetY($yfin);
         }
-        $objetoticke->Ln(1);
-        $objetoticke->SetX(1);
-        $objetoticke->Cell(70, 0, '------------------------------------------------------------------------------------------', 0, 0,'L');
+        $objetoticke->Cell(48,4,'---------------------------------------------------------------',0,0,'L');
         $objetoticke->Ln();
-        $objetoticke->Cell(52, 5, 'Total         :', 0, 0,'R');
-        $objetoticke->Cell(20, 5, '$ '.$util->Number($total), 0, 0,'L');
+        $objetoticke->SetFont('ARIAL','B',6);
+        $objetoticke->Cell(46,4,'Total: $ '.$util->Number($total),0,0,'R');
         $objetoticke->Output();
         ob_end_flush();
         break;
@@ -320,61 +320,60 @@ switch ($exp) {
             $hora =date('H:m:s',strtotime($key['fecha_hora']));
             $cliente=$key['dato_cliente'];
             $direcion=$key['Direccion'];
+            $telefono=$key['telefono'];
             $total=$key['total'];
         }
         $listapedido=$metodoventa->detalle_ticke($id_pedido);
-        $objetoticke= new FPDF('p', 'mm', array(58,297));
+        $objetoticke= new FPDF('p', 'mm', array(48,297));
         $objetoticke->AddPage();
-        $objetoticke->SetFont('ARIAL','B',11);
-        $objetoticke->Cell(0,10,'Restaurante Pepito',0,0,'C');
-        $objetoticke->Ln(10);
+        $objetoticke->SetMargins(1,1,1,1);
+        $objetoticke->SetFont('ARIAL','B',9);
+        $objetoticke->MultiCell(28,4,'Restauran Catita',0,'C');
+        $objetoticke->Ln(2);
         $objetoticke->SetFont('ARIAL','',7);
-        $objetoticke->SetX(1);
-        $objetoticke->Cell(0,4,iconv('UTF-8','ISO-8859-1',$dia.' de '. strtolower($meses[$mes]).' del '.$anio.' '.$hora),0,0,'L');
-        $objetoticke->Ln();
-        $objetoticke->SetX(1);
-        $objetoticke->Cell(0,4,'Pedido Cliente:'.$cliente,0,0,'L');
-        $objetoticke->Ln();
-        $objetoticke->SetX(1);
-        $objetoticke->Cell(0,4,'Direccion:'.$direcion,0,0,'L');
-        $objetoticke->Ln();
-        $objetoticke->SetX(1);
-        $objetoticke->Cell(0,4,'Pedido Numero:'.$id_pedido,0,0,'L');
-        $objetoticke->Ln();
+        $objetoticke->Cell(38,4,'Fecha:'.$dia.' de '.strtolower($meses[$mes]).' del '.$anio,0,0,'L');
+        $objetoticke->Ln(5);
+        $objetoticke->Cell(18,4,'Hora:'.$hora,0,0,'L');
+        $objetoticke->Ln(5);
+        $objetoticke->Cell(18,4,'Num.Pedido:'.$id_pedido,0,0,'L');
+        $objetoticke->Ln(5);
+        /*Datos del cliente */
         $objetoticke->SetFont('ARIAL','B',7);
-        $objetoticke->SetX(1);
-        $objetoticke->Cell(40,7,iconv('UTF-8','ISO-8859-1','Producto'),0,0,'L');
-        $objetoticke->Cell(10,7,iconv('UTF-8','ISO-8859-1','Cant'),0,0,'C');
+        $objetoticke->Cell(48,4,'Datos del cliente',0,0,'C');
+        $objetoticke->Ln(2);
+        $objetoticke->Cell(38,4,'-----------------------------------------------------',0,0,'L');
+        $objetoticke->Ln(2);
+        $objetoticke->SetFont('ARIAL','',6);
+        $objetoticke->MultiCell(48,4,'CLIENTE: '.strtoupper($cliente),0,'L');
+        $objetoticke->Ln(0);
+        $objetoticke->SetFont('ARIAL','',6);
+        $objetoticke->MultiCell(48,4,'DIRECCION: '.strtoupper($direcion),0,'L');
+        $objetoticke->Ln(0);
+        $objetoticke->SetFont('ARIAL','',6);
+        $objetoticke->Cell(48,4,'DIRECCION: '.strtoupper($telefono),0,0,'L');
+        $objetoticke->Ln(4);
+        /*Pedido */
+        $objetoticke->SetFont('ARIAL','B',6);
+        $objetoticke->SetTextColor(0, 0, 0); // Color del texto negro
+        $objetoticke->Cell(8,4,iconv('UTF-8','ISO-8859-1','Cant.'),0,0,'C');
+        $objetoticke->Cell(34,4,iconv('UTF-8','ISO-8859-1','Descripcion'),0,0,'L');
         $objetoticke->Ln();
-        $objetoticke->SetX(1);
-        $objetoticke->Cell(45,0,'---------------------------------------------------------',0,0,);
-        $objetoticke->Ln();
+        $objetoticke->Cell(48,4,'-------------------------------------------------------------',0,0,'L');
         foreach ($listapedido as $value) {   
-            $cellancho = 40;
-            $cellaltura = 5;
-            // Lógica para manejar descripciones de varias líneas
-            $lineas = ceil($objetoticke->GetStringWidth($value['descripcion']) / $cellancho);
-            // MultiCell para la descripción
-            $objetoticke->SetFont('ARIAL','',6.5);
-            $objetoticke->SetX(2);
-            $objetoticke->MultiCell($cellancho, $cellaltura, strtoupper($value['descripcion']), 0);    
-            // Establecer posición XY para celdas subsiguientes
-            $xpos = $objetoticke->GetX();
-            $ypos = $objetoticke->GetY();
-            // Ejemplo: Escribir celdas subsiguientes   
-            $objetoticke->SetXY($xpos + $cellancho, $ypos);
-            $objetoticke->SetX(40);
-            $objetoticke->Cell(10,  -5, $value['cantidad'], 0, 0,'C'); 
-        }  
+            $objetoticke->Ln();
+            $objetoticke->SetFont('ARIAL','',6);
+            $objetoticke->Cell(8,4,$value['cantidad'],0,0,'C');
+            $yinicio=$objetoticke->GetY();
+            $objetoticke->MultiCell(34,4,iconv('UTF-8','ISO-8859-1',$value['descripcion']),0,'L');
+            $yfin=$objetoticke->GetY();
+        }
         $objetoticke->Output();
         ob_end_flush();
         break;
     case 'factura_boleta_cliente':
         $id=isset($_REQUEST['id_pedido'])?$_REQUEST['id_pedido']:'';
-            
         $metodoventa=new MetodoVenta();
         $ticke=$metodoventa->ticket($id);
-            
         foreach($ticke AS $key){
             $id_pedido=$key['id_pedido'];
             $dia=date('d',strtotime($key['fecha_hora']));
@@ -383,94 +382,76 @@ switch ($exp) {
             $hora =date('H:m:s',strtotime($key['fecha_hora']));
             $cliente=$key['dato_cliente'];
             $direcion=$key['Direccion'];
+            $telefono=$key['telefono'];
             $subtotal=$key['SubTotal'];
             $tipoAtencion=$key['tipo_atencion'];
             $PreciDeli=$key['PrecioDelivery'];
             $total=$key['total'];
         }
         $listapedido=$metodoventa->detalle_ticke($id_pedido);
-        $objetoticke= new FPDF('p', 'mm', array(58,210));
-    
+        $objetoticke= new FPDF('p', 'mm', array(48,297));
         $objetoticke->AddPage();
-        $objetoticke->SetFont('ARIAL','B',11);
-        $objetoticke->Cell(0,10,'Restaurante Pepito',0,0,'C');
-        $objetoticke->Ln(10);
-    
-       
+        $objetoticke->SetMargins(1,1,1,1);
+        $objetoticke->SetFont('ARIAL','B',9);
+        $objetoticke->MultiCell(28,4,'Restauran Catita',0,'C');
+        $objetoticke->Ln(2);
         $objetoticke->SetFont('ARIAL','',7);
-        $objetoticke->SetX(1);
-        $objetoticke->Cell(0,4,iconv('UTF-8','ISO-8859-1',$dia.' de '. strtolower($meses[$mes]).' del '.$anio.' '.$hora),0,0,'L');
-        $objetoticke->Ln();
-        $objetoticke->SetX(1);
-        $objetoticke->Cell(0,4,'Pedido Cliente:'.$cliente,0,0,'L');
-        $objetoticke->Ln();
-        $objetoticke->SetX(1);
-        $objetoticke->Cell(0,4,'Direccion:'.$direcion,0,0,'L');
-        $objetoticke->Ln();
-        $objetoticke->SetX(1);
-        $objetoticke->Cell(0,4,'Pedido Numero:'.$id_pedido,0,0,'L');
-        $objetoticke->Ln();
-    
-        $objetoticke->SetFont('ARIAL','B',7);
-        $objetoticke->SetX(1);
-        $objetoticke->Cell(20,7,iconv('UTF-8','ISO-8859-1','Producto'),0,0,'L');
-        $objetoticke->Cell(15,7,iconv('UTF-8','ISO-8859-1','Pre. unit'),0,0,'L');
-        $objetoticke->Cell(8,7,iconv('UTF-8','ISO-8859-1','Cant'),0,0,'L');
-        $objetoticke->Cell(15,7,iconv('UTF-8','ISO-8859-1','Sub Total'),0,0,'L');
-        $objetoticke->Ln();
-        $objetoticke->SetX(1);
-        $objetoticke->Cell(75,0,'-----------------------------------------------------------------------',0,0,);
-        $objetoticke->Ln();
-        foreach ($listapedido as $value) {
-                
-            $cellancho = 20;
-            $cellaltura = 5;
-             
-                
-            // Lógica para manejar descripciones de varias líneas
-            $lineas = ceil($objetoticke->GetStringWidth($value['descripcion']) / $cellancho);
-                
-            // MultiCell para la descripción
-            $objetoticke->SetFont('ARIAL','',7);
-            $objetoticke->SetX(1);
-            $objetoticke->MultiCell($cellancho, $cellaltura, strtoupper($value['descripcion']), 0);
-                
-            // Establecer posición XY para celdas subsiguientes
-            $xpos = $objetoticke->GetX();
-            $ypos = $objetoticke->GetY();
-                
-            // Ejemplo: Escribir celdas subsiguientes
-                
-            $objetoticke->SetXY($xpos + $cellancho, $ypos);
-            $objetoticke->SetX(20);
-                
-            $objetoticke->Cell(15, -5 * $lineas , '$ '.$value['precio_unitario'], 0, 0,'L');
-            $objetoticke->Cell(8, -5 * $lineas, $value['cantidad'], 0, 0,'C');
-            $objetoticke->Cell(15, -5 * $lineas, '$ '.$value['sub_total'], 0, 0,'L');
-                
-        }
-        // subtotal
-        $objetoticke->Ln(1);
-        $objetoticke->SetX(1);
-        $objetoticke->Cell(40, 0, '-----------------------------------------------------------------', 0, 0,'L');
-        $objetoticke->Ln();
-        $objetoticke->Cell(32, 5, 'Sub Total :', 0, 0,'R');
-        $objetoticke->Cell(15, 5, '$ '.$subtotal, 0, 0,'L');
-        // precio delivery
-        if($tipoAtencion=='delivery'){
-            $objetoticke->Ln(1);
-            $objetoticke->SetX(1);
-            $objetoticke->Ln();
-            $objetoticke->Cell(32, 5, 'Precio Delivery :', 0, 0,'R');
-            $objetoticke->Cell(15, 5, '$ '. $PreciDeli, 0, 0,'R');
-        }
-        // total
+        $objetoticke->Cell(38,4,'Fecha:'.$dia.' de '.strtolower($meses[$mes]).' del '.$anio,0,0,'L');
         $objetoticke->Ln(5);
-        $objetoticke->SetX(1);
-        $objetoticke->Cell(40, 0, '------------------------------------------------------------------', 0, 0,'L');
+        $objetoticke->Cell(18,4,'Hora:'.$hora,0,0,'L');
+        $objetoticke->Ln(5);
+        $objetoticke->Cell(18,4,'Num.Pedido:'.$id_pedido,0,0,'L');
+        $objetoticke->Ln(5);
+         /*Datos del cliente */
+        $objetoticke->SetFont('ARIAL','B',7);
+        $objetoticke->Cell(48,4,'Datos del cliente',0,0,'C');
+        $objetoticke->Ln(2);
+        $objetoticke->Cell(38,4,'-----------------------------------------------------',0,0,'L');
+        $objetoticke->Ln(2);
+        $objetoticke->SetFont('ARIAL','',6);
+        $objetoticke->MultiCell(48,4,'CLIENTE: '.strtoupper($cliente),0,'L');
+        $objetoticke->Ln(0);
+        $objetoticke->SetFont('ARIAL','',6);
+        $objetoticke->MultiCell(48,4,'DIRECCION: '.strtoupper($direcion),0,'L');
+        $objetoticke->Ln(0);
+        $objetoticke->SetFont('ARIAL','',6);
+        $objetoticke->Cell(48,4,'DIRECCION: '.strtoupper($telefono),0,0,'L');
+        $objetoticke->Ln(4);
+        /*Pedido */
+        $objetoticke->SetFont('ARIAL','B',6);
+        $objetoticke->SetTextColor(0, 0, 0); // Color del texto negro
+        $objetoticke->Cell(6,4,iconv('UTF-8','ISO-8859-1','Cant.'),0,0,'C');
+        $objetoticke->Cell(16,4,iconv('UTF-8','ISO-8859-1','Descripcion'),0,0,'L');
+        $objetoticke->Cell(12,4,iconv('UTF-8','ISO-8859-1','Precio'),0,0,'R');
+        $objetoticke->Cell(12,4,iconv('UTF-8','ISO-8859-1','Importe'),0,0,'R');
         $objetoticke->Ln();
-        $objetoticke->Cell(32, 5, 'Total :', 0, 0,'R');
-        $objetoticke->Cell(15, 5, '$ '.$total, 0, 0,'L');
+        $objetoticke->Cell(48,4,'-------------------------------------------------------------',0,0,'L');
+        foreach ($listapedido as $value) {
+            $objetoticke->Ln();
+            $objetoticke->SetFont('ARIAL','',6);
+            $objetoticke->Cell(6,4,$value['cantidad'],0,0,'C');
+            $yinicio=$objetoticke->GetY();
+            $objetoticke->MultiCell(16,4,iconv('UTF-8','ISO-8859-1',$value['descripcion']),0,'L');
+            $yfin=$objetoticke->GetY();
+            $objetoticke->SetXY(23,$yinicio);
+            $objetoticke->Cell(12,4,'$ '.$util->Number($value['precio_unitario']),0,0,'R');
+            $objetoticke->Cell(12,4,'$ '.$util->Number($value['sub_total']),0,0,'R');
+            $objetoticke->SetY($yfin);
+        }
+        $objetoticke->Cell(48,4,'---------------------------------------------------------------',0,0,'L');
+        $objetoticke->Ln();
+        $objetoticke->SetFont('ARIAL','B',6);
+        $objetoticke->Cell(46,4,'Sub Total: $ '.$util->Number($subtotal),0,0,'R');
+        $objetoticke->Ln();
+        if($tipoAtencion ==='delivery'){
+            $objetoticke->SetFont('ARIAL','B',6);
+            $objetoticke->Cell(46,4,'Prec. Delivery: $ '.$util->Number($PreciDeli),0,0,'R');
+            $objetoticke->Ln();
+        }
+        $objetoticke->Cell(48,4,'---------------------------------------------------------------',0,0,'L');
+        $objetoticke->Ln();
+        $objetoticke->SetFont('ARIAL','B',6);
+        $objetoticke->Cell(46,4,'Total: $ '.$util->Number($total),0,0,'R');
         $objetoticke->Output();
         ob_end_flush();
         break;
