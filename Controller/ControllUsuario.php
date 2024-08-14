@@ -8,7 +8,7 @@ $util=new Util();
 $ope=isset($_GET['ope'])?$_GET['ope']:'';
 switch ($ope) {
     case 'validar':
-        $usuario=isset($_POST['user'])?$_POST['user']:'';
+        $usuario=isset($_POST['user'])?strtoupper($_POST['user']):'';
         $usuario=$util->seguridad($usuario);
         $_SESSION['usuario']=$usuario;
         $contrasenia=isset($_POST['contra'])?$_POST['contra']:'';

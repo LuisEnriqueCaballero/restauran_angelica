@@ -42,11 +42,11 @@ switch ($ope) {
         break;
 
     case '2':
-        $empresa=isset($_POST['empresa'])?$_POST['empresa']:'';
+        $empresa=isset($_POST['empresa'])?strtoupper($_POST['empresa']):'';
         $ruc=isset($_POST['ruc'])?$_POST['ruc']:'';
-        $nombre=isset($_POST['nombre'])?$_POST['nombre']:'';
+        $nombre=isset($_POST['nombre'])?strtoupper($_POST['nombre']):'';
         $telefono=isset($_POST['telefono'])?$_POST['telefono']:'';
-        $direccion=isset($_POST['direccion'])?$_POST['direccion']:'';
+        $direccion=isset($_POST['direccion'])?strtoupper($_POST['direccion']):'';
         $resulta = $metodoProveedor->insertProveedor($empresa,$ruc,$nombre,$telefono,$direccion);
         echo $resulta;
         exit;
@@ -54,11 +54,11 @@ switch ($ope) {
 
     case '3':
         $id=isset($_POST['id'])?$_POST['id']:'';
-        $empresa=isset($_POST['empresa'])?$_POST['empresa']:'';
+        $empresa=isset($_POST['empresa'])?strtoupper($_POST['empresa']):'';
         $ruc=isset($_POST['ruc'])?$_POST['ruc']:'';
-        $proveedor=isset($_POST['proveedor'])?$_POST['proveedor']:'';
+        $proveedor=isset($_POST['proveedor'])?strtoupper($_POST['proveedor']):'';
         $telefono=isset($_POST['telefono'])?$_POST['telefono']:'';
-        $direccion=isset($_POST['direccion'])?$_POST['direccion']:'';
+        $direccion=isset($_POST['direccion'])?strtoupper($_POST['direccion']):'';
         $resulta= $metodoProveedor->updateProveedor($id,$empresa,$ruc,$proveedor,$telefono,$direccion);
         echo $resulta;
         exit;
@@ -75,11 +75,11 @@ switch ($ope) {
         $mensaje=false;
         foreach($_REQUEST['dato'] as $value){
             if(!empty($value[0])){
-            $empresa=$value[0];
+            $empresa=strtoupper($value[0]);
             $ruc=$value[1];
-            $nombre=$value[2];
+            $nombre=strtoupper($value[2]);
             $telefono=$value[3];
-            $direccion =$value[4];
+            $direccion =strtoupper($value[4]);
             $resulta = $metodoProveedor->insertProveedor($empresa,$ruc,$nombre,$telefono,$direccion);
             }
         }

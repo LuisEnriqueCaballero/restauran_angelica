@@ -42,8 +42,8 @@ switch ($ope) {
         break;
 
     case '2':
-        $nombre = isset($_POST['nombre']) ? $_POST['nombre'] : '';
-        $apellido = isset($_POST['apellido']) ? $_POST['apellido'] : '';
+        $nombre = isset($_POST['nombre']) ? strtoupper($_POST['nombre']) : '';
+        $apellido = isset($_POST['apellido']) ? strtoupper($_POST['apellido']) : '';
         $telefono = isset($_POST['telefono']) ? $_POST['telefono'] : '';
         $puesto = isset($_POST['puesto']) ? $_POST['puesto'] : '';
         $salario = isset($_POST['salario'])?$_POST['salario']: '0.00';
@@ -56,8 +56,8 @@ switch ($ope) {
 
     case '3':
         $id=isset($_POST['id']) ? $_POST['id'] : '';
-        $nombre = isset($_POST['nombre']) ? $_POST['nombre'] : '';
-        $apellido = isset($_POST['apellido']) ? $_POST['apellido'] : '';
+        $nombre = isset($_POST['nombre']) ? strtoupper($_POST['nombre']): '';
+        $apellido = isset($_POST['apellido']) ? strtoupper($_POST['apellido']) : '';
         $telefono = isset($_POST['telefono']) ? $_POST['telefono'] : '';
         $puesto = isset($_POST['puesto']) ? $_POST['puesto'] : '';
         $salario = isset($_POST['salario']) ? $_POST['salario'] : '';
@@ -77,8 +77,8 @@ switch ($ope) {
         $mensaje=false;
         foreach($_REQUEST['dato'] as $value){
             if(!empty($value[0])){
-            $nombre=$value[0];
-            $apellido=$value[1];
+            $nombre=strtoupper($value[0]);
+            $apellido=strtoupper($value[1]);
             $telefono =$value[2];
             $puesto=$value[3];
             $salario=$value[4];

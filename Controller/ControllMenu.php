@@ -70,7 +70,7 @@ switch ($ope) {
     case '2':
         
         $categoria=isset($_POST['categoria']) ? $_POST['categoria'] : '';
-        $descripcion=isset($_POST['descripcion']) ? $_POST['descripcion'] : '';
+        $descripcion=isset($_POST['descripcion']) ? strtoupper($_POST['descripcion']) : '';
         $precio=isset($_POST['precio']) ? $_POST['precio'] : '';
        
         $insertar = $metodomenu->insertMenu($categoria,$descripcion,$precio);
@@ -81,7 +81,7 @@ switch ($ope) {
     case '3':
         $id_menu=isset($_POST['id']) ? $_POST['id'] : '';
         $categoria=isset($_POST['categoria']) ? $_POST['categoria'] : '';
-        $descripcion=isset($_POST['descripcion']) ? $_POST['descripcion'] : '';
+        $descripcion=isset($_POST['descripcion']) ? strtoupper($_POST['descripcion']) : '';
         $precio=isset($_POST['precio']) ? $_POST['precio'] : '';
         $update = $metodomenu->updateMenu($id_menu,$categoria,$descripcion,$precio);
         echo $update;
@@ -106,8 +106,8 @@ switch ($ope) {
         }
             foreach($_REQUEST['dato'] as $value){
                 if(!empty($value[0])){
-                $id_categoria=array_search($value[0],$array_categoria);
-                $descripcion=$value[1];
+                $id_categoria=array_search(strtoupper($value[0]),$array_categoria);
+                $descripcion=strtoupper($value[1]);
                 $precio=$value[2];
                 $insertar = $metodomenu->insertMenu($id_categoria,$descripcion,$precio);
             }

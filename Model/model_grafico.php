@@ -60,9 +60,11 @@ class MetodoGraficos{
     public function monto_cajahoy($fecha){
         $conexion=new conectar();
         $cnx=$conexion->conexion();
-        $sql="SELECT CONCAT(TC.id_caja,'-',TC.descripcion) AS CAJA,TMC.monto_inicial FROM multicajas AS TMC
-              INNER JOIN caja AS TC ON TMC.id_caja=TC.id_caja  WHERE date(TMC.fecha_apertura) = '$fecha' 
-              AND TMC.estado <> '9' ORDER BY TMC.id_caja_apert desc LIMIT 1";
+        $sql="SELECT CONCAT(TC.id_caja,'-',TC.descripcion) AS CAJA,TMC.monto_inicial,TMC.estado
+              FROM multicajas AS TMC
+              INNER JOIN caja AS TC ON TMC.id_caja=TC.id_caja AND TMC.estado <> '7'
+              WHERE DATE(TMC.fecha_apertura) = '$fecha'
+              ORDER BY TMC.id_caja_apert desc LIMIT 1";
         $query=mysqli_query($cnx,$sql);
         return $query;
     }

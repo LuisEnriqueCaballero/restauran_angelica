@@ -35,8 +35,8 @@ switch ($ope) {
 
     case '2':
         $capacidad = isset($_POST['capacidad']) ? $_POST['capacidad'] : '';
-        $estado = 8;
-        $numero = isset($_POST['numero']) ? $_POST['numero'] : '';
+        $estado = 3;
+        $numero = isset($_POST['numero']) ? strtoupper($_POST['numero']) : '';
         $resulta = $metodoMesa->insertMesa($capacidad, $estado, $numero);
         echo $resulta;
         break;
@@ -45,7 +45,7 @@ switch ($ope) {
         $id_mesa = isset($_POST['id']) ? $_POST['id'] : '';
         $capacidad = isset($_POST['capacidad']) ? $_POST['capacidad'] : '';
         
-        $numero = isset($_POST['numero']) ? $_POST['numero'] : '';
+        $numero = isset($_POST['numero']) ? strtoupper($_POST['numero']) : '';
         $resulta = $metodoMesa->updateMesa($id_mesa, $capacidad, $numero);
         echo $resulta;
         break;
@@ -60,7 +60,7 @@ switch ($ope) {
         $mensaje=false;
         foreach($_REQUEST['dato'] as $value){
             if(!empty($value[0])){
-            $mesa=$value[0];
+            $mesa=strtoupper($value[0]);
             $cantidad=$value[1];
             switch ($value[2]){
                 case 'libre':

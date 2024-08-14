@@ -32,14 +32,14 @@ switch ($ope) {
         break;
 
     case '2':
-        $categoria =isset($_POST['categoria'])?$_POST['categoria']:'';
+        $categoria =isset($_POST['categoria'])?strtoupper($_POST['categoria']):'';
         $insert=$MetodoProducto->InsertCategorioProducto($categoria);
         echo $insert;
         break;
 
     case '3':
         $id=isset($_POST['id'])?$_POST['id']:'';
-        $categoria=isset($_POST['categoria'])?$_POST['categoria']:'';
+        $categoria=isset($_POST['categoria'])?strtoupper($_POST['categoria']):'';
         $update=$MetodoProducto->UpdateCategorioProducto($id,$categoria);
         echo $update;
         break;
@@ -80,7 +80,7 @@ switch ($ope) {
 
     case '6':
         $categoria =isset($_POST['categoria'])?$_POST['categoria']:'';
-        $producto =isset($_POST['descripcion'])?$_POST['descripcion']:'';
+        $producto =isset($_POST['descripcion'])?strtoupper($_POST['descripcion']):'';
         $insert=$MetodoProducto->InsertProducto($categoria,$producto);
         echo $insert;
         break;
@@ -88,7 +88,7 @@ switch ($ope) {
     case '7':
         $id=isset($_POST['id'])?$_POST['id']:'';
         $categoria =isset($_POST['categoria'])?$_POST['categoria']:'';
-        $producto =isset($_POST['descripcion'])?$_POST['descripcion']:'';
+        $producto =isset($_POST['descripcion'])?strtoupper($_POST['descripcion']):'';
         $update=$MetodoProducto->UpdateProducto($id,$categoria,$producto);
         echo $update;
         break;
@@ -103,7 +103,7 @@ switch ($ope) {
         $html ='';
         $num=1;
         $categoria=isset($_POST['catego'])?$_POST['catego']:'';
-        $producto=isset($_POST['produc'])?$_POST['produc']:'';
+        $producto=isset($_POST['produc'])?strtoupper($_POST['produc']):'';
         $lista = $MetodoProducto->lista_Producto($categoria,$producto);
         $num_fila=mysqli_num_rows($lista);
         $infor='NO SE ENCONTRO PRODUCTO';

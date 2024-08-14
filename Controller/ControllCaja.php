@@ -73,7 +73,7 @@ switch ($ope) {
         break;
     case 'crearcaja':
         $mensaje=true;
-        $descripcion=isset($_POST['descripcion'])?$_POST['descripcion']:'';
+        $descripcion=isset($_POST['descripcion'])? strtoupper($_POST['descripcion']):'';
         $fecha=date('Y-m-d H:i:s');
         $mes =date('m');
         $anio=date('Y');
@@ -83,7 +83,7 @@ switch ($ope) {
     
     case 'updatecaja':
         $id=isset($_POST['id'])?$_POST['id']:'';
-        $descripcion=isset($_POST['descripcion'])?$_POST['descripcion']:'';
+        $descripcion=isset($_POST['descripcion'])?strtoupper($_POST['descripcion']):'';
         $updatecaja=$metodocaja->UPDATECAJAS($id,$descripcion);
         $mensaje=true;
         echo $updatecaja;

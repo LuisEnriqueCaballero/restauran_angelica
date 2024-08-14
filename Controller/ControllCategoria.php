@@ -33,14 +33,14 @@ switch ($ope) {
         break;
 
     case '2':   
-        $descripcion=isset($_POST['descripcion'])?$_POST['descripcion']:'';
+        $descripcion=isset($_POST['descripcion'])?strtoupper($_POST['descripcion']):'';
         $resulta=$metodoCategoria->insertCategoria($descripcion);   
         echo $resulta;  
         break;
 
     case '3':
         $id_categoria=isset($_POST['id'])?$_POST['id']:'';
-        $descripcion=isset($_POST['categoria'])?$_POST['categoria']:'';
+        $descripcion=isset($_POST['categoria'])?strtoupper($_POST['categoria']):'';
         $resulta=$metodoCategoria->updateCategoria($id_categoria,$descripcion);
         echo $resulta;
         break;
@@ -55,7 +55,7 @@ switch ($ope) {
         $mensaje=false;
         foreach($_REQUEST['dato'] as $value){
             if(!empty($value[0])){
-            $descripcion=$value[0];
+            $descripcion=strtoupper($value[0]);
             $insertar = $metodoCategoria->insertCategoria($descripcion);
             }
         }

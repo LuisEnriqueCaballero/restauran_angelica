@@ -1,5 +1,6 @@
 <?php
 session_start();
+date_default_timezone_set('America/Santiago');
 if(!empty($_SESSION['usuario'])){
 require_once 'Config/cnmysql.php';
 require_once 'Model/modal_link.php';
@@ -98,7 +99,6 @@ foreach($monto_anio AS $key){
                     $id=$key['id'];
                     $menu=$key['link'];
                     $icono=$key['iconno'];
-                
                 ?>
                 <li class="list_menu list_menu-click">
                     <div class="contenido_menu_link ">
@@ -180,7 +180,7 @@ foreach($monto_anio AS $key){
                                     <figcaption>
                                         <span class="text-left">
                                             <?php
-                                                if(isset($cajahoy)){
+                                                if(!empty($cajahoy)){
                                                    echo $cajahoy;
                                                 }else{
                                                     echo $cajahoy ='No hay caja creada';
@@ -189,7 +189,7 @@ foreach($monto_anio AS $key){
                                                 del dia
                                                 </span>
                                         <img src="icon/cash2.svg" alt="">
-                                        <span class='fecha'>fecha: <?php echo date('d/m/Y')?></span>
+                                        <span class='fecha'>fecha: <?php echo $fecha?></span>
                                     </figcaption>
                                     <div class='montos'>
                                         <span>Monto total</span>

@@ -38,10 +38,10 @@ switch ($ope) {
         break;
 
     case '2':
-        $cliente = isset($_POST['cliente']) ? $_POST['cliente'] : '';
+        $cliente = isset($_POST['cliente']) ? strtoupper($_POST['cliente']) : '';
         $telefono = isset($_POST['telefono']) ? $_POST['telefono'] : '';
         $email = isset($_POST['email']) ? $_POST['email'] : '';
-        $direccion = isset($_POST['direccion']) ? $_POST['direccion'] : '';
+        $direccion = isset($_POST['direccion']) ? strtoupper($_POST['direccion']): '';
         $insertar = $metodocliente->insertcliente($cliente, $telefono, $email, $direccion);
         echo $insertar;
         exit;
@@ -49,10 +49,10 @@ switch ($ope) {
 
     case '3':
         $id = isset($_POST['id']) ? $_POST['id'] : '';
-        $cliente = isset($_POST['cliente']) ? $_POST['cliente'] : '';
+        $cliente = isset($_POST['cliente']) ? strtoupper($_POST['cliente']) : '';
         $telefono = isset($_POST['telefono']) ? $_POST['telefono'] : '';
         $email = isset($_POST['email']) ? $_POST['email'] : '';
-        $direccion = isset($_POST['direccion']) ? $_POST['direccion'] : '';
+        $direccion = isset($_POST['direccion']) ? strtoupper($_POST['direccion']) : '';
         $update = $metodocliente->updatecliente($id, $cliente, $telefono, $email, $direccion);
         echo $update;
         exit;
@@ -68,9 +68,9 @@ switch ($ope) {
         $mensaje=false;
         foreach($_REQUEST['dato'] as $value){
             if(!empty($value[0])){
-            $datocliente=$value[0];
+            $datocliente=strtoupper($value[0]);
             $telefono=$value[1];
-            $direccion =$value[2];
+            $direccion =strtoupper($value[2]);
             $email='';
             $insertar = $metodocliente->insertcliente($datocliente, $telefono, $email, $direccion);
             }
@@ -111,9 +111,9 @@ switch ($ope) {
         $getcliente =$metodocliente->getcliente($idcliente);
         foreach ($getcliente as $key) {
             $id_client=$key['id_cliente'];
-            $datocliente=$key['dato_cliente'];
+            $datocliente=strtoupper($key['dato_cliente']);
             $telefon=$key['telefono'];
-            $direccion=$key['Direccion'];
+            $direccion=strtoupper($key['Direccion']);
         }
         echo json_encode(array('mensaje'=>$mensaje,'id'=>$id_client,'dato'=>$datocliente,'telefono'=>$telefon,'direccion'=>$direccion));
         break;
