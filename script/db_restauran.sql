@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 13-08-2024 a las 02:31:55
+-- Tiempo de generación: 19-08-2024 a las 16:42:35
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.1.25
 
@@ -56,6 +56,13 @@ CREATE TABLE `caja` (
   `estado` int(11) NOT NULL COMMENT 'A:activo,I:inactivo'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Volcado de datos para la tabla `caja`
+--
+
+INSERT INTO `caja` (`id_caja`, `descripcion`, `fecha`, `mes`, `anio`, `estado`) VALUES
+(000003, 'CAJA01', '2024-08-13 19:42:15', 8, 2024, 1);
+
 -- --------------------------------------------------------
 
 --
@@ -66,6 +73,14 @@ CREATE TABLE `categoriamenu` (
   `id_categoria` int(11) NOT NULL,
   `descripcion` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `categoriamenu`
+--
+
+INSERT INTO `categoriamenu` (`id_categoria`, `descripcion`) VALUES
+(1, 'promo'),
+(2, 'as');
 
 -- --------------------------------------------------------
 
@@ -190,15 +205,12 @@ CREATE TABLE `detalle_pedido` (
 --
 
 INSERT INTO `detalle_pedido` (`id_detalle`, `id_pedido`, `id_producto`, `cantidad`, `precio_unitario`, `sub_total`) VALUES
-(1, '000001', 1, 3, 1200.00, 3600.00),
-(2, '000001', 2, 2, 1000.00, 2000.00),
-(3, '000002', 2, 10, 1000.00, 10000.00),
-(4, '000002', 1, 10, 1200.00, 12000.00),
-(5, '000003', 5, 10, 1500.00, 15000.00),
-(6, '000004', 5, 10, 1500.00, 15000.00),
-(7, '000004', 3, 1, 500.00, 500.00),
-(8, '000004', 2, 2, 1000.00, 2000.00),
-(9, '000004', 1, 5, 1200.00, 6000.00);
+(10, '000001', 1, 1, 1500.00, 1500.00),
+(11, '000001', 2, 2, 1500.00, 3000.00),
+(12, '000001', 3, 4, 1500.00, 6000.00),
+(13, '000002', 1, 2, 1500.00, 3000.00),
+(14, '000002', 2, 1, 1500.00, 1500.00),
+(15, '000002', 3, 3, 1500.00, 4500.00);
 
 -- --------------------------------------------------------
 
@@ -292,6 +304,13 @@ CREATE TABLE `kardex_financiero` (
   `idcaja` int(6) UNSIGNED ZEROFILL NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Volcado de datos para la tabla `kardex_financiero`
+--
+
+INSERT INTO `kardex_financiero` (`id`, `concepto`, `monto_egreso`, `monto_ingreso`, `saldo`, `fecha`, `mes`, `anio`, `idcaja`) VALUES
+(000001, 4, 0.00, 0.00, 5000.00, '2024-08-13', 8, 2024, 000018);
+
 -- --------------------------------------------------------
 
 --
@@ -356,6 +375,15 @@ CREATE TABLE `menu` (
   `precio` decimal(10,2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Volcado de datos para la tabla `menu`
+--
+
+INSERT INTO `menu` (`id_menu`, `categoria`, `descripcion`, `precio`) VALUES
+(1, 2, 'AS ITALIANO CHICO con dos hamburguesa de piña con peperoni', 1500.00),
+(2, 2, 'AS GRANDE', 1500.00),
+(3, 2, 'AS XL', 1500.00);
+
 -- --------------------------------------------------------
 
 --
@@ -391,7 +419,7 @@ CREATE TABLE `multicajas` (
 --
 
 INSERT INTO `multicajas` (`id_caja_apert`, `id_caja`, `monto_inicial`, `estado`, `fecha_apertura`, `fecha_cierre`, `mes`, `anio`) VALUES
-(000016, 000001, 43800.00, 8, '2024-08-12 19:41:36', '0000-00-00 00:00:00', 8, 2024);
+(000018, 000003, 5000.00, 8, '2024-08-13 19:42:31', '2024-08-13 19:52:19', 8, 2024);
 
 -- --------------------------------------------------------
 
@@ -737,13 +765,13 @@ ALTER TABLE `atendido`
 -- AUTO_INCREMENT de la tabla `caja`
 --
 ALTER TABLE `caja`
-  MODIFY `id_caja` int(6) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT;
+  MODIFY `id_caja` int(6) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `categoriamenu`
 --
 ALTER TABLE `categoriamenu`
-  MODIFY `id_categoria` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_categoria` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `categoriaproducto`
@@ -755,7 +783,7 @@ ALTER TABLE `categoriaproducto`
 -- AUTO_INCREMENT de la tabla `clientes`
 --
 ALTER TABLE `clientes`
-  MODIFY `id_cliente` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_cliente` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `compra`
@@ -785,7 +813,7 @@ ALTER TABLE `detalle_compra`
 -- AUTO_INCREMENT de la tabla `detalle_pedido`
 --
 ALTER TABLE `detalle_pedido`
-  MODIFY `id_detalle` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id_detalle` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT de la tabla `egreso`
@@ -815,7 +843,7 @@ ALTER TABLE `ingreso`
 -- AUTO_INCREMENT de la tabla `kardex_financiero`
 --
 ALTER TABLE `kardex_financiero`
-  MODIFY `id` int(6) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(6) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `linkmenu`
@@ -833,25 +861,25 @@ ALTER TABLE `medio_pago`
 -- AUTO_INCREMENT de la tabla `menu`
 --
 ALTER TABLE `menu`
-  MODIFY `id_menu` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_menu` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `mesa`
 --
 ALTER TABLE `mesa`
-  MODIFY `id_mesa` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_mesa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `multicajas`
 --
 ALTER TABLE `multicajas`
-  MODIFY `id_caja_apert` int(6) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id_caja_apert` int(6) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT de la tabla `pedido`
 --
 ALTER TABLE `pedido`
-  MODIFY `id_pedido` int(6) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT;
+  MODIFY `id_pedido` int(6) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `producto`
